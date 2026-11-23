@@ -1,0 +1,987 @@
+﻿/* ===== لوحة تحكم المنتجات الحديثة (Dashboard Layout) ===== */
+
+.shop-dashboard-layout {
+  display: grid;
+  grid-template-columns: 295px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  padding: 24px 0 64px;
+  font-family: "Cairo", "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: linear-gradient(180deg, #f4fbf8 0%, #eaf7f2 100%);
+  border-radius: 22px;
+}
+
+/* ===== الشريط الجانبي (Sidebar) ===== */
+.shop-sidebar {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(6, 72, 63, .06);
+  display: grid;
+  gap: 16px;
+}
+
+.shop-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.shop-sidebar-brand-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--mint);
+  color: var(--green);
+}
+
+.shop-sidebar-brand strong {
+  display: block;
+  color: var(--green-deep);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.shop-sidebar-brand span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.shop-drawer-close {
+  display: none;
+  margin-inline-start: auto;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: var(--mint-2);
+  color: var(--green-dark);
+}
+
+/* الفلاتر السريعة */
+.shop-quick-filters {
+  display: grid;
+  gap: 8px;
+}
+
+.shop-sidebar-subtitle {
+  color: var(--green-deep);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.shop-quick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.shop-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #f8fbfa;
+  color: #43665e;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all .2s ease;
+}
+
+.shop-quick-btn:hover {
+  border-color: var(--green-bright);
+  background: var(--mint-2);
+  color: var(--green-dark);
+}
+
+.shop-quick-btn.active {
+  border-color: var(--green-bright);
+  background: var(--mint);
+  color: var(--green-deep);
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(22, 167, 131, .15);
+}
+
+.shop-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.shop-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: #f2f7f5;
+  color: #6d8580;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.shop-clear-btn:hover {
+  background: #e4f4ee;
+  color: var(--green);
+}
+
+/* الأقسام والماركات الظاهرة */
+.shop-dashboard-categories {
+  display: grid;
+  gap: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.shop-sidebar-section {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.shop-dashboard-list {
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.shop-dashboard-price-box {
+  padding: 4px 2px;
+}
+
+.shop-category-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #3b5f57;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: start;
+  transition: all .18s ease;
+}
+
+.shop-category-item:hover {
+  background: #f4faf7;
+  color: var(--green-dark);
+}
+
+.shop-category-item.active {
+  background: var(--mint);
+  border-color: #b3e6d3;
+  color: var(--green-deep);
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(6, 72, 63, .05);
+}
+
+.shop-category-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .8);
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.shop-category-item.active .shop-category-icon {
+  background: var(--green);
+  color: white;
+}
+
+.shop-category-label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shop-category-count {
+  min-width: 22px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #edf5f2;
+  color: #65827b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.shop-category-item.active .shop-category-count {
+  background: white;
+  color: var(--green);
+}
+
+.shop-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  padding: 4px 2px;
+  border-radius: 7px;
+  color: #3f5f58;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.shop-option:hover {
+  color: var(--green-dark);
+}
+
+.shop-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.shop-option-mark {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #cfe3dc;
+  border-radius: 6px;
+  background: #fff;
+  color: transparent;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.shop-option.is-checked .shop-option-mark {
+  border-color: var(--green-bright);
+  background: var(--mint);
+  color: var(--green);
+}
+
+.shop-option-label {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.shop-option-count {
+  min-width: 26px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #f2f7f5;
+  color: #6d8580;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.shop-option.is-checked .shop-option-count {
+  background: #fff;
+  color: var(--green);
+}
+
+.shop-option.is-disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* السعر */
+.shop-price-values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.shop-range {
+  position: relative;
+  height: 30px;
+  margin-top: 4px;
+}
+
+.shop-range-track {
+  position: absolute;
+  inset-inline: 0;
+  top: 13px;
+  height: 4px;
+  border-radius: 999px;
+  background: #e2eee9;
+}
+
+.shop-range-fill {
+  position: absolute;
+  top: 13px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--green-bright);
+}
+
+.shop-range input[type="range"] {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  margin: 0;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.shop-range input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border: 3px solid var(--green);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(6, 72, 63, .22);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.shop-sidebar-foot {
+  display: none;
+  position: sticky;
+  bottom: 0;
+  padding-top: 12px;
+  background: linear-gradient(to top, #fff 70%, rgba(255, 255, 255, 0));
+}
+
+/* ===== مساحة العرض الرئيسية (Main Content Area) ===== */
+.shop-main-area {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(6, 72, 63, .05);
+  display: grid;
+  gap: 20px;
+}
+
+/* الشريط العلوي (Header Bar) */
+.shop-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.shop-header-title-group h1 {
+  margin: 0 0 4px;
+  color: var(--green-deep);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+
+.shop-header-title-group p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.shop-header-title-group strong {
+  color: var(--green-dark);
+}
+
+.shop-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* بحث سريع في الهيدر */
+.shop-header-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #dcebe6;
+  border-radius: 11px;
+  background: #f8fbfa;
+  min-width: 240px;
+}
+
+.shop-header-search svg {
+  color: #7e9c94;
+  flex-shrink: 0;
+}
+
+.shop-header-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+}
+
+.shop-header-search input::placeholder {
+  color: #9aaca7;
+}
+
+.shop-header-search:focus-within {
+  border-color: var(--green-bright);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, .1);
+}
+
+/* ترتيب وزر الفلاتر */
+.shop-sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6d8580;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.shop-sort select {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #dcebe6;
+  border-radius: 11px;
+  outline: 0;
+  background: #fff;
+  color: var(--green-dark);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.shop-sort select:focus {
+  border-color: var(--green-bright);
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, .1);
+}
+
+.shop-filters-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.shop-filters-toggle:hover {
+  border-color: #9edac7;
+  background: var(--mint-2);
+}
+
+.shop-filters-count {
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+}
+
+/* Chips الفلاتر المفعلة */
+.shop-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.shop-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid #cfe3dc;
+  border-radius: 999px;
+  background: #f4faf7;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.shop-chip button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #7d948e;
+  cursor: pointer;
+}
+
+.shop-chip button:hover {
+  color: #b24636;
+}
+
+/* شبكة المنتجات */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.shop-empty {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 60px 20px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  background: #fafdfc;
+  color: var(--muted);
+  text-align: center;
+}
+
+.shop-empty svg {
+  color: var(--green-bright);
+}
+
+.shop-empty h2 {
+  margin: 0;
+  color: var(--green-deep);
+  font-size: 18px;
+}
+
+.shop-empty p {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+/* الأزرار الأساسية */
+.shop-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(270deg, #B7FF72 0%, #0d9488 100%) !important;
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 800;
+  transition: background .2s ease;
+}
+
+.shop-primary-btn:hover {
+  background: linear-gradient(270deg, #0a7a68 0%, #14b8a0 100%) !important;
+}
+
+.shop-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.shop-secondary-btn:hover {
+  background: var(--mint-2);
+  border-color: #9edac7;
+}
+
+
+
+/* ===== الأجهزة الصغيرة (Responsive) ===== */
+@media (max-width: 1024px) {
+  .shop-dashboard-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shop-filters-toggle {
+    display: inline-flex;
+  }
+
+  .shop-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 110;
+    width: min(88vw, 340px);
+    max-height: none;
+    border-radius: 18px 0 0 18px;
+    background: #fff;
+    transform: translateX(105%);
+    transition: transform .25s ease;
+  }
+
+  .shop-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .shop-sidebar-foot {
+    display: block;
+  }
+
+  .shop-drawer-close {
+    display: grid;
+  }
+
+  .shop-sidebar-foot .shop-primary-btn {
+    width: 100%;
+  }
+
+  .shop-drawer-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 105;
+    border: 0;
+    background: rgba(4, 62, 55, .42);
+  }
+}
+
+@media (max-width: 600px) {
+  .shop-dashboard-layout {
+    padding: 12px 0 44px;
+  }
+
+  .shop-main-area {
+    padding: 16px;
+  }
+
+  .shop-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shop-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shop-header-search {
+    width: 100%;
+  }
+
+  .shop-sort {
+    justify-content: space-between;
+  }
+
+  .shop-sort select {
+    flex: 1;
+  }
+
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =======================================================================
+   Dark Mode — صفحة المنتجات / المتجر
+   Ink Navy #18251D · Navy Card #1F2F25 · Cream #F2F8F4 · Coral #B08D56
+   ======================================================================= */
+
+[data-theme="dark"] .shop-dashboard-layout {
+  background: transparent !important;
+}
+
+/* --- الشريط الجانبي --- */
+[data-theme="dark"] .shop-sidebar,
+[data-theme="dark"] .shop-main-area {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-sidebar-brand {
+  border-bottom-color: rgba(163, 184, 172, 0.16) !important;
+}
+
+[data-theme="dark"] .shop-sidebar-brand-icon {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .shop-sidebar-brand strong,
+[data-theme="dark"] .shop-sidebar-subtitle {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-sidebar-brand span {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .shop-drawer-close {
+  background: rgba(163, 184, 172, 0.08) !important;
+  color: #F2F8F4 !important;
+}
+
+/* الفلاتر السريعة */
+[data-theme="dark"] .shop-quick-btn {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  color: rgba(163, 184, 172, 0.8) !important;
+}
+
+[data-theme="dark"] .shop-quick-btn:hover {
+  background: rgba(183, 255, 114, 0.14) !important;
+  border-color: rgba(183, 255, 114, 0.4) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-quick-btn.active {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(183, 255, 114, 0.3) !important;
+}
+
+[data-theme="dark"] .shop-clear-btn {
+  background: rgba(163, 184, 172, 0.08) !important;
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .shop-clear-btn:hover {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .shop-sidebar-section {
+  border-top-color: rgba(163, 184, 172, 0.16) !important;
+}
+
+/* عناصر الأقسام */
+[data-theme="dark"] .shop-category-item {
+  color: rgba(163, 184, 172, 0.82) !important;
+}
+
+[data-theme="dark"] .shop-category-item:hover {
+  background: rgba(163, 184, 172, 0.06) !important;
+}
+
+[data-theme="dark"] .shop-category-item.active {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .shop-category-icon {
+  background: rgba(163, 184, 172, 0.08) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-category-item.active .shop-category-icon {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .shop-category-count,
+[data-theme="dark"] .shop-option-count {
+  background: rgba(163, 184, 172, 0.1) !important;
+  color: rgba(163, 184, 172, 0.8) !important;
+}
+
+[data-theme="dark"] .shop-category-item.active .shop-category-count,
+[data-theme="dark"] .shop-option.is-checked .shop-option-count {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .shop-option {
+  color: rgba(163, 184, 172, 0.82) !important;
+}
+
+[data-theme="dark"] .shop-option:hover {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-option-mark {
+  border-color: rgba(163, 184, 172, 0.28) !important;
+}
+
+[data-theme="dark"] .shop-option.is-checked .shop-option-mark {
+  border-color: #B7FF72 !important;
+  background: #B7FF72 !important;
+}
+
+[data-theme="dark"] .shop-price-values {
+  color: rgba(163, 184, 172, 0.8) !important;
+}
+
+[data-theme="dark"] .shop-range-track {
+  background: rgba(163, 184, 172, 0.14) !important;
+}
+
+[data-theme="dark"] .shop-range-fill {
+  background: #B7FF72 !important;
+}
+
+/* --- شريط رأس مساحة العرض --- */
+[data-theme="dark"] .shop-header-bar {
+  border-bottom-color: rgba(163, 184, 172, 0.16) !important;
+}
+
+[data-theme="dark"] .shop-header-title-group h1 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-header-title-group p {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .shop-header-title-group strong {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .shop-header-search {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border-color: rgba(163, 184, 172, 0.14) !important;
+}
+
+[data-theme="dark"] .shop-header-search svg {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .shop-header-search input {
+  background: transparent !important;
+  color: #F2F8F4 !important;
+  border: 0 !important;
+}
+
+[data-theme="dark"] .shop-header-search input::placeholder {
+  color: rgba(163, 184, 172, 0.5) !important;
+}
+
+[data-theme="dark"] .shop-header-search:focus-within {
+  border-color: #B7FF72 !important;
+  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.2) !important;
+}
+
+[data-theme="dark"] .shop-sort {
+  color: rgba(163, 184, 172, 0.72) !important;
+}
+
+[data-theme="dark"] .shop-sort select {
+  background: #18251D !important;
+  border-color: rgba(163, 184, 172, 0.14) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-sort select option {
+  background: #1F2F25 !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-filters-toggle {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border-color: rgba(163, 184, 172, 0.14) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .shop-filters-toggle:hover {
+  background: rgba(183, 255, 114, 0.14) !important;
+  border-color: rgba(183, 255, 114, 0.4) !important;
+}
+
+[data-theme="dark"] .shop-filters-count {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+/* --- Chips الفلاتر --- */
+[data-theme="dark"] .shop-chip {
+  background: rgba(183, 255, 114, 0.14) !important;
+  border-color: rgba(183, 255, 114, 0.32) !important;
+  color: #FFB3AD !important;
+}
+
+[data-theme="dark"] .shop-empty {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+/* --- أزرار إضافة للعربة (Light Mode) --- */
+.dw-add-to-cart {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 12px;
+  background: #075e50;
+  color: #ffffff;
+  font-family: "Cairo", "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: 0 4px 12px rgba(6, 72, 63, 0.15);
+}
+
+.dw-add-to-cart:hover {
+  background: #05463c;
+}
+
+/* --- الأزرار --- */
+[data-theme="dark"] .shop-primary-btn {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .shop-primary-btn:hover {
+  background: #8FE25A !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .shop-secondary-btn {
+  background: rgba(163, 184, 172, 0.08) !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  color: #F2F8F4 !important;
+}

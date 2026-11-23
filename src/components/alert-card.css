@@ -1,0 +1,112 @@
+﻿.alert-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  overflow: hidden;
+  background: rgba(3, 35, 30, .34);
+  animation: alert-fade-in .16s ease-out;
+}
+
+/* التوسيط التام: البطاقة في منتصف الشاشة أفقيًا ورأسيًا */
+.alert-card {
+  display: grid;
+  width: min(100%, 342px);
+  justify-items: center;
+  gap: 12px;
+  padding: 26px 22px 20px;
+  border: 2px solid var(--green-bright);
+  border-radius: 16px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(2, 34, 29, .24);
+  animation: alert-card-in .18s ease-out;
+}
+
+.alert-card-icon {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--green);
+  background: var(--mint);
+}
+
+.alert-card-message {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.85;
+}
+
+.alert-card-close {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background: var(--green);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  transition: background .18s ease;
+}
+
+.alert-card-close:hover {
+  background: var(--green-dark);
+}
+
+.alert-card--error {
+  border-color: #d99a92;
+}
+
+.alert-card--error .alert-card-icon {
+  color: var(--danger);
+  background: #fdeceb;
+}
+
+.alert-card--info {
+  border-color: #8ec6de;
+}
+
+.alert-card--info .alert-card-icon {
+  color: #0d5c7d;
+  background: #e6f3fb;
+}
+
+.alert-card :focus-visible {
+  outline: 3px solid var(--green-bright);
+  outline-offset: 3px;
+}
+
+@keyframes alert-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes alert-card-in {
+  from { opacity: 0; transform: translateY(10px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 420px) {
+  .alert-card {
+    padding: 22px 18px 16px;
+  }
+
+  .alert-card-message {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alert-overlay,
+  .alert-card {
+    animation: none;
+  }
+}

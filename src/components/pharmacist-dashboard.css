@@ -1,0 +1,1091 @@
+﻿/* ===== لوحة تحكم الصيدلي — تبويبات / طلبات / إدارة الأدوية ===== */
+
+.pharmacist-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0 18px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  width: fit-content;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.pharmacist-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 800;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.pharmacist-tab:hover {
+  background: #22352a;
+}
+
+.pharmacist-tab.is-active {
+  background: #B7FF72;
+  color: #222222;
+  box-shadow: 0 6px 16px rgba(176, 141, 86, 0.22);
+}
+
+.pharmacist-tab-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #4a2c00;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.pharmacist-tab.is-active .pharmacist-tab-count {
+  background: rgba(255, 255, 255, 0.24);
+  color: #fff;
+}
+
+.admin-login-hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+/* ---------------- الطلبات ---------------- */
+.pharmacist-orders-list {
+  display: grid;
+  gap: 16px;
+}
+
+.pharmacist-order-heading h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pharmacist-order-heading h2 bdi {
+  font-family: Inter, sans-serif;
+  letter-spacing: 0.2px;
+}
+
+.pharmacist-demo-tag {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.pharmacist-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: #22352a;
+  color: #666666;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.pharmacist-status--pending {
+  background: #22352a;
+  color: #666666;
+}
+.pharmacist-status--pharmacy_accepted {
+  background: #22352a;
+  color: #B7FF72;
+}
+.pharmacist-status--preparing {
+  background: #1f3026;
+  color: #9ee858;
+}
+.pharmacist-status--ready_for_pickup,
+.pharmacist-status--picked_up {
+  background: #3d3d3d;
+  color: #B7FF72;
+}
+.pharmacist-status--out_for_delivery {
+  background: #18251D;
+  color: #9ee858;
+}
+.pharmacist-status--delivered {
+  background: #18251D;
+  color: #B7FF72;
+}
+.pharmacist-status--rejected,
+.pharmacist-status--cancelled,
+.pharmacist-status--unavailable {
+  background: #18251D;
+  color: #666666;
+}
+
+/* العميل */
+.pharmacist-customer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.pharmacist-customer > div:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.pharmacist-customer strong {
+  font-size: 13.5px;
+  font-weight: 800;
+}
+
+.pharmacist-customer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.pharmacist-address {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 420px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+.pharmacist-address svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+/* الروشتة */
+.pharmacist-prescription {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  padding: 10px 14px;
+  border: 1px dashed #c9e3da;
+  border-radius: 11px;
+  background: var(--mint-2);
+}
+
+.pharmacist-prescription span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pharmacist-prescription button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.pharmacist-prescription button:hover {
+  background: var(--green-dark);
+}
+
+/* أزرار الحالة */
+.pharmacist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+
+.pharmacist-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--green-dark);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    border-color 0.18s,
+    transform 0.18s;
+}
+
+.pharmacist-action:hover:not(:disabled) {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.pharmacist-action.is-danger {
+  border-color: #f3c3bc;
+  color: #a23d32;
+}
+
+.pharmacist-action.is-danger:hover:not(:disabled) {
+  background: #a23d32;
+  border-color: #a23d32;
+  color: #fff;
+}
+
+.pharmacist-action.is-current {
+  background: var(--mint);
+  border-color: #9edac7;
+  color: var(--green-dark);
+}
+
+.pharmacist-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pharmacist-closed {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------------- إدارة الأدوية ---------------- */
+.pharmacist-drugs {
+  display: grid;
+  gap: 16px;
+}
+
+.pharmacist-add-drug {
+  padding: 18px 20px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(6, 72, 63, 0.05);
+}
+
+.pharmacist-add-drug h2,
+.pharmacist-drug-tools h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--green-deep);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.pharmacist-add-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.pharmacist-add-grid label,
+.pharmacist-drug-price,
+.pharmacist-drug-qty {
+  display: grid;
+  gap: 5px;
+  color: #43665e;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.pharmacist-add-grid input,
+.pharmacist-drug-price input,
+.pharmacist-drug-qty input {
+  min-height: 40px;
+  padding: 0 11px;
+  border: 1px solid #d5ddd9;
+  border-radius: 10px;
+  background: #fbfdfc;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12.5px;
+  outline: none;
+}
+
+.pharmacist-add-grid input:focus,
+.pharmacist-drug-price input:focus,
+.pharmacist-drug-qty input:focus {
+  border-color: var(--green-bright);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, 0.12);
+}
+
+.pharmacist-add-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #075e50 0%, #0d9488 100%);
+  color: #fff;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(7, 94, 80, 0.24);
+}
+
+.pharmacist-add-submit:hover {
+  transform: translateY(-1px);
+}
+
+.pharmacist-drug-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.pharmacist-drug-tools h2 {
+  margin: 0;
+}
+
+.pharmacist-drug-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d5ddd9;
+  border-radius: 10px;
+  background: #fff;
+  min-width: 240px;
+}
+
+.pharmacist-drug-search svg {
+  color: #7e9c94;
+  flex-shrink: 0;
+}
+
+.pharmacist-drug-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12.5px;
+}
+
+.pharmacist-notice {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pharmacist-drug-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pharmacist-drug {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px 84px auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.pharmacist-drug-main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pharmacist-drug-main strong {
+  color: var(--green-deep);
+  font-size: 12.5px;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pharmacist-drug-main span {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.pharmacist-stock {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.pharmacist-stock.is-on {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pharmacist-stock.is-off {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.pharmacist-drug-save {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--mint-2);
+  color: var(--green-dark);
+}
+
+.pharmacist-drug-save:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.pharmacist-drug-empty {
+  margin: 0;
+  padding: 22px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12.5px;
+}
+
+.pharmacist-drug-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+/* ---------------- معاينة الروشتة ---------------- */
+.rx-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10060;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 40, 34, 0.62);
+  backdrop-filter: blur(5px);
+}
+
+.rx-preview {
+  width: min(560px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 16px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.4);
+}
+
+.rx-preview header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.rx-preview header strong {
+  color: var(--green-deep);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.rx-preview header button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--mint-2);
+  color: var(--green-dark);
+}
+
+.rx-preview img {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+/* ---------------- التجاوب ---------------- */
+@media (max-width: 900px) {
+  .pharmacist-add-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pharmacist-drug {
+    grid-template-columns: minmax(0, 1fr) 90px 80px auto;
+  }
+  .pharmacist-drug-save {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .pharmacist-add-grid {
+    grid-template-columns: 1fr;
+  }
+  .pharmacist-drug {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .pharmacist-drug-main {
+    grid-column: 1 / -1;
+  }
+  .pharmacist-tabs {
+    width: 100%;
+  }
+  .pharmacist-tab {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ===========================================================================
+   Dark Mode — لوحة #18251D / #1F2F25 / #F2F8F4 / #B7FF72
+   =========================================================================== */
+
+[data-theme="dark"] .pharmacist-tabs {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+}
+
+[data-theme="dark"] .pharmacist-tab {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-tab:hover {
+  background: rgba(163, 184, 172, 0.08) !important;
+}
+
+[data-theme="dark"] .pharmacist-tab.is-active {
+  background: #B7FF72 !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.3) !important;
+}
+
+[data-theme="dark"] .pharmacist-tab-count {
+  background: #B7FF72 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pharmacist-tab.is-active .pharmacist-tab-count {
+  background: rgba(255, 255, 255, 0.26) !important;
+}
+
+[data-theme="dark"] .admin-login-hint {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+/* الطلبات */
+[data-theme="dark"] .pharmacist-order {
+  background: #1F2F25 !important;
+  border: 1px solid rgba(163, 184, 172, 0.22) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-order-heading h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-demo-tag {
+  background: rgba(183, 255, 114, 0.22) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .pharmacist-customer strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-customer span,
+[data-theme="dark"] .pharmacist-address {
+  color: rgba(163, 184, 172, 0.72) !important;
+}
+
+[data-theme="dark"] .pharmacist-order-items > div {
+  border-color: rgba(163, 184, 172, 0.14) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-order-items strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-total strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-prescription {
+  background: rgba(183, 255, 114, 0.1) !important;
+  border-color: rgba(183, 255, 114, 0.4) !important;
+}
+
+[data-theme="dark"] .pharmacist-prescription span {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-prescription button {
+  background: #B7FF72 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pharmacist-prescription button:hover {
+  background: #8FE25A !important;
+}
+
+[data-theme="dark"] .pharmacist-actions {
+  border-top-color: rgba(163, 184, 172, 0.18) !important;
+}
+
+[data-theme="dark"] .pharmacist-action {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-action:hover:not(:disabled) {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pharmacist-action.is-danger {
+  border-color: rgba(255, 138, 128, 0.4) !important;
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .pharmacist-action.is-danger:hover:not(:disabled) {
+  background: #e84d41 !important;
+  border-color: #e84d41 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pharmacist-action.is-current {
+  background: rgba(183, 255, 114, 0.22) !important;
+  border-color: #B7FF72 !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .pharmacist-closed {
+  color: rgba(163, 184, 172, 0.6) !important;
+}
+
+/* شارات الحالة */
+[data-theme="dark"] .pharmacist-status {
+  background: rgba(163, 184, 172, 0.1) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-status--pending {
+  background: rgba(245, 161, 42, 0.18) !important;
+  color: #ffd08a !important;
+}
+[data-theme="dark"] .pharmacist-status--pharmacy_accepted {
+  background: rgba(134, 239, 172, 0.16) !important;
+  color: #86efac !important;
+}
+[data-theme="dark"] .pharmacist-status--preparing {
+  background: rgba(125, 211, 252, 0.16) !important;
+  color: #9bd9f8 !important;
+}
+[data-theme="dark"] .pharmacist-status--ready_for_pickup,
+[data-theme="dark"] .pharmacist-status--picked_up {
+  background: rgba(183, 255, 114, 0.22) !important;
+  color: #B7FF72 !important;
+}
+[data-theme="dark"] .pharmacist-status--out_for_delivery {
+  background: rgba(129, 180, 255, 0.18) !important;
+  color: #a9cbff !important;
+}
+[data-theme="dark"] .pharmacist-status--delivered {
+  background: rgba(134, 239, 172, 0.2) !important;
+  color: #86efac !important;
+}
+[data-theme="dark"] .pharmacist-status--rejected,
+[data-theme="dark"] .pharmacist-status--cancelled,
+[data-theme="dark"] .pharmacist-status--unavailable {
+  background: rgba(255, 138, 128, 0.18) !important;
+  color: #ff8a80 !important;
+}
+
+/* إدارة الأدوية */
+[data-theme="dark"] .pharmacist-add-drug {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .pharmacist-add-drug h2,
+[data-theme="dark"] .pharmacist-drug-tools h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-add-grid label,
+[data-theme="dark"] .pharmacist-drug-price,
+[data-theme="dark"] .pharmacist-drug-qty {
+  color: rgba(163, 184, 172, 0.8) !important;
+}
+
+[data-theme="dark"] .pharmacist-add-grid input,
+[data-theme="dark"] .pharmacist-drug-price input,
+[data-theme="dark"] .pharmacist-drug-qty input {
+  background: #121D16 !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-add-grid input::placeholder {
+  color: rgba(163, 184, 172, 0.42) !important;
+}
+
+[data-theme="dark"] .pharmacist-add-grid input:focus,
+[data-theme="dark"] .pharmacist-drug-price input:focus,
+[data-theme="dark"] .pharmacist-drug-qty input:focus {
+  border-color: #B7FF72 !important;
+  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+}
+
+[data-theme="dark"] .pharmacist-add-submit {
+  background: #B7FF72 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.3) !important;
+}
+
+[data-theme="dark"] .pharmacist-add-submit:hover {
+  background: #8FE25A !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-search {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-search svg {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-search input {
+  background: transparent !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-search input::placeholder {
+  color: rgba(163, 184, 172, 0.45) !important;
+}
+
+[data-theme="dark"] .pharmacist-notice {
+  background: rgba(183, 255, 114, 0.16) !important;
+  border-color: rgba(183, 255, 114, 0.42) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .pharmacist-drug {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-main strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-main span {
+  color: rgba(163, 184, 172, 0.65) !important;
+}
+
+[data-theme="dark"] .pharmacist-stock.is-on {
+  background: rgba(134, 239, 172, 0.18) !important;
+  color: #86efac !important;
+}
+
+[data-theme="dark"] .pharmacist-stock.is-off {
+  background: rgba(255, 138, 128, 0.18) !important;
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-save {
+  background: rgba(163, 184, 172, 0.08) !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-save:hover {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-empty {
+  border-color: rgba(163, 184, 172, 0.2) !important;
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .pharmacist-drug-note {
+  color: rgba(163, 184, 172, 0.65) !important;
+}
+
+/* معاينة الروشتة */
+[data-theme="dark"] .rx-preview-overlay {
+  background: rgba(8, 18, 12, 0.78) !important;
+}
+
+[data-theme="dark"] .rx-preview {
+  background: #1F2F25 !important;
+  border: 1.5px solid rgba(163, 184, 172, 0.35) !important;
+}
+
+[data-theme="dark"] .rx-preview header strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .rx-preview header button {
+  background: rgba(163, 184, 172, 0.1) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .rx-preview header button:hover {
+  background: #B7FF72 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .rx-preview img {
+  border-color: rgba(163, 184, 172, 0.22) !important;
+}
+
+/* ===== استشارات المساعد الصيدلي الذكي ===== */
+
+.pharmacist-tab.has-alert {
+  position: relative;
+}
+
+.pharmacist-tab-count.is-alert {
+  background: #e11d48;
+  color: #fff;
+  animation: pharmacistAlertPulse 1.6s ease-in-out infinite;
+}
+
+.pharmacist-tab.is-active .pharmacist-tab-count.is-alert {
+  background: #fff;
+  color: #e11d48;
+}
+
+@keyframes pharmacistAlertPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 rgba(225, 29, 72, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(225, 29, 72, 0);
+  }
+}
+
+.pharmacist-consult-alert {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  border: 1px solid #f3c3bc;
+  border-radius: 12px;
+  background: #fff5f3;
+  color: #a23d32;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-align: start;
+  animation: pharmacistAlertSlide 0.3s ease-out;
+}
+
+.pharmacist-consult-alert:hover {
+  background: #ffe9e5;
+}
+
+@keyframes pharmacistAlertSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pharmacist-consult.is-new {
+  border-color: #f3c3bc;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.08);
+}
+
+.pharmacist-demo-tag.is-alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e11d48;
+  color: #fff;
+}
+
+.pharmacist-consult-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.pharmacist-consult-grid > div {
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f7fbf9;
+}
+
+.pharmacist-consult-grid > div.is-wide {
+  grid-column: 1 / -1;
+}
+
+.pharmacist-consult-grid span {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.pharmacist-consult-grid strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--green-deep);
+  font-size: 12.5px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.pharmacist-consult-grid strong.is-warn {
+  color: #a56200;
+}
+
+.pharmacist-consult-status--new {
+  background: #ffe4e6;
+  color: #be123c;
+}
+
+.pharmacist-consult-status--seen {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.pharmacist-consult-status--answered {
+  background: var(--mint);
+  color: var(--green-dark);
+}
+
+@media (max-width: 600px) {
+  .pharmacist-consult-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+[data-theme="dark"] .pharmacist-consult-alert {
+  background: rgba(225, 29, 72, 0.16) !important;
+  border-color: rgba(248, 113, 113, 0.4) !important;
+  color: #fecdd3 !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-alert:hover {
+  background: rgba(225, 29, 72, 0.26) !important;
+}
+
+[data-theme="dark"] .pharmacist-consult.is-new {
+  border-color: rgba(248, 113, 113, 0.42) !important;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.18) !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-grid {
+  background: #1F2F25 !important;
+  border-color: rgba(183, 255, 114, 0.16) !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-grid span {
+  color: rgba(163, 184, 172, 0.6) !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-grid strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-grid strong.is-warn {
+  color: #fbbf24 !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-status--new {
+  background: rgba(248, 113, 113, 0.18) !important;
+  color: #fecdd3 !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-status--seen {
+  background: rgba(56, 189, 248, 0.18) !important;
+  color: #bae6fd !important;
+}
+
+[data-theme="dark"] .pharmacist-consult-status--answered {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #D9FFAD !important;
+}

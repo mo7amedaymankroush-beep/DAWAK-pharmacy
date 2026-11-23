@@ -1,0 +1,794 @@
+﻿/* ===== البحث والنتائج ===== */
+
+.dw-search {
+  position: relative;
+  width: 100%;
+}
+
+.dw-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.dw-input-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #d5ddd9;
+  font: inherit;
+  outline: none;
+}
+
+.dw-input-row input:focus {
+  border-color: #075e50;
+  box-shadow: 0 0 0 3px rgba(7,94,80,0.1);
+}
+
+.dw-search button,
+.dw-modal button {
+  background: #075e50;
+  color: #222222;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dw-search button:hover,
+.dw-modal button:hover {
+  opacity: 0.9;
+  background: #0a7a68;
+}
+
+.dw-search button:disabled,
+.dw-modal button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #666666;
+}
+
+.dw-search button.dw-ghost,
+.dw-modal button.dw-ghost {
+  background: #404040;
+  color: #F5F5F5;
+}
+
+/* الاقتراحات */
+
+.dw-suggest {
+  position: absolute;
+  inset-inline: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 6px;
+  z-index: 20;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dw-suggest li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dw-suggest li:hover {
+  background: #eef5f2;
+}
+
+.dw-suggest span,
+.dw-sub,
+.dw-row small {
+  color: #6b7a74;
+  font-size: 13px;
+}
+
+.dw-show-more {
+  width: 100%;
+  margin-top: 6px;
+  background: #404040 !important;
+  color: #075e50 !important;
+}
+
+.dw-error {
+  color: #b3261e;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+/* نتيجة الدواء */
+
+.dw-result {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.dw-product-details {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.dw-product-image {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #eef5f2;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.dw-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dw-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dw-product-info h3 {
+  margin: 0 0 8px;
+}
+
+.dw-price {
+  color: #075e50;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.dw-info-section,
+.dw-usage-section {
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: #f7faf8;
+}
+
+.dw-info-section h4,
+.dw-usage-section h4 {
+  margin: 0 0 6px;
+  color: #075e50;
+}
+
+.dw-info-section p,
+.dw-usage-section p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.dw-warning {
+  background: #fff6e5;
+  color: #7a5200;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+/* الصيدليات والمخزون */
+
+.dw-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #eef2f0;
+}
+
+.dw-row > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 3px;
+}
+
+.dw-unavailable p {
+  color: #b3261e;
+  font-weight: 700;
+}
+
+.dw-unavailable button {
+  background: #f0a85a;
+  color: #1d2b25;
+}
+
+.dw-note {
+  background: #fff6e5;
+  color: #7a5200;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.dw-availability-section {
+  margin-top: 16px;
+}
+
+.dw-available-label {
+  color: #075e50;
+  font-weight: 700;
+}
+
+.dw-pharmacy-info {
+  flex: 1;
+}
+
+.dw-pharmacy-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* البدائل */
+
+.dw-alts {
+  margin-top: 16px;
+}
+
+.dw-alt {
+  border: 1px solid #e3ebe7;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+.dw-alt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.dw-badge {
+  background: #e3f4ee;
+  color: #075e50;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ===== نافذة الحجز ===== */
+
+.dw-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.dw-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  width: min(92vw, 420px);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dw-modal h3 {
+  margin-top: 0;
+  color: #075e50;
+}
+
+.dw-file {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 12px;
+  background: #f7faf8;
+  border-radius: 10px;
+}
+
+.dw-file input {
+  max-width: 100%;
+  font: inherit;
+}
+
+.dw-file small {
+  color: #6b7a74;
+  overflow-wrap: anywhere;
+}
+
+.dw-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dw-actions button {
+  flex: 1;
+}
+
+/* ===== صفحة حجوزاتي ===== */
+
+.dw-reservations {
+  width: 100%;
+  max-width: 1080px;
+  min-height: 58vh;
+  margin: 40px auto 48px;
+  padding: 0 18px;
+}
+
+.dw-res-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dcebe6;
+}
+
+.dw-res-head h2 {
+  margin: 0;
+  color: #043e37;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+}
+
+.dw-res-head button,
+.dw-res-card button {
+  background: #e1f4ed;
+  color: #06483f;
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 15px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.dw-res-head button:hover,
+.dw-res-card button:hover {
+  background: #c9eadc;
+  transform: translateY(-1px);
+}
+
+.dw-res-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid #dcebe6;
+  border-radius: 12px;
+  padding: 17px 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 5px 18px rgba(6, 72, 63, .045);
+}
+
+.dw-res-card > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dw-res-summary { min-width: 0; }
+.dw-res-title-line { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }
+.dw-res-title-line > b { color: #043e37; font-size: 15px; }
+.dw-res-actions, .dw-reservation-modal-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.dw-res-card .dw-res-actions button, .dw-reservation-modal-actions button { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; }
+.dw-res-card .dw-res-details-button, .dw-reservation-modal-actions .dw-res-details-button { background: #e1f4ed; color: #06483f; }
+.dw-res-card .dw-res-cancel-button, .dw-reservation-modal-actions .dw-res-cancel-button { background: #fff0ed; color: #a23d32; }
+.dw-res-card .dw-res-cancel-button:hover, .dw-reservation-modal-actions .dw-res-cancel-button:hover { background: #ffe0db; }
+.dw-res-card button:disabled { opacity: .6; cursor: wait; }
+.dw-reservation-details { position: relative; width: min(94vw, 560px); max-height: 88vh; overflow-y: auto; }
+.dw-reservation-close { position: absolute; inset-block-start: 13px; inset-inline-end: 13px; width: 34px; height: 34px; display: grid; place-items: center; padding: 0 !important; border: 0; border-radius: 8px; background: #f0f7f3; color: #52716a; }
+.dw-reservation-details-icon { width: 46px; height: 46px; display: grid; place-items: center; margin-bottom: 10px; border-radius: 12px; background: #e1f4ed; color: #075e50; }
+.dw-reservation-details h2 { margin: 0 0 4px; color: #043e37; font-size: 20px; }
+.dw-reservation-product-name { margin: 0 0 16px; color: #075e50; font-size: 14px; font-weight: 800; }
+.dw-reservation-facts { display: grid; gap: 0; border-top: 1px solid #e8efec; }
+.dw-reservation-facts > div { display: grid; grid-template-columns: minmax(100px, .7fr) minmax(0, 1.3fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid #e8efec; font-size: 12px; line-height: 1.7; }
+.dw-reservation-facts span { color: #708783; }
+.dw-reservation-facts strong { color: #204c43; font-weight: 700; }
+.dw-reservation-delivery-note, .dw-reservation-note { display: flex; align-items: flex-start; gap: 8px; margin: 14px 0 0; padding: 10px 12px; border-radius: 9px; background: #fff7e8; color: #78551e; font-size: 12px; line-height: 1.8; }
+.dw-reservation-note { margin-top: 8px; background: #f0f7f3; color: #52716a; }
+.dw-reservation-delivery-note svg, .dw-reservation-note svg { flex: 0 0 auto; margin-top: 2px; }
+.dw-reservation-modal-actions { justify-content: flex-end; margin-top: 16px; }
+
+.dw-res-card small {
+  color: #6b7a74;
+  line-height: 1.7;
+}
+
+.dw-reservations > .dw-sub {
+  padding: 20px 0;
+  color: #708783;
+  line-height: 1.8;
+}
+
+.dw-res-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.dw-status {
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.dw-status-pending {
+  background: #fff3d6;
+  color: #7a5200;
+}
+
+.dw-status-confirmed {
+  background: #e3f4ee;
+  color: #075e50;
+}
+
+.dw-status-collected {
+  background: #e1ecfb;
+  color: #1b4b8a;
+}
+
+.dw-status-cancelled,
+.dw-status-expired {
+  background: #eee;
+  color: #666;
+}
+
+/* ===== الشاشات الصغيرة ===== */
+
+@media (max-width: 600px) {
+  .dw-input-row {
+    flex-direction: column;
+  }
+
+  .dw-input-row button {
+    width: 100%;
+  }
+
+  .dw-product-details {
+    flex-direction: column;
+  }
+
+  .dw-product-image {
+    width: 100%;
+    height: 150px;
+  }
+
+  .dw-row {
+    flex-wrap: wrap;
+  }
+
+  .dw-row button {
+    padding: 8px 12px;
+  }
+
+  .dw-alt-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dw-res-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dw-res-actions { width: 100%; }
+  .dw-res-actions button { flex: 1; }
+  .dw-reservation-facts > div { grid-template-columns: 1fr; gap: 2px; }
+
+  .dw-res-side {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .dw-actions {
+    flex-direction: column;
+  }
+}
+/* =======================================================================
+   Dark Mode — البحث والنتائج
+   Ink Navy #18251D · Navy Card #1F2F25 · Cream #F2F8F4 · Coral #B7FF72
+   ======================================================================= */
+
+/* --- حقل البحث الكبير في قسم البطل --- */
+[data-theme="dark"] .dw-input-row input {
+  background: #1F2F25 !important;
+  color: #F2F8F4 !important;
+  border-color: rgba(183, 255, 114, 0.45) !important;
+}
+
+[data-theme="dark"] .dw-input-row input::placeholder {
+  color: rgba(163, 184, 172, 0.5) !important;
+}
+
+[data-theme="dark"] .dw-input-row input:focus {
+  border-color: #B7FF72 !important;
+  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+}
+
+/* زر البحث الكهربائي — مرجاني ونص أبيض */
+[data-theme="dark"] .dw-search button:disabled,
+[data-theme="dark"] .dw-modal button:disabled,
+[data-theme="dark"] .dw-input-row button:disabled {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+  opacity: 0.82 !important;
+  cursor: not-allowed;
+}
+
+[data-theme="dark"] .dw-search button:hover,
+[data-theme="dark"] .dw-modal button:hover {
+  background: #8FE25A !important;
+  opacity: 1;
+}
+
+[data-theme="dark"] .dw-search button.dw-ghost,
+[data-theme="dark"] .dw-modal button.dw-ghost {
+  background: rgba(163, 184, 172, 0.1) !important;
+  color: #F2F8F4 !important;
+}
+
+/* --- الاقتراحات --- */
+[data-theme="dark"] .dw-suggest {
+  background: #1F2F25 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-suggest li {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-suggest li:hover {
+  background: rgba(183, 255, 114, 0.16) !important;
+}
+
+[data-theme="dark"] .dw-suggest span,
+[data-theme="dark"] .dw-sub,
+[data-theme="dark"] .dw-row small {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .dw-show-more {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dw-error,
+[data-theme="dark"] .dw-unavailable p {
+  color: #FF8A80 !important;
+}
+
+/* --- نتيجة الدواء --- */
+[data-theme="dark"] .dw-result {
+  background: #1F2F25 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-product-info h3 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-price {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dw-product-image {
+  background: rgba(163, 184, 172, 0.08) !important;
+}
+
+[data-theme="dark"] .dw-info-section,
+[data-theme="dark"] .dw-usage-section {
+  background: rgba(163, 184, 172, 0.06) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-info-section h4,
+[data-theme="dark"] .dw-usage-section h4,
+[data-theme="dark"] .dw-available-label {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-info-section p,
+[data-theme="dark"] .dw-usage-section p {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .dw-warning,
+[data-theme="dark"] .dw-note {
+  background: rgba(245, 161, 42, 0.14) !important;
+  color: #FFD08A !important;
+  border: 1px solid rgba(245, 161, 42, 0.28);
+}
+
+/* --- صفوف الصيدليات والمخزون --- */
+[data-theme="dark"] .dw-row {
+  border-top-color: rgba(163, 184, 172, 0.1) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-unavailable button {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .dw-pharmacy-action button {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+/* --- البدائل والشارات --- */
+[data-theme="dark"] .dw-alt {
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  background: rgba(163, 184, 172, 0.04) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-badge {
+  background: rgba(183, 255, 114, 0.18) !important;
+  color: #FFC2BC !important;
+}
+
+/* --- نافذة الحجز --- */
+[data-theme="dark"] .dw-overlay {
+  background: rgba(8, 12, 22, 0.72) !important;
+}
+
+[data-theme="dark"] .dw-modal {
+  background: #1F2F25 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16);
+  color: #F2F8F4 !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .dw-modal h3 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-file {
+  background: rgba(163, 184, 172, 0.06) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-file small {
+  color: rgba(163, 184, 172, 0.65) !important;
+}
+
+/* ===== صفحة حجوزاتي (dw-reservations) ===== */
+[data-theme="dark"] .dw-res-head {
+  border-bottom-color: rgba(163, 184, 172, 0.16) !important;
+}
+
+[data-theme="dark"] .dw-res-head h2,
+[data-theme="dark"] .dw-res-title-line > b,
+[data-theme="dark"] .dw-reservation-details h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-res-card {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-res-card small,
+[data-theme="dark"] .dw-reservations > .dw-sub,
+[data-theme="dark"] .dw-reservation-facts span {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .dw-res-head button,
+[data-theme="dark"] .dw-res-card button,
+[data-theme="dark"] .dw-res-card .dw-res-details-button,
+[data-theme="dark"] .dw-reservation-modal-actions .dw-res-details-button {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dw-res-head button:hover,
+[data-theme="dark"] .dw-res-card button:hover {
+  background: rgba(183, 255, 114, 0.28) !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .dw-res-card .dw-res-cancel-button,
+[data-theme="dark"] .dw-reservation-modal-actions .dw-res-cancel-button {
+  background: rgba(255, 138, 128, 0.14) !important;
+  color: #FF8A80 !important;
+}
+
+[data-theme="dark"] .dw-res-card .dw-res-cancel-button:hover,
+[data-theme="dark"] .dw-reservation-modal-actions .dw-res-cancel-button:hover {
+  background: rgba(255, 138, 128, 0.26) !important;
+}
+
+[data-theme="dark"] .dw-reservation-details {
+  background: #1F2F25 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16);
+}
+
+[data-theme="dark"] .dw-reservation-close {
+  background: rgba(163, 184, 172, 0.1) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-reservation-details-icon {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dw-reservation-product-name {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dw-reservation-facts,
+[data-theme="dark"] .dw-reservation-facts > div {
+  border-color: rgba(163, 184, 172, 0.1) !important;
+}
+
+[data-theme="dark"] .dw-reservation-facts strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .dw-reservation-delivery-note {
+  background: rgba(245, 161, 42, 0.14) !important;
+  color: #FFD08A !important;
+}
+
+[data-theme="dark"] .dw-reservation-note {
+  background: rgba(163, 184, 172, 0.06) !important;
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+/* --- شارات الحالة --- */
+[data-theme="dark"] .dw-status-pending {
+  background: rgba(245, 161, 42, 0.18) !important;
+  color: #FFD08A !important;
+}
+
+[data-theme="dark"] .dw-status-confirmed {
+  background: rgba(183, 255, 114, 0.18) !important;
+  color: #FFB3AD !important;
+}
+
+[data-theme="dark"] .dw-status-collected {
+  background: rgba(56, 189, 248, 0.18) !important;
+  color: #9BD9F8 !important;
+}
+
+[data-theme="dark"] .dw-status-cancelled,
+[data-theme="dark"] .dw-status-expired {
+  background: rgba(163, 184, 172, 0.1) !important;
+  color: rgba(163, 184, 172, 0.6) !important;
+}

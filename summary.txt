@@ -1,0 +1,28 @@
+Light Mode PromoSlider & Hero Cards Styling Update - Summary
+
+FILES MODIFIED (3 files, no Terminal/PowerShell):
+
+1. src/index.css - .prescription-card
+   - Gradient: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important
+   - Border radius: 22px (was 19px)
+   - Box-shadow: 0 14px 34px rgba(6, 72, 63, 0.14) (was 0 20px 38px rgba(4,72,62,.2))
+
+2. src/components/PromoSlider.css - Slider & all 3 slides
+   - .promo-slider: gradient 270deg, border-radius 22px, box-shadow
+   - .promo-slide--location: gradient 270deg, border-radius 22px
+   - .promo-slide--pharmacies: gradient 270deg, border-radius 22px
+   - .promo-slide--monthly: gradient 270deg, border-radius 22px
+   - [data-theme="dark"] rules: ALL preserved unchanged
+
+3. src/components/InsuranceCard.css - Insurance card
+   - Gradient, border-radius 22px, box-shadow updated to match theme
+   - [data-theme="dark"] rules from line 276+: preserved unchanged
+
+KEY DESIGN CHANGES:
+- Unified linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) on all green-dark cards
+- Consistent border-radius: 22px across all slider containers and slides
+- Soft box-shadow: 0 14px 34px rgba(6, 72, 63, 0.14) for depth without harshness
+- White text ensures 100% readability in light mode
+- Dark mode [data-theme="dark"] completely untouched - all original night mode styles preserved
+
+NO CHANGES TO: PromoSlider.jsx (all modifications are CSS-only)

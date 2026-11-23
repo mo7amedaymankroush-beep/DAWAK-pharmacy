@@ -1,0 +1,445 @@
+﻿.dawak-footer {
+  --footer-bg: #2a2a2a;
+  --footer-ink: #ffffff;
+  --footer-muted: #e2f1ec;
+  --footer-accent: #06483f;
+  /* نفس عرض الهيدر ومحاذاته: داخل الحاوية بعرضها الكامل، مع زوايا مطابقة لانحناء الهيدر */
+  width: 100%;
+  margin: 28px 0 18px;
+  padding: 42px 20px 0;
+  border-radius: 22px;
+  color: var(--footer-ink);
+  background: linear-gradient(135deg, #06483f 0%, #043e37 100%);
+  box-shadow: 0 8px 30px rgba(6,72,63,.07);
+  text-align: right;
+}
+
+[data-theme="dark"] .dawak-footer {
+  --footer-bg: #18251D;
+  --footer-ink: #F5F5F5;
+  --footer-muted: rgba(153, 153, 153, 0.8);
+  --footer-accent: #B7FF72;
+  background: #18251D !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(176, 141, 86, 0.12) !important;
+  box-shadow: none !important;
+  color: #F5F5F5 !important;
+}
+
+.dawak-footer-main {
+  display: grid;
+  grid-template-columns: minmax(230px, 1.5fr) repeat(2, minmax(145px, .75fr)) minmax(190px, 1fr);
+  gap: clamp(24px, 4vw, 58px);
+  margin: 0;
+  padding-bottom: 38px;
+}
+
+.dawak-footer h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.dawak-footer-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 17px;
+}
+
+.dawak-footer-brand-link img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #fff;
+}
+
+.dawak-footer-brand-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.dawak-footer-brand-name strong {
+  font-family: Inter, sans-serif;
+}
+
+.dawak-footer-brand h2 {
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.dawak-footer-brand p,
+.dawak-footer-social p {
+  max-width: 390px;
+  margin: 0;
+  color: var(--footer-muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.dawak-footer-column h2,
+.dawak-footer-social h2 {
+  margin: 6px 0 15px;
+}
+
+.dawak-footer-column ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dawak-footer-column a,
+.dawak-footer-unavailable {
+  color: var(--footer-muted);
+  font-size: 13px;
+  line-height: 1.8;
+  transition: color .18s ease, padding .18s ease;
+}
+
+.dawak-footer-column a:hover,
+.dawak-footer-column a:focus-visible {
+  padding-inline-start: 4px;
+  color: #ffffff;
+}
+
+.dawak-footer-unavailable {
+  color: rgba(189, 213, 205, .62);
+}
+
+.dawak-footer-social p {
+  margin-bottom: 16px;
+}
+
+.dawak-footer-social-links {
+  display: flex;
+  gap: 9px;
+}
+
+.dawak-footer-social-links a {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(220, 244, 234, .25);
+  border-radius: 50%;
+  color: #e8f6ef;
+  background: rgba(255, 255, 255, .06);
+  transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.dawak-footer-social-links a:hover,
+.dawak-footer-social-links a:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--footer-accent);
+  color: var(--footer-bg);
+  background: var(--footer-accent);
+}
+
+.dawak-footer a:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 4px;
+}
+
+.dawak-footer-bottom {
+  margin: 0;
+  border-top: 1px solid rgba(220, 244, 234, .17);
+  text-align: center;
+}
+
+.dawak-footer-bottom p {
+  margin: 0;
+  padding: 17px 0 20px;
+  color: #aac8bd;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .dawak-footer-main {
+    grid-template-columns: minmax(220px, 1.3fr) repeat(2, minmax(140px, .8fr));
+  }
+
+  .dawak-footer-social {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .dawak-footer {
+    margin: 24px 0 14px;
+    padding: 30px 16px 0;
+    border-radius: 20px;
+  }
+
+  .dawak-footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+    padding-bottom: 28px;
+  }
+
+  .dawak-footer-brand,
+  .dawak-footer-social {
+    grid-column: 1 / -1;
+  }
+
+  .dawak-footer-brand p {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .dawak-footer {
+    margin: 20px 0 12px;
+    padding: 26px 14px 0;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .dawak-footer-main {
+    grid-template-columns: 1fr;
+  }
+
+  .dawak-footer-brand,
+  .dawak-footer-social {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dawak-footer-column a,
+  .dawak-footer-social-links a {
+    transition: none;
+  }
+}
+
+/* =======================================================================
+   شات الدعم الفني داخل الفوتر
+   ======================================================================= */
+.dawak-footer-support {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 18px;
+  padding: 16px 18px;
+  border: 1px solid rgba(220, 244, 234, .22);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .07);
+}
+
+.dawak-footer-support-copy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.dawak-footer-support-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 13px;
+  color: #043e37;
+  background: #b5f0d9;
+  box-shadow: 0 6px 16px rgba(4, 62, 55, .22);
+}
+
+.dawak-footer-support h2 {
+  margin: 0 0 4px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.dawak-footer-support p {
+  margin: 0;
+  color: var(--footer-muted);
+  font-size: 12.5px;
+  line-height: 1.8;
+}
+
+.dawak-footer-support-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.dawak-footer-support-btn {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 1px solid #10b981;
+  border-radius: 11px;
+  color: #043e37;
+  background: #34d399;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.dawak-footer-support-btn:hover,
+.dawak-footer-support-btn:focus-visible {
+  transform: translateY(-2px);
+  background: #6ee7b7;
+  border-color: #6ee7b7;
+}
+
+.dawak-footer-support-btn--ghost {
+  border-color: rgba(220, 244, 234, .32);
+  color: #e8f6ef;
+  background: rgba(255, 255, 255, .06);
+}
+
+.dawak-footer-support-btn--ghost:hover,
+.dawak-footer-support-btn--ghost:focus-visible {
+  background: rgba(255, 255, 255, .16);
+  border-color: rgba(220, 244, 234, .5);
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .dawak-footer-support {
+    align-items: stretch;
+    padding: 14px;
+  }
+
+  .dawak-footer-support-actions {
+    width: 100%;
+  }
+
+  .dawak-footer-support-btn {
+    flex: 1 1 160px;
+  }
+}
+
+[data-theme="dark"] .dawak-footer-support {
+  border-color: rgba(183, 255, 114, .18) !important;
+  background: rgba(183, 255, 114, .05) !important;
+}
+
+[data-theme="dark"] .dawak-footer-support h2 {
+  color: #b7ff72 !important;
+}
+
+[data-theme="dark"] .dawak-footer-support p {
+  color: rgba(163, 184, 172, .85) !important;
+}
+
+[data-theme="dark"] .dawak-footer-support-icon {
+  color: #101a14 !important;
+  background: #b7ff72 !important;
+}
+
+[data-theme="dark"] .dawak-footer-support-btn {
+  border-color: #b7ff72 !important;
+  color: #101a14 !important;
+  background: #b7ff72 !important;
+}
+
+[data-theme="dark"] .dawak-footer-support-btn:hover,
+[data-theme="dark"] .dawak-footer-support-btn:focus-visible {
+  background: #8fe25a !important;
+  border-color: #8fe25a !important;
+}
+
+[data-theme="dark"] .dawak-footer-support-btn--ghost {
+  border-color: rgba(183, 255, 114, .32) !important;
+  color: #f5f5f5 !important;
+  background: rgba(245, 245, 245, .06) !important;
+}
+
+[data-theme="dark"] .dawak-footer-support-btn--ghost:hover,
+[data-theme="dark"] .dawak-footer-support-btn--ghost:focus-visible {
+  color: #101a14 !important;
+  background: #b7ff72 !important;
+  border-color: #b7ff72 !important;
+}
+/* =======================================================================
+   Dark Mode — الفوتر
+   Forest Deep #0F1812 + حد علوي rgba(183,255,114,0.12) + بارز Acid Mint #B7FF72
+   ======================================================================= */
+
+[data-theme="dark"] .dawak-footer {
+  --footer-bg: #2a2a2a;
+  --footer-ink: #F5F5F5;
+  --footer-muted: #a5c4b3;
+  --footer-accent: #B7FF72;
+  background: #2a2a2a !important;
+  background-image: none !important;
+  border-top: 1px solid #666666 !important;
+  box-shadow: none !important;
+  color: #F5F5F5 !important;
+}
+
+[data-theme="dark"] .dawak-footer h2,
+[data-theme="dark"] .dawak-footer-brand-name,
+[data-theme="dark"] .dawak-footer-brand-name strong {
+  color: #F5F5F5 !important;
+}
+
+[data-theme="dark"] .dawak-footer-brand h2 {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dawak-footer-brand p,
+[data-theme="dark"] .dawak-footer-social p {
+  color: rgba(153, 153, 153, 0.8) !important;
+}
+
+[data-theme="dark"] .dawak-footer-brand-link img {
+  background: #1f3026 !important;
+}
+
+[data-theme="dark"] .dawak-footer-column a {
+  color: rgba(153, 153, 153, 0.8) !important;
+}
+
+[data-theme="dark"] .dawak-footer-column a:hover,
+[data-theme="dark"] .dawak-footer-column a:focus-visible {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dawak-footer-unavailable {
+  color: rgba(153, 153, 153, 0.45) !important;
+}
+
+[data-theme="dark"] .dawak-footer-social-links a {
+  background: rgba(176, 141, 86, 0.06) !important;
+  border-color: rgba(176, 141, 86, 0.16) !important;
+  color: #F5F5F5 !important;
+}
+
+[data-theme="dark"] .dawak-footer-social-links a:hover,
+[data-theme="dark"] .dawak-footer-social-links a:focus-visible {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #222222 !important;
+}
+
+[data-theme="dark"] .dawak-footer a:focus-visible {
+  outline-color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .dawak-footer-bottom {
+  border-top-color: rgba(183, 255, 114, 0.12) !important;
+}
+
+[data-theme="dark"] .dawak-footer-bottom p {
+  color: rgba(163, 184, 172, 0.8) !important;
+}

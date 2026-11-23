@@ -1,0 +1,589 @@
+/* ===========================================================
+   LocationPickerModal — مطابق بصريًا لبطاقة تسجيل الدخول
+   (phone-login): نفس الخلفية الداكنة، الحقول، والأزرار الخضراء
+   =========================================================== */
+
+.loc-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10060;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  overflow-y: auto;
+  background: rgba(3, 35, 30, 0.56);
+  animation: loc-fade 0.16s ease-out;
+}
+
+/* البطاقة الداخلية — نفس مقاسات وظلال .phone-login */
+.loc-modal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 18px 16px;
+  border-radius: 14px;
+  background: transparent !important;
+  color: #f4f4f5;
+  animation: loc-rise 0.18s ease-out;
+  user-select: none;
+  scrollbar-width: thin;
+}
+
+.loc-modal * {
+  user-select: text !important;
+  pointer-events: auto !important;
+}
+
+/* زر إغلاق علوي — نفس .phone-login-close */
+.loc-close {
+  position: absolute;
+  top: 8px;
+  inset-inline-start: 8px;
+  z-index: 3;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.loc-close:hover {
+  color: #ffffff;
+  background: rgba(16, 185, 129, 0.35);
+}
+
+/* العنوان الرئيسي — مثل .phone-login h2 */
+.loc-modal h2,
+.loc-title {
+  margin: 6px 0 6px;
+  padding-inline-start: 40px;
+  color: #34d399 !important;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+/* النص التوضيحي — مثل .phone-login-sub */
+.loc-sub {
+  margin: 0 0 16px;
+  color: rgba(244, 244, 245, 0.78) !important;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* جسم البطاقة */
+.loc-body {
+  display: grid;
+  flex: 1 1 auto;
+  align-content: start;
+  gap: 10px;
+}
+
+/* ---------- الحقول ---------- */
+.loc-field {
+  display: grid;
+  gap: 8px;
+}
+
+.loc-field > label,
+.loc-modal .pharmacy-location-fields label {
+  color: #a7f3d0 !important;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* قوائم المحافظة / المدينة / الحي — بنفس تصميم .phone-login-field */
+.loc-modal .pharmacy-location-tools {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.loc-modal .pharmacy-location-fields {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+  min-width: 0;
+}
+
+/* كل حقل: التسمية فوق القائمة، لا بجوارها */
+.loc-modal .pharmacy-location-fields label {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+  align-items: start !important;
+  min-width: 0;
+}
+
+.loc-modal .pharmacy-location-fields label > span {
+  display: block;
+  color: #a7f3d0 !important;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.loc-modal .pharmacy-location-fields select {
+  min-height: 46px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font:
+    700 13px/1.4 "Cairo",
+    Inter,
+    sans-serif;
+  outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.loc-modal .pharmacy-location-fields select:hover:not(:disabled) {
+  border-color: rgba(16, 185, 129, 0.6);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.loc-modal .pharmacy-location-fields select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.loc-modal .pharmacy-location-fields select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loc-modal .pharmacy-location-fields select option {
+  background: #04322b;
+  color: #ffffff;
+}
+
+/* ---------- الأزرار ---------- */
+.loc-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.loc-btn {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.loc-btn--primary {
+  background: #10b981 !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(6, 72, 63, 0.2);
+}
+
+.loc-btn--primary:hover:not(:disabled) {
+  background: #059669 !important;
+}
+
+.loc-btn--primary:disabled,
+.loc-btn--ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loc-btn--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.loc-btn--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* رابط "متابعة بدون تحديد الموقع" */
+.loc-skip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  padding: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(244, 244, 245, 0.6) !important;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.loc-skip:hover {
+  color: #34d399 !important;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+/* ---------- حالة النجاح + وقت التوصيل ---------- */
+.loc-result {
+  display: grid;
+  gap: 8px;
+}
+
+.loc-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #a7f3d0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.loc-delivery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.loc-delivery-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.loc-delivery-row:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.loc-delivery-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.loc-delivery-row div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.loc-delivery-row small {
+  color: rgba(244, 244, 245, 0.62);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.loc-delivery-row strong {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.loc-pharmacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.loc-pharmacy-pin {
+  display: grid;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.loc-pharmacy-name {
+  margin: 0 0 2px;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+
+.loc-pharmacy-address {
+  margin: 0;
+  color: rgba(244, 244, 245, 0.7);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* ---------- رسائل ---------- */
+.loc-error,
+.loc-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.loc-error {
+  color: #fca5a5;
+}
+
+.loc-hint {
+  color: rgba(244, 244, 245, 0.65);
+}
+
+.loc-hint svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #34d399;
+}
+
+/* ---------- التذييل ---------- */
+.loc-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(244, 244, 245, 0.65) !important;
+  font-size: 10.5px;
+  line-height: 1.7;
+}
+
+.loc-note svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #34d399;
+}
+
+.loc-modal :focus-visible {
+  outline: 3px solid #10b981;
+  outline-offset: 3px;
+}
+
+@keyframes loc-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes loc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 420px) {
+  .loc-modal {
+    padding: 20px 14px 14px;
+  }
+  .loc-modal h2 {
+    font-size: 19px;
+  }
+  .loc-delivery {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loc-backdrop,
+  .loc-modal {
+    animation: none;
+  }
+}
+
+/* ===========================================================
+   Dark Mode — نفس لوحة بطاقة تسجيل الدخول
+   =========================================================== */
+
+[data-theme="dark"] .loc-backdrop {
+  background: rgba(8, 14, 26, 0.72) !important;
+}
+
+[data-theme="dark"] .loc-modal {
+  background: transparent !important;
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"] .loc-modal h2,
+[data-theme="dark"] .loc-title {
+  color: #ff5a4e !important;
+}
+
+[data-theme="dark"] .loc-sub {
+  color: rgba(244, 241, 234, 0.78) !important;
+}
+
+[data-theme="dark"] .loc-close {
+  background: rgba(244, 241, 234, 0.12) !important;
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"] .loc-close:hover {
+  background: #ff5a4e !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .loc-field > label,
+[data-theme="dark"] .loc-modal .pharmacy-location-fields label {
+  color: #ffb3ad !important;
+}
+
+[data-theme="dark"] .loc-modal .pharmacy-location-fields select {
+  background-color: #1c253b !important;
+  border-color: rgba(244, 241, 234, 0.18) !important;
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"]
+  .loc-modal
+  .pharmacy-location-fields
+  select:hover:not(:disabled) {
+  border-color: rgba(255, 90, 78, 0.6) !important;
+  background-color: #141b2d !important;
+}
+
+[data-theme="dark"] .loc-modal .pharmacy-location-fields select:focus {
+  border-color: #ff5a4e !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.22) !important;
+}
+
+[data-theme="dark"] .loc-modal .pharmacy-location-fields select option {
+  background: #141b2d !important;
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"] .loc-btn--primary {
+  background: #ff5a4e !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.28) !important;
+}
+
+[data-theme="dark"] .loc-btn--primary:hover:not(:disabled) {
+  background: #e84d41 !important;
+}
+
+[data-theme="dark"] .loc-btn--ghost {
+  background: rgba(244, 241, 234, 0.08) !important;
+  border-color: rgba(244, 241, 234, 0.2) !important;
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"] .loc-btn--ghost:hover:not(:disabled) {
+  background: rgba(244, 241, 234, 0.16) !important;
+}
+
+[data-theme="dark"] .loc-skip {
+  color: rgba(244, 241, 234, 0.6) !important;
+}
+
+[data-theme="dark"] .loc-skip:hover {
+  color: #ff8a80 !important;
+  background: rgba(255, 90, 78, 0.1) !important;
+}
+
+[data-theme="dark"] .loc-success {
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.42) !important;
+  color: #ffb3ad !important;
+}
+
+[data-theme="dark"] .loc-delivery-row,
+[data-theme="dark"] .loc-pharmacy {
+  background: rgba(244, 241, 234, 0.07) !important;
+  border-color: rgba(244, 241, 234, 0.18) !important;
+}
+
+[data-theme="dark"] .loc-delivery-icon,
+[data-theme="dark"] .loc-pharmacy-pin {
+  background: rgba(255, 90, 78, 0.2) !important;
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .loc-delivery-row strong,
+[data-theme="dark"] .loc-pharmacy-name {
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"] .loc-delivery-row small,
+[data-theme="dark"] .loc-pharmacy-address,
+[data-theme="dark"] .loc-hint {
+  color: rgba(244, 241, 234, 0.7) !important;
+}
+
+[data-theme="dark"] .loc-hint svg {
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .loc-error {
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .loc-note {
+  border-top-color: rgba(244, 241, 234, 0.14) !important;
+  color: rgba(244, 241, 234, 0.65) !important;
+}
+
+[data-theme="dark"] .loc-note svg {
+  color: #ff5a4e !important;
+}
+
+[data-theme="dark"] .loc-modal :focus-visible {
+  outline-color: #ff5a4e !important;
+}

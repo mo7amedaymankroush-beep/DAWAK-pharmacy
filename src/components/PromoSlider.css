@@ -1,0 +1,598 @@
+﻿/* ===== PromoSlider — شريط ترويجي بشريحتين ===== */
+
+.promo-slider {
+  --promo-radius: 22px;
+  position: relative;
+  max-width: 1180px;
+  margin: 32px auto;
+  padding: 0 18px;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  border-radius: 22px;
+  box-shadow: 0 14px 34px rgba(6, 72, 63, 0.14);
+}
+
+/* حاوية الغلاف تضمن ظهور شريحة واحدة فقط في كل مرة */
+.promo-viewport {
+  border-radius: var(--promo-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.promo-track {
+  display: flex;
+  width: 100%;
+  transition: transform .6s cubic-bezier(.4, 0, .2, 1);
+}
+
+.promo-slide {
+  min-width: 100%;
+  min-height: 280px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  align-items: center;
+  gap: 24px;
+  padding: 38px 44px;
+}
+
+/* --- الشريحة الأولى: تحديد الموقع --- */
+.promo-slide--location {
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #fff;
+  border-radius: 22px;
+}
+
+/* --- الشريحة الثانية: الصيدليات المسجلة --- */
+.promo-slide--pharmacies {
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #fff;
+  border-radius: 22px;
+}
+
+.promo-slide.is-active .promo-slide-copy,
+.promo-slide.is-active .promo-visual { animation: promoFadeUp .55s ease both; }
+
+@keyframes promoFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.promo-slide-copy h2 {
+  margin: 12px 0 8px;
+  font-size: clamp(21px, 2.6vw, 32px);
+  font-weight: 800;
+  letter-spacing: -.4px;
+  line-height: 1.4;
+}
+
+.promo-slide-copy p {
+  margin: 0 0 20px;
+  max-width: 420px;
+  font-size: clamp(13px, 1.3vw, 15px);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, .85);
+}
+
+.promo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  backdrop-filter: blur(4px);
+}
+
+/* --- زر CTA --- */
+.promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 13px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+
+.promo-cta:active { transform: scale(.97); }
+.promo-cta:hover { transform: translateY(-2px); }
+
+.promo-cta--orange {
+  background: var(--orange);
+  color: #4a2c00;
+  box-shadow: 0 10px 24px rgba(245, 161, 42, .35);
+}
+
+.promo-cta--orange:hover { background: #ffb648; }
+
+.promo-cta--white {
+  background: #ffffff !important;
+  color: #06483f !important;
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(6, 72, 63, 0.2);
+}
+
+.promo-cta--white:hover { background: #f0faf6; }
+
+/* --- الجانب البصري --- */
+.promo-visual {
+  position: relative;
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+}
+
+/* دبوس الموقع مع حلقات نابضة */
+.promo-pin-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+}
+
+.promo-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .4);
+  animation: promoPulse 2.4s ease-out infinite;
+}
+
+.promo-ring--2 { animation-delay: 1.2s; }
+
+@keyframes promoPulse {
+  0% { transform: scale(.55); opacity: .9; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+.promo-pin-core {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--green);
+  box-shadow: 0 14px 34px rgba(4, 62, 55, .35);
+  animation: promoFloat 3.2s ease-in-out infinite;
+}
+
+/* أيقونات عائمة */
+.promo-float-icon {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 13px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, .95);
+  color: var(--green-dark);
+  box-shadow: 0 10px 26px rgba(4, 62, 55, .22);
+  font-size: 11px;
+  font-weight: 800;
+  animation: promoFloat 3.6s ease-in-out infinite;
+}
+
+.promo-float-icon--pill { top: 12%; right: 6%; color: var(--green-bright); animation-delay: .4s; }
+.promo-float-icon--truck { bottom: 14%; left: 4%; color: var(--orange); animation-delay: .8s; }
+.promo-float-icon--clock { top: 42%; left: -2%; animation-delay: 1.4s; }
+.promo-float-icon--clock small { color: var(--muted); }
+
+@keyframes promoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+/* بطاقات صيدليات مصغرة */
+.promo-visual--pharmacies {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: center;
+}
+
+.promo-mini-card {
+  display: grid;
+  gap: 6px;
+  padding: 15px 12px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, .96);
+  color: var(--ink);
+  box-shadow: 0 12px 28px rgba(4, 62, 55, .22);
+  animation: promoFloat 4s ease-in-out infinite;
+}
+
+.promo-mini-card--2 { animation-delay: .6s; transform: translateY(-10px); }
+.promo-mini-card--3 { animation-delay: 1.2s; }
+
+.promo-mini-card-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+
+.promo-mini-logo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--mint);
+  color: var(--green);
+}
+
+.promo-mini-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e5f6ef;
+  color: #0f8a63;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.promo-mini-card strong { font-size: 12px; color: var(--green-deep); }
+.promo-mini-card small { font-size: 10px; color: var(--muted); }
+
+.promo-mini-delivery {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #fff5e4;
+  color: #a56200;
+  font-size: 9.5px;
+  font-weight: 800;
+  justify-self: start;
+}
+
+/* --- أسهم التنقل --- */
+.promo-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transform: translateY(-50%);
+  transition: background .2s, transform .2s;
+}
+
+.promo-arrow:hover { background: rgba(255, 255, 255, .32); transform: translateY(-50%) scale(1.08); }
+
+.promo-arrow--prev { right: 26px; }
+.promo-arrow--next { left: 26px; }
+
+/* --- نقاط التنقل --- */
+.promo-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.promo-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .45);
+  cursor: pointer;
+  transition: width .3s, background .3s;
+}
+
+.promo-dot.is-active { width: 26px; background: var(--orange); }
+
+/* --- التجاوب --- */
+@media (max-width: 900px) {
+  .promo-slide { grid-template-columns: 1fr; text-align: center; padding: 32px 24px 46px; }
+  .promo-slide-copy p { margin-inline: auto; }
+  .promo-visual { min-height: 190px; }
+  .promo-arrow { display: none; }
+}
+
+@media (max-width: 560px) {
+  .promo-slider { margin: 24px auto; padding: 0 14px; }
+  .promo-slide { padding: 28px 18px 46px; min-height: 0; }
+  .promo-cta { width: 100%; justify-content: center; min-height: 50px; }
+  .promo-visual--pharmacies { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .promo-mini-card--3 { display: none; }
+  .promo-float-icon--clock { display: none; }
+  .promo-pin-ring { width: 120px; height: 120px; }
+  .promo-pin-core { width: 70px; height: 70px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-ring, .promo-float-icon, .promo-pin-core, .promo-mini-card { animation: none; }
+}
+
+/* --- الشريحة الثالثة: الروشتة الشهرية --- */
+.promo-slide--monthly {
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #fff;
+  border-radius: 22px;
+}
+
+.promo-tag--monthly {
+  background: rgba(245, 161, 42, .2);
+  border-color: rgba(245, 161, 42, .5);
+  color: #ffd48a;
+}
+
+.promo-cta--mint {
+  background: linear-gradient(135deg, var(--orange) 0%, #d97706 100%);
+  color: #4a2c00;
+  box-shadow: 0 10px 24px rgba(245, 161, 42, .38);
+}
+
+.promo-cta--mint:hover { background: linear-gradient(135deg, #ffb648 0%, #e8860f 100%); }
+
+/* بطاقة الاشتراك الشهري */
+.promo-visual--monthly { grid-template-columns: 1fr; justify-items: center; }
+
+.promo-monthly-card {
+  display: grid;
+  gap: 10px;
+  width: min(300px, 100%);
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .96);
+  color: var(--ink);
+  box-shadow: 0 14px 32px rgba(4, 62, 55, .28);
+  animation: promoFloat 3.8s ease-in-out infinite;
+}
+
+.promo-monthly-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.promo-monthly-pill-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--mint);
+  color: var(--green);
+}
+
+.promo-monthly-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff5e4;
+  color: #a56200;
+  font-size: 9.5px;
+  font-weight: 800;
+}
+
+.promo-monthly-card strong { color: var(--green-deep); font-size: 14px; }
+
+.promo-monthly-facts {
+  display: grid;
+  gap: 6px;
+}
+
+.promo-monthly-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #55766c;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.promo-monthly-facts span svg { color: var(--green-bright); }
+
+.promo-monthly-facts .is-discount { color: #a56200; font-weight: 800; }
+.promo-monthly-facts .is-discount svg { color: var(--orange); }
+
+.promo-monthly-float {
+  top: 8%;
+  left: 10%;
+  color: var(--orange);
+}
+
+.promo-monthly-float small { font-size: 12px; color: #a56200; }
+
+/* =======================================================================
+   Dark Mode — سلايدر الإعلانات والعروض (PromoSlider)
+   بطاقات إعلانية مرجانية / كحلية ونصوص عالية التباين
+   ======================================================================= */
+
+[data-theme="dark"] .promo-viewport {
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* --- الأشرطة الإعلانية: Forest + Purple + Sand لتبرز عن الخلفية --- */
+[data-theme="dark"] .promo-slide,
+[data-theme="dark"] .promo-slide--location,
+[data-theme="dark"] .promo-slide--pharmacies,
+[data-theme="dark"] .promo-slide--monthly,
+[data-theme="dark"] .promo-card {
+  background:
+    radial-gradient(circle at 88% 18%, rgba(183, 255, 114, 0.26) 0%, transparent 48%),
+    radial-gradient(circle at 8% 88%, rgba(163, 184, 172, 0.07) 0%, transparent 44%),
+    linear-gradient(135deg, #1F2F25 0%, #26392D 65%, #3B2868 100%) !important;
+  border: 1.5px solid rgba(163, 184, 172, 0.45) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .promo-slide-copy h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .promo-slide--pharmacies .promo-slide-copy h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .promo-slide-copy p,
+[data-theme="dark"] .promo-slide--pharmacies .promo-slide-copy p {
+  color: rgba(163, 184, 172, 0.9) !important;
+}
+
+/* الشارة/الوسم ⇒ Electric Purple */
+[data-theme="dark"] .promo-tag,
+[data-theme="dark"] .promo-tag--monthly {
+  background: #B7FF72 !important;
+  border: 1px solid rgba(183, 255, 114, 0.6) !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .promo-tag--monthly {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.34) !important;
+  color: #FFFFFF !important;
+}
+
+/* --- أزرار CTA داخل الشرائح ⇒ Electric Purple + نص أبيض --- */
+[data-theme="dark"] .promo-cta--orange,
+[data-theme="dark"] .promo-cta--mint,
+[data-theme="dark"] .promo-cta--white {
+  background: #B7FF72 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(183, 255, 114, 0.6) !important;
+  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.36) !important;
+}
+
+[data-theme="dark"] .promo-cta--orange:hover,
+[data-theme="dark"] .promo-cta--mint:hover,
+[data-theme="dark"] .promo-cta--white:hover {
+  background: #8FE25A !important;
+  color: #FFFFFF !important;
+}
+
+/* --- العناصر البصرية --- */
+[data-theme="dark"] .promo-pin-core {
+  background: #1F2F25 !important;
+  color: #B7FF72 !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42) !important;
+}
+
+[data-theme="dark"] .promo-ring {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="dark"] .promo-float-icon {
+  background: #1F2F25 !important;
+  color: #F2F8F4 !important;
+  border: 1px solid rgba(163, 184, 172, 0.14);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .promo-float-icon--pill,
+[data-theme="dark"] .promo-float-icon--truck,
+[data-theme="dark"] .promo-float-icon--clock,
+[data-theme="dark"] .promo-monthly-float {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .promo-float-icon--clock small,
+[data-theme="dark"] .promo-monthly-float small {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+/* --- بطاقات الصيدليات المصغرة --- */
+[data-theme="dark"] .promo-mini-card {
+  background: #1F2F25 !important;
+  color: #F2F8F4 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .promo-mini-logo {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .promo-mini-verified {
+  background: rgba(74, 222, 128, 0.14) !important;
+  color: #86EFAC !important;
+}
+
+[data-theme="dark"] .promo-mini-card strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .promo-mini-card small {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .promo-mini-delivery,
+[data-theme="dark"] .promo-monthly-badge {
+  background: rgba(183, 255, 114, 0.18) !important;
+  color: #FFB3AD !important;
+}
+
+/* --- بطاقة الاشتراك الشهري --- */
+[data-theme="dark"] .promo-monthly-card {
+  background: #1F2F25 !important;
+  color: #F2F8F4 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.44) !important;
+}
+
+[data-theme="dark"] .promo-monthly-pill-icon {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .promo-monthly-card strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .promo-monthly-facts span {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .promo-monthly-facts span svg {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .promo-monthly-facts .is-discount,
+[data-theme="dark"] .promo-monthly-facts .is-discount svg {
+  color: #FFB3AD !important;
+}
+
+/* --- أسهم ونقاط التنقل --- */
+[data-theme="dark"] .promo-arrow {
+  background: rgba(24, 37, 29, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.32) !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .promo-arrow:hover {
+  background: rgba(24, 37, 29, 0.8) !important;
+}
+
+[data-theme="dark"] .promo-dot {
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+[data-theme="dark"] .promo-dot.is-active {
+  background: #B7FF72 !important;
+}

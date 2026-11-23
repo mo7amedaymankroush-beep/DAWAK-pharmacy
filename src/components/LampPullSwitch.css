@@ -1,0 +1,43 @@
+﻿.lamp-switch-wrap {
+  position: fixed;
+  top: 0;
+  left: 22px;
+  z-index: 9999;
+  user-select: none;
+}
+.lamp-cord {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: grab;
+  transition: height 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+  touch-action: none;
+}
+.lamp-cord.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+.lamp-line {
+  width: 2.5px;
+  flex: 1;
+  background: linear-gradient(180deg, #94a3b8, #cbd5e1);
+  border-radius: 2px;
+}
+[data-theme="dark"] .lamp-line {
+  background: linear-gradient(180deg, rgba(244, 241, 234, 0.4), #F4F1EA);
+}
+.lamp-bulb {
+  width: 18px;
+  height: 22px;
+  border-radius: 50% 50% 42% 42%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.25s ease;
+}
+.lamp-bulb.is-on {
+  background: radial-gradient(circle at 35% 35%, #fff7cc, #fbbf24 65%, #f59e0b);
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.85), 0 0 28px rgba(245, 158, 11, 0.45);
+}
+.lamp-bulb.is-off {
+  background: radial-gradient(circle at 35% 35%, #ff857c, #FF5A4E 70%, #c93b30);
+  box-shadow: 0 0 10px rgba(255, 90, 78, 0.4);
+}

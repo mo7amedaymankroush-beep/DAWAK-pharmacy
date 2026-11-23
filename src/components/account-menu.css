@@ -1,0 +1,126 @@
+﻿.account-menu {
+  position: relative;
+}
+
+.account-button--signed {
+  gap: 7px;
+}
+
+.account-phone {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  direction: ltr;
+}
+
+.account-caret {
+  transition: transform .18s ease;
+}
+
+.account-caret.is-open {
+  transform: rotate(180deg);
+}
+
+.account-menu-panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 10px);
+  inset-inline-end: 0;
+  width: 226px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(2, 34, 29, .15);
+  animation: account-menu-in .14s ease-out;
+}
+
+.account-menu-number {
+  margin: 2px 6px 8px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--border);
+  color: var(--green-dark);
+  font: 800 13px/1.3 Inter, sans-serif;
+  letter-spacing: .5px;
+  text-align: right;
+}
+
+.account-menu-panel button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--green-dark);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background .16s ease, color .16s ease;
+}
+
+.account-menu-panel button:hover {
+  background: var(--mint-2);
+}
+
+.account-menu-panel button svg {
+  color: var(--green-bright);
+}
+
+.account-menu-panel .account-menu-logout {
+  color: #b24636;
+}
+
+.account-menu-panel .account-menu-logout:hover {
+  background: #fff4f2;
+}
+
+.account-menu-panel .account-menu-logout svg {
+  color: #b24636;
+}
+
+.account-menu-panel :focus-visible {
+  outline: 3px solid var(--green-bright);
+  outline-offset: 2px;
+}
+
+@keyframes account-menu-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 560px) {
+  .account-menu-panel {
+    position: fixed;
+    top: 88px;
+    inset-inline: 12px;
+    width: auto;
+  }
+}
+
+/* على الموبايل يبقى الزر أيقونة، والرقم كامل داخل قائمة الحساب */
+@media (max-width: 480px) {
+  .account-caret {
+    display: none;
+  }
+
+  .account-button--signed {
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account-menu-panel,
+  .account-caret {
+    animation: none;
+    transition: none;
+  }
+}

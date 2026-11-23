@@ -1,0 +1,396 @@
+﻿/* ===== قسم رحلة خسارة الوزن (تم تطويره وتجميله) ===== */
+
+.wl-section { padding: 30px 0 28px; }
+
+.wl-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 34px clamp(18px, 3vw, 44px);
+  border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(270deg, #2a2a2a 0%, #333333 100%);
+  border: 1px solid rgba(176, 141, 86, 0.14);
+  box-shadow: 0 20px 50px rgba(176, 141, 86, 0.24);
+  overflow: hidden;
+}
+
+.wl-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(70% 150% at 8% 40%, rgba(22, 167, 131, .45), transparent 58%),
+    radial-gradient(55% 90% at 92% 12%, rgba(255, 255, 255, .07), transparent 48%);
+  pointer-events: none;
+}
+
+.wl-banner-images {
+  position: relative;
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline-start: 16px;
+}
+
+.wl-banner-img {
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .08);
+  border: 2px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+  position: relative;
+  z-index: 2;
+  transform: rotate(var(--r));
+  margin-inline-end: -16px;
+}
+
+.wl-banner-img:last-child { margin-inline-end: 0; }
+
+.wl-banner-img:nth-child(1) { --r: -8deg; z-index: 4; }
+.wl-banner-img:nth-child(2) { --r: 5deg; z-index: 3; }
+.wl-banner-img:nth-child(3) { --r: -4deg; z-index: 2; }
+.wl-banner-img:nth-child(4) { --r: 7deg; z-index: 1; }
+
+.wl-banner-icon {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .16);
+  color: #d6f7e9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+}
+
+.wl-banner-copy { min-width: 0; }
+.wl-banner-copy h2 {
+  margin: 0 0 6px;
+  color: #fff;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: .2px;
+}
+.wl-banner-copy p {
+  margin: 0;
+  color: #c2e4da;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1px;
+}
+
+.wl-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 20px 0 14px;
+  flex-wrap: wrap;
+}
+
+.wl-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  color: #B08D56;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 6px 16px rgba(6, 72, 63, .12);
+  transition: background .2s, color .2s, transform .1s;
+}
+.wl-view-all:hover {
+  background: var(--green-bright);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.wl-view-all:focus-visible {
+  outline: 3px solid var(--green-bright);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wl-arrows { display: flex; gap: 8px; }
+.wl-arrows button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .94);
+  color: var(--green-dark);
+  transition: background .2s, border-color .2s, transform .1s;
+}
+.wl-arrows button:hover:not(:disabled) {
+  background: var(--mint-2);
+  border-color: #9edac7;
+  transform: translateY(-1px);
+}
+.wl-arrows button:disabled { opacity: .4; cursor: not-allowed; }
+.wl-arrows button:focus-visible {
+  outline: 3px solid var(--green-bright);
+  outline-offset: 3px;
+}
+
+.wl-viewport { overflow: hidden; padding: 2px 0; }
+.wl-track { display: flex; gap: 16px; transition: transform .4s cubic-bezier(.25, .46, .45, .94); will-change: transform; }
+.wl-item { flex: 0 0 210px; }
+
+.wl-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.wl-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: var(--green-bright);
+}
+
+.wl-card-image {
+  width: 100%;
+  height: 150px;
+  background: #f8fbfa;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.wl-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.wl-card-body { padding: 12px 14px 10px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+
+.wl-card-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.wl-card-size {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 0;
+}
+
+.wl-card-price {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin-top: 4px;
+  letter-spacing: .2px;
+}
+
+.wl-card-add {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(270deg, #0f2936 0%, #1d4e66 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: background .22s ease, transform .1s ease, box-shadow .2s ease;
+  box-shadow: 0 4px 12px rgba(0, 179, 126, .28);
+}
+.wl-card-add:hover { background: linear-gradient(270deg, #1d4e66 0%, #2d6e8a 100%); }
+.wl-card-add:active { transform: scale(.975); }
+.wl-card-add:focus-visible {
+  outline: 3px solid var(--green-bright);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (max-width: 900px) {
+  .wl-item { flex: 0 0 190px; }
+  .wl-card-image { height: 130px; }
+}
+
+@media (max-width: 600px) {
+  .wl-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px 18px;
+  }
+  .wl-banner-icon { width: 46px; height: 46px; flex-basis: 46px; }
+  .wl-banner-images {
+    width: 100%;
+    justify-content: center;
+    padding-inline-start: 0;
+    margin-bottom: 10px;
+  }
+  .wl-banner-img { width: 92px; height: 92px; margin-inline-end: -14px; }
+  .wl-banner-copy h2 { font-size: 20px; text-align: center; }
+  .wl-banner-copy p { text-align: center; }
+  .wl-item { flex: 0 0 78%; }
+  .wl-head { flex-direction: column; align-items: stretch; }
+  .wl-view-all { justify-content: center; width: 100%; }
+  .wl-arrows { justify-content: center; width: 100%; margin-top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-track { transition: none; }
+  .wl-card { transition: none; }
+}
+
+/* =======================================================================
+   Dark Mode — قسم "كل اللي محتاجه لرحلة خسارة الوزن"
+   Ink Navy #18251D · Navy Card #1F2F25 · Cream #F2F8F4 · Coral #B08D56
+   ======================================================================= */
+
+[data-theme="dark"] .wl-banner {
+  background:
+    radial-gradient(circle at 10% 30%, rgba(183, 255, 114, 0.24) 0%, transparent 52%),
+    radial-gradient(circle at 92% 88%, rgba(163, 184, 172, 0.06) 0%, transparent 46%),
+    linear-gradient(135deg, #1F2F25 0%, #272244 100%) !important;
+  border: 1.5px solid rgba(163, 184, 172, 0.35) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
+  color: #F2F8F4 !important;
+  overflow: hidden !important;
+}
+
+/* احتواء صور البانر داخل الإطار (كانت تقطع الحدود) */
+[data-theme="dark"] .wl-banner-images {
+  overflow: hidden;
+}
+
+[data-theme="dark"] .wl-banner-img {
+  width: 96px !important;
+  height: 96px !important;
+  margin-inline-end: -20px !important;
+}
+
+[data-theme="dark"] .wl-banner::before {
+  background-image:
+    radial-gradient(70% 150% at 8% 40%, rgba(183, 255, 114, 0.18), transparent 58%),
+    radial-gradient(55% 90% at 92% 12%, rgba(163, 184, 172, 0.05), transparent 48%) !important;
+}
+
+[data-theme="dark"] .wl-banner-copy h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .wl-banner-copy p {
+  color: rgba(163, 184, 172, 0.9) !important;
+}
+
+[data-theme="dark"] .wl-banner-icon {
+  background: #B08D56 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .wl-banner-img,
+[data-theme="dark"] .wl-card-img {
+  /* بدون مزج حتى لا تبدو الصور باهتة فوق الخلفيات الملونة */
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  filter: none !important;
+  background: #FFFFFF !important;
+  border-color: rgba(163, 184, 172, 0.3) !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34) !important;
+}
+
+[data-theme="dark"] .wl-view-all {
+  background: #B08D56 !important;
+  border: 1px solid rgba(183, 255, 114, 0.6) !important;
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.32) !important;
+}
+
+[data-theme="dark"] .wl-view-all:hover {
+  background: #8FE25A !important;
+  color: #FFFFFF !important;
+}
+
+/* أسهم التنقل — إطار Sand واضح لتبزز فوق خلفية القسم */
+[data-theme="dark"] .wl-arrows button {
+  background: #1F2F25 !important;
+  border: 1.5px solid rgba(163, 184, 172, 0.45) !important;
+  color: #F2F8F4 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .wl-arrows button:hover:not(:disabled) {
+  background: #B08D56 !important;
+  border-color: #B08D56 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .wl-arrows button:disabled {
+  opacity: 0.45 !important;
+}
+
+/* بطاقات المنتجات داخل القسم */
+[data-theme="dark"] .wl-card {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .wl-card:hover {
+  border-color: rgba(183, 255, 114, 0.5) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.42) !important;
+}
+
+[data-theme="dark"] .wl-card-image {
+  background: rgba(163, 184, 172, 0.05) !important;
+  border-bottom-color: rgba(163, 184, 172, 0.1) !important;
+}
+
+[data-theme="dark"] .wl-card-name {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .wl-card-size {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .wl-card-price {
+  color: #B08D56 !important;
+}
+
+[data-theme="dark"] .wl-card-add {
+  background: #B08D56 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 16px rgba(183, 255, 114, 0.3) !important;
+}
+
+[data-theme="dark"] .wl-card-add:hover {
+  background: #8FE25A !important;
+  color: #FFFFFF !important;
+}

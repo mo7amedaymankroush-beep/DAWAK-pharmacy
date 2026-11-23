@@ -1,0 +1,946 @@
+﻿/* ===== MonthlyPrescriptionModal — جدولة الروشتة الشهرية ===== */
+
+.mpx-overlay {
+  position: fixed;
+  inset: 0;
+  /* أعلى من الهيدر (z-index: 10000) لضمان ظهور النافذة فوق كل شيء */
+  z-index: 10050;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(3, 35, 30, 0.35);
+  backdrop-filter: blur(8px);
+  animation: mpxFade 0.25s ease both;
+}
+
+@keyframes mpxFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mpx-modal {
+  width: min(880px, calc(100% - 32px));
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.72) !important;
+  border: 2px solid rgba(7, 94, 80, 0.35) !important;
+  box-shadow: 0 24px 60px rgba(6, 72, 63, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.65) !important;
+  padding: 24px 28px;
+  animation: mpxPop 0.3s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes mpxPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- الرأس --- */
+.mpx-head {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 20px 20px 16px 20px;
+  background: linear-gradient(270deg, rgba(6, 72, 63, 0.92) 0%, rgba(25, 140, 120, 0.92) 100%) !important;
+  border-radius: 18px 18px 0 0;
+  color: #ffffff !important;
+}
+
+.mpx-head-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: var(--mint);
+  color: var(--green);
+}
+
+.mpx-head h2 {
+  margin: 0;
+  color: #ffffff !important;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.mpx-head p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.mpx-close {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-inline-start: auto;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff !important;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mpx-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* --- شريط حالة الاشتراك --- */
+.mpx-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 1px solid #a7f3d0;
+  border-radius: 12px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.mpx-status.is-paused {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #a16207;
+}
+
+.mpx-status-actions {
+  display: inline-flex;
+  gap: 7px;
+}
+
+.mpx-status-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 0 11px;
+  border: 1px solid rgba(4, 120, 87, 0.25);
+  border-radius: 9px;
+  background: #fff;
+  color: #047857;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mpx-status.is-paused .mpx-status-actions button {
+  border-color: rgba(161, 98, 7, 0.25);
+  color: #a16207;
+}
+
+.mpx-status-actions button:hover {
+  background: var(--mint-2);
+}
+
+/* --- الأقسام --- */
+.mpx-section {
+  margin-top: 16px;
+  padding: 15px;
+  border: 1px solid rgba(7, 94, 80, 0.16) !important;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78) !important;
+  box-shadow: 0 6px 20px rgba(6, 72, 63, 0.06);
+}
+
+.mpx-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 12px;
+  color: var(--green-deep);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+
+.mpx-section h3 svg {
+  color: var(--green-bright);
+}
+
+/* --- البحث والاقتراحات --- */
+.mpx-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+  color: #7e9c94;
+}
+
+.mpx-search:focus-within {
+  border-color: var(--green-bright);
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, 0.12);
+}
+
+.mpx-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12.5px;
+}
+
+.mpx-suggestions {
+  display: grid;
+  gap: 5px;
+  margin-top: 7px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+}
+
+.mpx-suggestions button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: right;
+  transition: background 0.15s;
+}
+
+.mpx-suggestions button:hover {
+  background: var(--mint);
+}
+.mpx-suggestions strong {
+  color: var(--green-deep);
+  font-weight: 800;
+}
+.mpx-suggestions span {
+  color: var(--green);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* --- الإدخال اليدوي --- */
+.mpx-manual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.mpx-manual input {
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12.5px;
+  outline: none;
+}
+
+.mpx-manual input:focus {
+  border-color: var(--green-bright);
+}
+
+.mpx-manual button {
+  padding: 0 18px;
+  border: 1px solid #cae7dc;
+  border-radius: 11px;
+  background: #eaf7f1;
+  color: var(--green-dark);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mpx-manual button:hover {
+  background: #dff2e9;
+}
+
+/* --- قائمة الأدوية المختارة --- */
+.mpx-items {
+  display: grid;
+  gap: 7px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mpx-items li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.mpx-item-name {
+  min-width: 0;
+  color: var(--green-deep);
+  font-size: 12px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.mpx-item-price {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mpx-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mpx-qty button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--mint-2);
+  color: var(--green-dark);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mpx-qty span {
+  min-width: 16px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.mpx-remove {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b24636;
+  cursor: pointer;
+}
+
+.mpx-remove:hover {
+  background: #fee2e2;
+}
+
+/* --- الجدولة --- */
+.mpx-days {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mpx-day {
+  min-height: 44px;
+  border: 1px solid #cde0da;
+  border-radius: 11px;
+  background: #fff;
+  color: #123d38;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.mpx-day:hover {
+  border-color: #9edac7;
+}
+
+.mpx-day.is-active {
+  border: none;
+  background: linear-gradient(270deg, #06483f 0%, #198c78 100%) !important;
+  color: #ffffff !important;
+  font-weight: 800;
+}
+
+.mpx-remind {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 11px;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mpx-remind input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mpx-remind-mark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: transparent;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.mpx-remind input:checked + .mpx-remind-mark {
+  background: var(--green-bright);
+  border-color: var(--green-bright);
+  color: #fff;
+}
+
+/* --- الملخص --- */
+.mpx-summary {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 15px;
+  border: 1px solid #cde0da;
+  border-radius: 16px;
+  background: #eef7f4;
+}
+
+.mpx-summary > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.mpx-summary span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #123d38;
+  font-weight: 700;
+}
+.mpx-summary strong {
+  color: #075e50;
+  font-weight: 800;
+}
+
+.mpx-summary-discount {
+  color: #075e50;
+}
+.mpx-summary-discount span {
+  color: #075e50;
+  font-weight: 800;
+}
+.mpx-summary-discount svg {
+  color: #075e50;
+}
+
+.mpx-summary-total {
+  padding-top: 9px;
+  border-top: 1px dashed #cde0da;
+}
+
+.mpx-summary-total span {
+  color: #123d38;
+  font-weight: 800;
+}
+.mpx-summary-total strong {
+  color: #075e50;
+  font-size: 15px;
+}
+
+/* --- الأخطاء --- */
+.mpx-error {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #b24636;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* --- أزرار الإجراءات --- */
+.mpx-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.mpx-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1.5px solid #075e50;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #075e50;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.mpx-save:hover {
+  background: #f4faf8;
+  border-color: #06483f;
+}
+
+.mpx-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  flex: 1;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #ffffff !important;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(6, 72, 63, 0.22);
+  transition:
+    transform 0.2s,
+    filter 0.2s;
+}
+
+.mpx-order:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+.mpx-order:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 560px) {
+  .mpx-modal {
+    padding: 16px;
+  }
+  .mpx-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mpx-head p {
+    font-size: 11px;
+  }
+}
+
+/* --- التنبيه عند محاولة الإغلاق وتوجد تعديلات --- */
+.mpx-modal.is-shaking {
+  animation: mpxShake 0.4s ease both;
+}
+
+@keyframes mpxShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-9px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.mpx-unsaved {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #a16207;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  animation: mpxFade 0.25s ease both;
+}
+
+/* =======================================================================
+   Dark Mode — نافذة الروشتة الشهرية
+   Forest #18251D · Card #1F2F25 · Sand #F2F8F4 · Purple #B7FF72
+   ======================================================================= */
+
+[data-theme="dark"] .mpx-overlay {
+  background: rgba(12, 24, 16, 0.72) !important;
+}
+
+[data-theme="dark"] .mpx-modal {
+  background: #1F2F25 !important;
+  border: 1.5px solid rgba(163, 184, 172, 0.35) !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55) !important;
+  color: #F2F8F4 !important;
+}
+
+/* --- الرأس --- */
+[data-theme="dark"] .mpx-head {
+  border-bottom-color: rgba(163, 184, 172, 0.18) !important;
+}
+
+[data-theme="dark"] .mpx-head-icon {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-head h2 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-head p {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .mpx-head span,
+[data-theme="dark"] .mpx-status span {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-section label,
+[data-theme="dark"] .mpx-section p,
+[data-theme="dark"] .mpx-remind span {
+  color: rgba(163, 184, 172, 0.85) !important;
+}
+
+[data-theme="dark"] .mpx-close {
+  background: rgba(163, 184, 172, 0.08) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-close:hover {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+/* --- شريط الحالة --- */
+[data-theme="dark"] .mpx-status {
+  background: rgba(183, 255, 114, 0.14) !important;
+  border-color: rgba(183, 255, 114, 0.4) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-status.is-paused {
+  background: rgba(163, 184, 172, 0.08) !important;
+  border-color: rgba(163, 184, 172, 0.28) !important;
+}
+
+[data-theme="dark"] .mpx-status-actions button {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-status-actions button:hover {
+  background: #8FE25A !important;
+  border-color: #8FE25A !important;
+  color: #FFFFFF !important;
+}
+
+/* --- الأقسام --- */
+[data-theme="dark"] .mpx-section {
+  background: rgba(163, 184, 172, 0.04) !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-section h3 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-section h3 svg {
+  color: #B7FF72 !important;
+}
+
+/* --- البحث والاقتراحات --- */
+[data-theme="dark"] .mpx-search {
+  background: #121D16 !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-search input,
+[data-theme="dark"] .mpx-manual input {
+  background: #121D16 !important;
+  color: #F2F8F4 !important;
+  border: 0 !important;
+}
+
+[data-theme="dark"] .mpx-search input::placeholder {
+  color: rgba(163, 184, 172, 0.5) !important;
+}
+
+[data-theme="dark"] .mpx-search svg {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .mpx-search:focus-within {
+  border-color: #B7FF72 !important;
+  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+}
+
+[data-theme="dark"] .mpx-suggestions {
+  background: #121D16 !important;
+  border: 1px solid rgba(163, 184, 172, 0.2) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45) !important;
+}
+
+[data-theme="dark"] .mpx-suggestions button {
+  background: transparent !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-suggestions button:hover {
+  background: rgba(183, 255, 114, 0.18) !important;
+}
+
+[data-theme="dark"] .mpx-suggestions strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-suggestions span {
+  color: #B7FF72 !important;
+}
+
+/* --- الإدخال اليدوي --- */
+[data-theme="dark"] .mpx-manual input {
+  background: #121D16 !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-manual input::placeholder {
+  color: rgba(163, 184, 172, 0.5) !important;
+}
+
+[data-theme="dark"] .mpx-manual input:focus {
+  border-color: #B7FF72 !important;
+  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+}
+
+[data-theme="dark"] .mpx-manual button {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-manual button:hover {
+  background: #8FE25A !important;
+  color: #FFFFFF !important;
+}
+
+/* --- قائمة الأدوية المختارة --- */
+[data-theme="dark"] .mpx-items li {
+  background: #18251D !important;
+  border-color: rgba(163, 184, 172, 0.16) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-item-name {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-item-price {
+  color: rgba(163, 184, 172, 0.72) !important;
+}
+
+[data-theme="dark"] .mpx-qty button {
+  background: rgba(163, 184, 172, 0.1) !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-qty button:hover {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-qty span {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-remove {
+  background: rgba(183, 255, 114, 0.16) !important;
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .mpx-remove:hover {
+  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+/* --- الجدولة --- */
+[data-theme="dark"] .mpx-day {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-day:hover {
+  border-color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .mpx-day.is-active {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-remind {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border: 1px solid rgba(163, 184, 172, 0.18) !important;
+  color: rgba(163, 184, 172, 0.85) !important;
+}
+
+[data-theme="dark"] .mpx-remind-mark {
+  background: transparent !important;
+}
+
+[data-theme="dark"] .mpx-remind input:checked + .mpx-remind-mark {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-remind-mark {
+  background: rgba(163, 184, 172, 0.1) !important;
+  border-color: rgba(163, 184, 172, 0.24) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .mpx-remind input:checked + .mpx-remind-mark {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #FFFFFF !important;
+}
+
+/* --- الملخص --- */
+[data-theme="dark"] .mpx-summary {
+  background: #121D16 !important;
+  border: 1px solid rgba(163, 184, 172, 0.2) !important;
+}
+
+[data-theme="dark"] .mpx-summary span,
+[data-theme="dark"] .mpx-summary strong {
+  color: #F2F8F4 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .mpx-summary span {
+  color: rgba(163, 184, 172, 0.82) !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="dark"] .mpx-item-price {
+  color: rgba(163, 184, 172, 0.82) !important;
+}
+
+[data-theme="dark"] .mpx-summary-discount,
+[data-theme="dark"] .mpx-summary-discount span {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .mpx-summary-discount svg {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .mpx-summary-total {
+  border-top-color: rgba(163, 184, 172, 0.22) !important;
+}
+
+[data-theme="dark"] .mpx-summary-total span,
+[data-theme="dark"] .mpx-summary-total strong {
+  color: #F2F8F4 !important;
+}
+
+/* --- رسائل --- */
+[data-theme="dark"] .mpx-error {
+  color: #FFA8A1 !important;
+}
+
+[data-theme="dark"] .mpx-unsaved {
+  background: rgba(245, 161, 42, 0.16) !important;
+  color: #FFD08A !important;
+}
+
+/* --- الأزرار السفلية --- */
+[data-theme="dark"] .mpx-actions {
+  border-top-color: rgba(163, 184, 172, 0.18) !important;
+}
+
+[data-theme="dark"] .mpx-save,
+[data-theme="dark"] .mpx-order {
+  background: #B7FF72 !important;
+  border-color: #B7FF72 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.3) !important;
+}
+
+[data-theme="dark"] .mpx-save:hover,
+[data-theme="dark"] .mpx-order:hover {
+  background: #8FE25A !important;
+  border-color: #8FE25A !important;
+  color: #FFFFFF !important;
+}

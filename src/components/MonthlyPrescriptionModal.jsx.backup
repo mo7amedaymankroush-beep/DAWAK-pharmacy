@@ -1,0 +1,423 @@
+import { useMemo, useState } from "react";
+import {
+  X,
+  Search,
+  CalendarDays,
+  BellRing,
+  Pill,
+  Percent,
+  Trash2,
+  PauseCircle,
+  PlayCircle,
+  ShoppingCart,
+  Pencil,
+  Save,
+  Repeat,
+} from "lucide-react";
+import { drugs } from "../data/drugs";
+import "./MonthlyPrescriptionModal.css";
+
+// Use phone-dependent storage key to isolate data per customer
+// Key format: dawak_monthly_${phone} - will be set dynamically
+let STORAGE_KEY = "dawak-monthly-rx";
+
+export function setMonthlyRxStorageKey(phone) {
+  // Create isolated key per phone number
+  STORAGE_KEY = `dawak-monthly-${phone || "guest"}`;
+}
+
+export function readMonthlyRx(phone) {
+  try {
+    const key = `dawak-monthly-${phone || "guest"}`;
+    const parsed = JSON.parse(localStorage.getItem(key) || "null");
+    if (!parsed || !Array.isArray(parsed.items)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function saveMonthlyRx(rx, phone) {
+  try {
+    const key = `dawak-monthly-${phone || "guest"}`;
+    localStorage.setItem(key, JSON.stringify(rx));
+  } catch {
+    /* التخزين غير متاح */
+  }
+}
+
+export default function MonthlyPrescriptionModal({
+  onClose,
+  onNotice,
+  onAddMonthlyToCart,
+}) {
+  const [saved, setSaved] = useState(readMonthlyRx);
+  const [items, setItems] = useState(saved?.items || []);
+  const [deliveryDay, setDeliveryDay] = useState(saved?.deliveryDay || 15);
+  const [remindBefore, setRemindBefore] = useState(saved?.remindBefore ?? true);
+  const [paused, setPaused] = useState(saved?.paused || false);
+  const [manualName, setManualName] = useState("");
+  const [search, setSearch] = useState("");
+  const [error, setError] = useState("");
+  const [shake, setShake] = useState(false);
+  const [unsavedHint, setUnsavedHint] = useState(false);
+
+  const suggestions = useMemo(() => {
+    const term = search.trim();
+    if (!term) return [];
+    return drugs
+      .filter((product) =>
+        [product.name, product.brand, product.activeIngredient].some((field) =>
+          String(field || "").includes(term),
+        ),
+      )
+      .slice(0, 5);
+  }, [search]);
+
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+  const discount = Number((subtotal * MONTHLY_DISCOUNT).toFixed(2));
+  const total = Number((subtotal - discount).toFixed(2));
+
+  const hasUnsavedChanges = items.length > 0 || search.trim() !== "" || manualName.trim() !== "";
+
+  // إغلاق ذكي: الضغط خارج النافذة يغلق فورًا إذا كانت فارغة تمامًا،
+  // وإلا يعرض تنبيهًا لطيفًا بالاهتزاز دون إغلاق
+  function handleBackdropClick() {
+    if (!hasUnsavedChanges) {
+      onClose();
+      return;
+    }
+
+    setUnsavedHint(true);
+    setShake(true);
+    window.setTimeout(() => setShake(false), 450);
+    window.setTimeout(() => setUnsavedHint(false), 3000);
+  }
+
+  function addDrug(product) {
+    setError("");
+    setItems((current) => {
+      const existing = current.find((item) => item.id === product.id);
+      if (existing) {
+        return current.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+      }
+      return [
+        ...current,
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: 1,
+        },
+      ];
+    });
+    setSearch("");
+  }
+
+  function addManual() {
+    const name = manualName.trim();
+    if (!name) {
+      setError("اكتب اسم الدواء أولًا");
+      return;
+    }
+    setError("");
+    setItems((current) => [
+      ...current,
+      { id: `manual-${Date.now()}`, name, price: 0, quantity: 1, manual: true },
+    ]);
+    setManualName("");
+  }
+
+  function changeQuantity(id, delta) {
+    setItems((current) =>
+      current
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: Math.max(0, item.quantity + delta) }
+            : item,
+        )
+        .filter((item) => item.quantity > 0),
+    );
+  }
+
+  function removeItem(id) {
+    setItems((current) => current.filter((item) => item.id !== id));
+  }
+
+  function handleSave({ silent = false } = {}) {
+    if (!items.length) {
+      setError("أضف دواء واحد على الأقل للاشتراك الشهري");
+      return;
+    }
+
+    const rx = {
+      items,
+      deliveryDay,
+      remindBefore,
+      paused,
+      updatedAt: Date.now(),
+    };
+    saveMonthlyRx(rx);
+    setSaved(rx);
+    if (!silent) onNotice?.("تم حفظ روشتتك الشهرية بنجاح 💚");
+  }
+
+  function togglePause() {
+    const nextPaused = !paused;
+    setPaused(nextPaused);
+    const rx = {
+      items,
+      deliveryDay,
+      remindBefore,
+      paused: nextPaused,
+      updatedAt: Date.now(),
+    };
+    saveMonthlyRx(rx);
+    setSaved(rx);
+    onNotice?.(
+      nextPaused
+        ? "تم إيقاف الروشتة الشهرية مؤقتًا"
+        : "تم تفعيل الروشتة الشهرية",
+    );
+  }
+
+  function orderNow() {
+    if (!items.length) {
+      setError("أضف دواء واحد على الأقل");
+      return;
+    }
+    handleSave({ silent: true });
+    onAddMonthlyToCart?.(items);
+  }
+
+  return (
+    <div
+      className="mpx-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mpx-title"
+      onClick={handleBackdropClick}
+    >
+      <div className={`mpx-modal${shake ? " is-shaking" : ""}`} onClick={(event) => event.stopPropagation()}>
+        <header className="mpx-head">
+          <span className="mpx-head-icon">
+            <Repeat size={20} />
+          </span>
+          <div>
+            <h2 id="mpx-title">الروشتة الشهرية</h2>
+            <p>سجّل أدويتك مرة واحدة.. ونوصلهالك كل شهر بخصم 5%</p>
+          </div>
+          <button
+            type="button"
+            className="mpx-close"
+            onClick={onClose}
+            aria-label="إغلاق النافذة"
+          >
+            <X size={17} />
+          </button>
+        </header>
+
+        {saved && (
+          <div className={`mpx-status${paused ? " is-paused" : ""}`}>
+            <span>{paused ? "الاشتراك موقوف مؤقتًا" : "الاشتراك مفعّل"}</span>
+            <div className="mpx-status-actions">
+              <button type="button" onClick={togglePause}>
+                {paused ? <PlayCircle size={14} /> : <PauseCircle size={14} />}
+                {paused ? "تفعيل" : "إيقاف مؤقت"}
+              </button>
+              <button type="button" onClick={() => setSaved(null)}>
+                <Pencil size={13} />
+                تعديل
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* اختيار الأدوية */}
+        <section className="mpx-section">
+          <h3>
+            <Pill size={15} />
+            أدويتك الشهرية
+          </h3>
+
+          <div className="mpx-search">
+            <Search size={15} />
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="ابحث عن دواء من منتجات الموقع..."
+              aria-label="بحث في الأدوية"
+            />
+          </div>
+
+          {suggestions.length > 0 && (
+            <div className="mpx-suggestions">
+              {suggestions.map((product) => (
+                <button
+                  type="button"
+                  key={product.id}
+                  onClick={() => addDrug(product)}
+                >
+                  <strong>{product.name}</strong>
+                  <span>{product.price} ج.م</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="mpx-manual">
+            <input
+              type="text"
+              value={manualName}
+              onChange={(event) => setManualName(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  addManual();
+                }
+              }}
+              placeholder="أو اكتب اسم دواء غير متوفر يدويًا..."
+              aria-label="اسم دواء يدوي"
+              maxLength={80}
+            />
+            <button type="button" onClick={addManual}>
+              إضافة
+            </button>
+          </div>
+
+          {items.length > 0 && (
+            <ul className="mpx-items">
+              {items.map((item) => (
+                <li key={item.id}>
+                  <span className="mpx-item-name">
+                    {item.name}
+                    {item.manual ? " (يدوي)" : ""}
+                  </span>
+                  <span className="mpx-item-price">
+                    {item.price ? `${item.price} ج.م` : "سعر عند المراجعة"}
+                  </span>
+                  <div className="mpx-qty">
+                    <button
+                      type="button"
+                      aria-label="تقليل"
+                      onClick={() => changeQuantity(item.id, -1)}
+                    >
+                      −
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      type="button"
+                      aria-label="زيادة"
+                      onClick={() => changeQuantity(item.id, 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    className="mpx-remove"
+                    aria-label={`حذف ${item.name}`}
+                    onClick={() => removeItem(item.id)}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        {/* الجدولة */}
+        <section className="mpx-section">
+          <h3>
+            <CalendarDays size={15} />
+            موعد التوصيل الشهري
+          </h3>
+
+          <div className="mpx-days">
+            {DELIVERY_DAYS.map((day) => (
+              <button
+                key={day}
+                type="button"
+                className={`mpx-day${deliveryDay === day ? " is-active" : ""}`}
+                onClick={() => setDeliveryDay(day)}
+              >
+                يوم {day}
+              </button>
+            ))}
+          </div>
+
+          <label className="mpx-remind">
+            <input
+              type="checkbox"
+              checked={remindBefore}
+              onChange={(event) => setRemindBefore(event.target.checked)}
+            />
+            <span className="mpx-remind-mark">
+              <BellRing size={12} />
+            </span>
+            تذكيري قبل الموعد بيومين
+          </label>
+        </section>
+
+        {/* الملخص والخصم */}
+        <section className="mpx-summary">
+          <div>
+            <span>إجمالي الأدوية</span>
+            <strong>
+              {total ? `${subtotal.toLocaleString("ar-EG")} ج.م` : "—"}
+            </strong>
+          </div>
+          <div className="mpx-summary-discount">
+            <span>
+              <Percent size={13} /> خصم الروشتة الشهرية (5%)
+            </span>
+            <strong>- {discount.toLocaleString("ar-EG")} ج.م</strong>
+          </div>
+          <div className="mpx-summary-total">
+            <span>الإجمالي الشهري</span>
+            <strong>
+              {total ? `${total.toLocaleString("ar-EG")} ج.م` : "—"}
+            </strong>
+          </div>
+        </section>
+
+        {error && (
+          <p className="mpx-error" role="alert">
+            {error}
+          </p>
+        )}
+
+        {unsavedHint && (
+          <p className="mpx-unsaved" role="status">
+            لديك تعديلات غير محفوظة — اضغط على زر ✕ للإغلاق
+          </p>
+        )}
+
+        <footer className="mpx-actions">
+          <button
+            type="button"
+            className="mpx-save"
+            onClick={() => handleSave()}
+          >
+            <Save size={15} />
+            حفظ الروشتة
+          </button>
+
+          <button type="button" className="mpx-order" onClick={orderNow}>
+            <ShoppingCart size={15} />
+            اطلب روشتتي الشهرية الآن (بخصم 5%)
+          </button>
+        </footer>
+      </div>
+    </div>
+  );
+}

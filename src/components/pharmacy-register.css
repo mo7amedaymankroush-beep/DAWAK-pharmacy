@@ -1,0 +1,694 @@
+﻿/* ===== PharmacyRegister — تسجيل وانضمام صيدلية جديدة ===== */
+
+.preg-page {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 26px 18px 56px;
+  color: var(--ink);
+}
+
+/* ---------------- الرأس ---------------- */
+.preg-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.preg-head-copy h1 {
+  margin: 10px 0 6px;
+  color: var(--green-deep);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.preg-head-copy p {
+  margin: 0;
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+.preg-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--mint-2);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.preg-login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--green-dark);
+  font-size: 12.5px;
+  font-weight: 800;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.preg-login-link:hover {
+  background: var(--mint-2);
+  border-color: #9edac7;
+  transform: translateY(-1px);
+}
+
+/* ---------------- النموذج ---------------- */
+.preg-form {
+  display: grid;
+  gap: 16px;
+}
+
+.preg-card {
+  margin: 0;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(6, 72, 63, 0.05);
+}
+
+.preg-card legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  color: var(--green-deep);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.preg-card legend svg {
+  color: var(--green-bright);
+}
+
+.preg-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.preg-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.preg-field {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #43665e;
+}
+
+.preg-field--wide {
+  grid-column: 1 / -1;
+}
+
+.preg-field > span {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.preg-field b {
+  color: #b3261e;
+  font-weight: 800;
+}
+
+.preg-field input,
+.preg-field select {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #d5ddd9;
+  border-radius: 11px;
+  background: #fbfdfc;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+
+.preg-field input::placeholder {
+  color: #9aaca7;
+  font-weight: 500;
+}
+
+.preg-field input:focus,
+.preg-field select:focus {
+  border-color: var(--green-bright);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, 0.12);
+}
+
+.preg-field input[aria-invalid="true"] {
+  border-color: #e0a49c;
+  background: #fff7f6;
+}
+
+.preg-field em {
+  color: #b3261e;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.preg-error-inline {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #b3261e;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ---------------- اختيار مواعيد العمل ---------------- */
+.preg-choices {
+  display: flex;
+  gap: 10px;
+  margin: 4px 0 14px;
+  flex-wrap: wrap;
+}
+
+.preg-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #d5ddd9;
+  border-radius: 11px;
+  background: #fbfdfc;
+  color: #43665e;
+  font-size: 12.5px;
+  font-weight: 800;
+  transition: all 0.18s ease;
+}
+
+.preg-choice:hover {
+  border-color: #9edac7;
+}
+
+.preg-choice.is-active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(7, 94, 80, 0.22);
+}
+
+/* ---------------- مفتاح التوصيل ---------------- */
+.preg-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+  padding: 14px 16px;
+  border: 1px solid #dcebe6;
+  border-radius: 13px;
+  background: var(--mint-2);
+  cursor: pointer;
+}
+
+.preg-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.preg-switch-track {
+  position: relative;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #c4d6d0;
+  transition: background 0.2s;
+}
+
+.preg-switch-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s;
+}
+
+.preg-switch input:checked + .preg-switch-track {
+  background: var(--green-bright);
+}
+
+.preg-switch input:checked + .preg-switch-track::after {
+  transform: translateX(-20px);
+}
+
+.preg-switch input:focus-visible + .preg-switch-track {
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, 0.25);
+}
+
+.preg-switch-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--green-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ---------------- الأزرار ---------------- */
+.preg-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 18px 4px 0;
+}
+
+.preg-foot p {
+  margin: 0;
+  max-width: 540px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.preg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 13px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    background 0.18s;
+}
+
+.preg-btn--primary {
+  background: linear-gradient(135deg, #B08D56 0%, #0d9488 100%);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(7, 94, 80, 0.26);
+}
+
+.preg-btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(7, 94, 80, 0.32);
+}
+
+.preg-btn--primary:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.preg-btn--ghost {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--green-dark);
+}
+
+.preg-btn--ghost:hover {
+  background: var(--mint-2);
+}
+
+.preg-btn--submit {
+  flex: 0 0 auto;
+}
+
+.preg-login-foot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 4px auto 0;
+  padding: 10px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.preg-login-foot strong {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.preg-error-box {
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #f3c3bc;
+  border-radius: 11px;
+  background: #fff4f2;
+  color: #a23d32;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* ---------------- شاشة النجاح ---------------- */
+.preg-success {
+  max-width: 760px;
+  margin: 26px auto 0;
+  padding: 34px clamp(18px, 4vw, 40px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgba(6, 72, 63, 0.1);
+  text-align: center;
+}
+
+.preg-success-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--mint);
+  color: var(--green);
+}
+
+.preg-success h1 {
+  margin: 0 0 10px;
+  color: var(--green-deep);
+  font-size: clamp(21px, 2.6vw, 28px);
+  font-weight: 800;
+}
+
+.preg-success > p {
+  margin: 0 auto 22px;
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.95;
+}
+
+.preg-success > p strong {
+  color: var(--green-dark);
+}
+
+.preg-success-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--mint-2);
+  text-align: right;
+}
+
+.preg-success-facts > div {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.preg-success-facts span {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.preg-success-facts strong {
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.preg-success-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- التجاوب ---------------- */
+@media (max-width: 860px) {
+  .preg-grid,
+  .preg-grid--3 {
+    grid-template-columns: 1fr;
+  }
+  .preg-success-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .preg-page {
+    padding: 18px 12px 44px;
+  }
+  .preg-card {
+    padding: 16px 14px 18px;
+  }
+  .preg-head {
+    flex-direction: column;
+  }
+  .preg-login-link {
+    width: 100%;
+    justify-content: center;
+  }
+  .preg-success-facts {
+    grid-template-columns: 1fr;
+  }
+  .preg-success-actions > * {
+    width: 100%;
+  }
+  .preg-btn--submit {
+    width: 100%;
+  }
+}
+
+/* ===========================================================================
+   Dark Mode — لوحة #18251D / #1F2F25 / #F2F8F4 / #B08D56
+   =========================================================================== */
+
+[data-theme="dark"] .preg-page {
+  background: transparent !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-head-copy h1 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-head-copy p {
+  color: rgba(163, 184, 172, 0.75) !important;
+}
+
+[data-theme="dark"] .preg-kicker {
+  background: rgba(183, 255, 114, 0.16) !important;
+  border-color: rgba(183, 255, 114, 0.4) !important;
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .preg-login-link {
+  background: #1F2F25 !important;
+  border-color: rgba(163, 184, 172, 0.18) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-login-link:hover {
+  background: #B08D56 !important;
+  border-color: #B08D56 !important;
+  color: #ffffff !important;
+}
+
+/* — البطاقات — */
+[data-theme="dark"] .preg-card,
+[data-theme="dark"] .preg-success {
+  background: #1F2F25 !important;
+  border: 1px solid rgba(163, 184, 172, 0.16) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32) !important;
+}
+
+[data-theme="dark"] .preg-card legend {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-card legend svg {
+  color: #B08D56 !important;
+}
+
+/* — الحقول — */
+[data-theme="dark"] .preg-field {
+  color: rgba(163, 184, 172, 0.8) !important;
+}
+
+[data-theme="dark"] .preg-field input,
+[data-theme="dark"] .preg-field select {
+  background: #121D16 !important;
+  border-color: rgba(163, 184, 172, 0.22) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-field input::placeholder {
+  color: rgba(163, 184, 172, 0.42) !important;
+}
+
+[data-theme="dark"] .preg-field input:focus,
+[data-theme="dark"] .preg-field select:focus {
+  border-color: #B08D56 !important;
+  background: #121D16 !important;
+  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.24) !important;
+}
+
+[data-theme="dark"] .preg-field select option {
+  background: #1F2F25 !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-field input[aria-invalid="true"] {
+  border-color: #ff8a80 !important;
+  background: rgba(183, 255, 114, 0.1) !important;
+}
+
+/* — أزرار المواعيد — */
+[data-theme="dark"] .preg-choice {
+  background: rgba(163, 184, 172, 0.06) !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-choice:hover {
+  border-color: #B08D56 !important;
+}
+
+[data-theme="dark"] .preg-choice.is-active {
+  background: #B08D56 !important;
+  border-color: #B08D56 !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.3) !important;
+}
+
+/* — مفتاح التوصيل — */
+[data-theme="dark"] .preg-switch {
+  background: rgba(163, 184, 172, 0.05) !important;
+  border-color: rgba(163, 184, 172, 0.18) !important;
+}
+
+[data-theme="dark"] .preg-switch-track {
+  background: rgba(163, 184, 172, 0.22) !important;
+}
+
+[data-theme="dark"] .preg-switch input:checked + .preg-switch-track {
+  background: #B08D56 !important;
+}
+
+[data-theme="dark"] .preg-switch-text {
+  color: #F2F8F4 !important;
+}
+
+/* — الأزرار الرئيسية — */
+[data-theme="dark"] .preg-foot p {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .preg-btn--primary {
+  background: #B08D56 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.3) !important;
+}
+
+[data-theme="dark"] .preg-btn--primary:hover:not(:disabled) {
+  background: #e84d41 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .preg-btn--ghost {
+  background: rgba(163, 184, 172, 0.08) !important;
+  border-color: rgba(163, 184, 172, 0.2) !important;
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-btn--ghost:hover {
+  background: #B08D56 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .preg-login-foot {
+  color: rgba(163, 184, 172, 0.7) !important;
+}
+
+[data-theme="dark"] .preg-login-foot strong {
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .preg-error-box {
+  background: rgba(183, 255, 114, 0.12) !important;
+  border-color: rgba(183, 255, 114, 0.42) !important;
+  color: #ffb3ad !important;
+}
+
+/* — شاشة النجاح — */
+[data-theme="dark"] .preg-success h1 {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-success > p {
+  color: rgba(163, 184, 172, 0.78) !important;
+}
+
+[data-theme="dark"] .preg-success > p strong {
+  color: #F2F8F4 !important;
+}
+
+[data-theme="dark"] .preg-success-icon {
+  background: rgba(183, 255, 114, 0.18) !important;
+  color: #B08D56 !important;
+}
+
+[data-theme="dark"] .preg-success-facts {
+  background: rgba(163, 184, 172, 0.05) !important;
+}
+
+[data-theme="dark"] .preg-success-facts > div {
+  background: #18251D !important;
+}
+
+[data-theme="dark"] .preg-success-facts span {
+  color: rgba(163, 184, 172, 0.65) !important;
+}
+
+[data-theme="dark"] .preg-success-facts strong {
+  color: #F2F8F4 !important;
+}

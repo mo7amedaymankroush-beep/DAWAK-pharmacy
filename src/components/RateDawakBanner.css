@@ -1,0 +1,713 @@
+﻿/* ===== RateDawakBanner — كارت تقييم تجربة دواك =====
+   أوف وايت مطفي (Matte Off-White) في الوضعين النهاري والليلي
+   البانر: #F5F3EE · البطاقات: #ECE9E1 · نصوص: #18251D / #4A5D52 · نجوم: #D99B26 */
+
+.rate-banner {
+  /* مطابق لعرض pharmacy-cta-content (1200px) مع نفس آلية الهوامش */
+  max-width: 1200px;
+  width: calc(100% - 32px);
+  margin: 0 auto 16px;
+  padding: 20px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 22px;
+  background: linear-gradient(270deg, #9c7638 0%, #b8914e 52%, #cfa968 100%) !important;
+  box-shadow: 0 14px 34px rgba(156, 118, 56, 0.22);
+  position: relative;
+  overflow: hidden;
+  color: #ffffff !important;
+}
+
+/* --- الرأس: دعوة + متوسط التقييم في صف أفقي واحد --- */
+.rate-banner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.rate-banner-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.rate-banner-kicker svg {
+  color: #ffffff;
+}
+
+.rate-banner-copy h2 {
+  margin: 8px 0 5px;
+  color: #ffffff !important;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.rate-banner-copy p {
+  margin: 0;
+  max-width: 520px;
+  color: #fdf8ee !important;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.rate-open-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  margin-top: 10px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 12px;
+  background: #ffffff !important;
+  color: #7a5821 !important;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.rate-open-button svg {
+  color: #7a5821 !important;
+}
+
+.rate-open-button:hover {
+  background: #f5f5f5 !important;
+  transform: translateY(-1px);
+}
+.rate-open-button:active {
+  transform: scale(0.97);
+}
+
+/* لوحة المتوسط — مدمجة */
+.rate-banner-score {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-width: 150px;
+  padding: 12px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  background: #ffffff !important;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.rate-score-number {
+  color: #4a3512 !important;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.rate-score-of {
+  color: #4a3512 !important;
+  font-size: 11px;
+  font-weight: 800;
+}
+.rate-score-count {
+  color: #4a3512 !important;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* --- النجوم --- */
+.rate-stars {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.rate-star {
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: rgba(24, 37, 29, 0.22);
+  cursor: default;
+  transition:
+    transform 0.15s,
+    color 0.15s;
+}
+
+.rate-star.is-active {
+  color: #f59e0b !important;
+}
+.rate-star.is-active svg {
+  fill: #f59e0b !important;
+}
+
+.rate-stars--input {
+  gap: 5px;
+}
+
+.rate-stars--input .rate-star {
+  cursor: pointer;
+}
+
+.rate-stars--input .rate-star:hover {
+  transform: translateY(-3px) scale(1.12);
+}
+
+/* --- رسالة الشكر --- */
+.rate-thanks {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 11px;
+  background: #ffffff !important;
+  color: #4a3512 !important;
+  font-size: 12.5px;
+  font-weight: 700;
+  animation: ratePop 0.35s ease both;
+}
+
+.rate-thanks svg {
+  color: #f59e0b !important;
+  fill: #f59e0b !important;
+}
+
+@keyframes ratePop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- نموذج التقييم (Expand/Transition) --- */
+.rate-form-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    margin-top 0.45s;
+}
+
+.rate-form-wrap.is-open {
+  grid-template-rows: 1fr;
+  margin-top: 14px;
+}
+
+.rate-form {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  background: #ffffff !important;
+  box-shadow: none;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.rate-form-wrap.is-open .rate-form {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rate-form-close {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #4a3512 !important;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rate-form-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.rate-form-title {
+  color: #4a3512 !important;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.rate-stars-block {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.rate-format {
+  min-height: 20px;
+  color: #4a3512 !important;
+  font-size: 12.5px;
+  font-weight: 800;
+  transition: color 0.2s;
+}
+
+.rate-format.is-bad {
+  color: #b91c1c;
+}
+.rate-format.is-mid {
+  color: #a16207;
+}
+.rate-format.is-good {
+  color: #047857;
+}
+
+.rate-comment {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 11px;
+  background: #ffffff !important;
+  color: #4a3512 !important;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.8;
+  resize: vertical;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.rate-comment:focus {
+  border-color: #4a3512 !important;
+  box-shadow: 0 0 0 3px rgba(24, 37, 29, 0.1);
+}
+
+.rate-form-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rate-name-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 240px;
+  max-width: 300px;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 11px;
+  background: #ffffff !important;
+  color: #4a3512 !important;
+}
+
+.rate-name-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #4a3512 !important;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.rate-form-actions {
+  display: inline-flex;
+  gap: 9px;
+}
+
+.rate-cancel {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 11px;
+  background: #ffffff !important;
+  color: #4a3512 !important;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rate-cancel:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.rate-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 11px;
+  background: #ffffff !important;
+  color: #7a5821 !important;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.rate-submit svg {
+  color: #7a5821 !important;
+}
+
+.rate-submit:hover:not(:disabled) {
+  background: #f5f5f5 !important;
+  transform: translateY(-1px);
+}
+.rate-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* --- آراء العملاء — مدمجة وأفقية --- */
+.rate-reviews {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(24, 37, 29, 0.16);
+}
+
+.rate-reviews-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  color: #4a3512 !important;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+
+.rate-reviews-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.rate-review {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  background: #ffffff !important;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.rate-review:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(255, 255, 255, 0.2);
+}
+
+.rate-review-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rate-review-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #4a3512 !important;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.rate-review-name svg {
+  color: #f59e0b !important;
+}
+
+.rate-review-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #4a3512 !important;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.rate-review-text {
+  margin: 0;
+  color: #4a3512 !important;
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+/* --- التجاوب --- */
+@media (max-width: 900px) {
+  .rate-banner {
+    width: calc(100% - 24px);
+    margin-bottom: 12px;
+    padding: 18px 16px;
+  }
+  .rate-banner-head {
+    flex-direction: column;
+    text-align: center;
+  }
+  .rate-banner-copy p {
+    margin-inline: auto;
+  }
+  .rate-banner-score {
+    justify-self: center;
+  }
+  .rate-reviews-list {
+    grid-template-columns: 1fr;
+  }
+  .rate-form-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .rate-name-field {
+    max-width: none;
+  }
+  .rate-form-actions {
+    justify-content: stretch;
+  }
+  .rate-form-actions > * {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+
+/* =======================================================================
+   الوضع الليلي — نفس الكارت أوف وايت مطفي (Matte) بدون تغيير
+   القواعد هنا تعيد تأكيد الألوان فوق أي قاعدة [data-theme="dark"] عامة
+   في index.css حتى يبقى الكارت بتباين ممتاز في الوضعين.
+   ======================================================================= */
+
+[data-theme="dark"] .rate-banner,
+[data-theme="dark"] .rate-banner::before {
+  background: #F5F3EE !important;
+  background-image: none !important;
+  border: 1px solid rgba(24, 37, 29, 0.14) !important;
+  border-radius: 24px !important;
+  box-shadow: none !important;
+  color: #18251D !important;
+  display: block;
+}
+
+[data-theme="dark"] .rate-banner::before {
+  display: none !important;
+}
+
+[data-theme="dark"] .rate-banner-kicker {
+  background: rgba(24, 37, 29, 0.08) !important;
+  border-color: rgba(24, 37, 29, 0.14) !important;
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-banner-kicker svg {
+  color: #18251D !important;
+  stroke: #18251D !important;
+}
+
+[data-theme="dark"] .rate-banner-copy h2 {
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-banner-copy p {
+  color: #4A5D52 !important;
+}
+
+[data-theme="dark"] .rate-open-button {
+  background: #18251D !important;
+  color: #B7FF72 !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .rate-open-button svg {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .rate-open-button:hover {
+  background: #24382C !important;
+}
+
+[data-theme="dark"] .rate-banner-score {
+  background: #ECE9E1 !important;
+  border-color: rgba(24, 37, 29, 0.12) !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .rate-banner .rate-score-number,
+[data-theme="dark"] .rate-banner .rate-score-of {
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-banner .rate-score-count {
+  color: #4A5D52 !important;
+}
+
+/* النجوم: فارغة باهتة والنشطة ذهبي مطفي #D99B26 */
+[data-theme="dark"] .rate-star {
+  color: rgba(24, 37, 29, 0.22) !important;
+}
+
+[data-theme="dark"] .rate-star svg {
+  stroke: rgba(24, 37, 29, 0.32) !important;
+}
+
+[data-theme="dark"] .rate-star.is-active {
+  color: #D99B26 !important;
+}
+
+[data-theme="dark"] .rate-star.is-active svg {
+  fill: #D99B26 !important;
+  stroke: #D99B26 !important;
+}
+
+/* نموذج التقييم */
+[data-theme="dark"] .rate-form {
+  background: #ECE9E1 !important;
+  border-color: rgba(24, 37, 29, 0.12) !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .rate-form-title {
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-form-close {
+  background: rgba(24, 37, 29, 0.08) !important;
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-form-close:hover {
+  background: rgba(24, 37, 29, 0.16) !important;
+}
+
+[data-theme="dark"] .rate-format {
+  color: #4A5D52 !important;
+}
+
+[data-theme="dark"] .rate-comment,
+[data-theme="dark"] .rate-name-field {
+  background: #F5F3EE !important;
+  border-color: rgba(24, 37, 29, 0.16) !important;
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-comment::placeholder,
+[data-theme="dark"] .rate-name-field input::placeholder {
+  color: rgba(24, 37, 29, 0.45) !important;
+}
+
+[data-theme="dark"] .rate-comment:focus {
+  border-color: #18251D !important;
+  box-shadow: 0 0 0 3px rgba(24, 37, 29, 0.1) !important;
+}
+
+[data-theme="dark"] .rate-name-field input {
+  background: transparent !important;
+  color: #18251D !important;
+  border: 0 !important;
+}
+
+[data-theme="dark"] .rate-name-field svg {
+  color: #4A5D52 !important;
+}
+
+[data-theme="dark"] .rate-cancel {
+  background: #F5F3EE !important;
+  border-color: rgba(24, 37, 29, 0.16) !important;
+  color: #4A5D52 !important;
+}
+
+[data-theme="dark"] .rate-cancel:hover {
+  background: rgba(24, 37, 29, 0.08) !important;
+}
+
+[data-theme="dark"] .rate-submit {
+  background: #18251D !important;
+  color: #B7FF72 !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .rate-submit svg {
+  color: #B7FF72 !important;
+}
+
+[data-theme="dark"] .rate-submit:hover:not(:disabled) {
+  background: #24382C !important;
+}
+
+[data-theme="dark"] .rate-thanks {
+  background: #ECE9E1 !important;
+  border-color: rgba(24, 37, 29, 0.14) !important;
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-thanks svg {
+  color: #D99B26 !important;
+  fill: #D99B26 !important;
+}
+
+/* آراء العملاء — بطاقات #ECE9E1 */
+[data-theme="dark"] .rate-reviews {
+  border-top-color: rgba(24, 37, 29, 0.16) !important;
+}
+
+[data-theme="dark"] .rate-reviews-head {
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-review {
+  background: #ECE9E1 !important;
+  border: 1px solid rgba(24, 37, 29, 0.12) !important;
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-review:hover {
+  box-shadow: 0 8px 18px rgba(24, 37, 29, 0.1) !important;
+}
+
+[data-theme="dark"] .rate-review-name {
+  color: #18251D !important;
+}
+
+[data-theme="dark"] .rate-review-name svg {
+  color: #D99B26 !important;
+}
+
+[data-theme="dark"] .rate-review-date {
+  color: #4A5D52 !important;
+}
+
+[data-theme="dark"] .rate-review-text {
+  color: #4A5D52 !important;
+}
