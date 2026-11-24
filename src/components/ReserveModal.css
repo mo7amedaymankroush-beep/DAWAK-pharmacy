@@ -1,174 +1,173 @@
-﻿/* ===== ReserveModal — الحجز والبدائل والتنبيه ===== */
+/* ===== ReserveModal — نافذة حجز بسيطة ومرتبة ===== */
 
 .reserve-modal {
-  width: min(94vw, 520px);
+  width: min(94vw, 420px);
+  padding: 22px;
 }
 
-.reserve-modal h4 {
+.reserve-close {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  color: #55766c;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.reserve-close:hover {
+  background: var(--mint, #f0faf6);
+}
+
+/* --- بيانات المنتج --- */
+.reserve-product h3 {
+  margin: 0 0 12px;
+  color: var(--ink, #14342b);
+  font-size: 17px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.reserve-product-card {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin: 0 0 10px;
-  color: #a5c4b3;
-  font-size: 14px;
-  font-weight: 800;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface, #fff);
 }
 
-/* --- القسم الأول: البدائل --- */
+.reserve-product-name {
+  font-size: 15px;
+  color: var(--ink, #14342b);
+}
+
+.reserve-product-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--green-deep, #075e50);
+  white-space: nowrap;
+}
+
+.reserve-outofstock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 8px 11px;
+  border-radius: 9px;
+  background: #fffbeb;
+  border: 1px solid #f6d9a6;
+  color: #92400e;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+/* --- البدائل --- */
 .reserve-alternatives {
   margin-top: 14px;
-  padding: 14px;
+  padding: 12px 14px;
   border: 1px solid #f6d9a6;
-  border-radius: 13px;
+  border-radius: 12px;
   background: #fffbeb;
 }
 
 .reserve-alternatives h4 {
+  margin: 0 0 9px;
   color: #92400e;
-}
-.reserve-alternatives h4 svg {
-  color: #f59e0b;
-}
-
-.reserve-alt-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  margin: 0 0 10px;
-  padding: 8px 11px;
-  border-radius: 9px;
-  background: #fef3c7;
-  color: #7a5200;
-  font-size: 11.5px;
-  line-height: 1.7;
-}
-
-.reserve-alt-note svg {
-  flex: 0 0 auto;
-  margin-top: 2px;
+  font-size: 12.5px;
+  font-weight: 800;
 }
 
 .reserve-alt-list {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .reserve-alt-list li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  gap: 8px 10px;
-  padding: 10px 12px;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
   border: 1px solid #fde68a;
-  border-radius: 11px;
+  border-radius: 9px;
   background: #fff;
 }
 
-.reserve-alt-info {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-.reserve-alt-info strong {
-  color: #a5c4b3;
+.reserve-alt-name {
   font-size: 12.5px;
-}
-.reserve-alt-info span {
-  color: #708783;
-  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink, #14342b);
 }
 
 .reserve-alt-price {
-  color: #B7FF72;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
+  color: var(--green-deep, #075e50);
   white-space: nowrap;
 }
 
-.reserve-alt-add {
-  grid-column: 1 / -1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 38px;
-  border: 0;
-  border-radius: 9px;
-  background: #075e50;
-  color: #fff;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: background 0.2s;
+/* --- نموذج الحجز --- */
+.reserve-form {
+  margin-top: 16px;
+  display: grid;
+  gap: 13px;
 }
 
-.reserve-alt-add:hover {
-  background: #0a7a68;
-}
-
-.reserve-alt-empty {
-  margin: 0;
-  padding: 12px;
-  border: 1px dashed #f6d9a6;
-  border-radius: 10px;
-  background: #fffdf5;
-  color: #7a5200;
-  font-size: 12px;
-  font-weight: 700;
-  text-align: center;
-}
-
-/* --- القسم الثاني: تنبيه التوفر --- */
-.reserve-alert {
-  margin-top: 14px;
-  padding: 14px;
-  border: 1px solid #cae7dc;
-  border-radius: 13px;
-  background: #f0faf6;
-}
-
-.reserve-alert h4 svg {
-  color: #14b8a6;
-}
-
-.reserve-alert-phone {
+.reserve-phone-field {
   display: grid;
   gap: 6px;
-  margin-bottom: 10px;
   color: #607c75;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
 }
 
-.reserve-alert-phone input {
-  min-height: 44px;
+.reserve-phone-field input {
+  min-height: 46px;
   padding: 0 13px;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: #fff;
   color: var(--ink);
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
+  text-align: left;
   outline: none;
 }
 
-.reserve-alert-phone input:focus {
+.reserve-phone-field input:focus {
   border-color: var(--green-bright);
   box-shadow: 0 0 0 3px rgba(22, 167, 131, 0.12);
 }
 
-.reserve-alert-methods {
+.reserve-methods {
+  display: grid;
+  gap: 6px;
+}
+
+.reserve-methods-label {
+  color: #607c75;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reserve-methods-buttons {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 10px;
 }
 
-.reserve-alert-methods button {
+.reserve-methods-buttons button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -179,7 +178,7 @@
   background: #fff;
   color: #55766c;
   font: inherit;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 800;
   cursor: pointer;
   transition:
@@ -188,29 +187,29 @@
     color 0.2s;
 }
 
-.reserve-alert-methods button.is-active {
+.reserve-methods-buttons button.is-active {
   border-color: var(--green-bright);
-  background: var(--mint);
-  color: var(--green-deep);
+  background: var(--mint, #f0faf6);
+  color: var(--green-deep, #075e50);
 }
 
-.reserve-alert-submit {
+.reserve-confirm-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
   width: 100%;
-  min-height: 46px;
+  min-height: 48px;
   border: 0;
   border-radius: 11px;
   background: linear-gradient(
     135deg,
-    var(--green) 0%,
-    var(--green-bright) 100%
+    var(--green, #075e50) 0%,
+    var(--green-bright, #16a783) 100%
   );
   color: #fff;
   font: inherit;
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 10px 22px rgba(7, 94, 80, 0.25);
@@ -219,22 +218,102 @@
     filter 0.2s;
 }
 
-.reserve-alert-submit:hover {
+.reserve-confirm-btn:hover:not(:disabled) {
   transform: translateY(-1px);
   filter: brightness(1.06);
 }
 
-.reserve-alert-success {
+.reserve-confirm-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.reserve-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   margin: 0;
+  color: #708783;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* --- شاشة النجاح --- */
+.reserve-success {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  text-align: center;
+}
+
+.reserve-success-icon {
+  color: #10b981;
+}
+
+.reserve-success strong {
+  font-size: 16px;
+  color: var(--ink, #14342b);
+}
+
+.reserve-success p {
+  margin: 0;
+  color: #55766c;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.reserve-success-note {
+  width: 100%;
   padding: 12px;
-  border: 1px solid #a7f3d0;
   border-radius: 10px;
-  background: #ecfdf5;
-  color: #047857;
   font-size: 12.5px;
   font-weight: 700;
   line-height: 1.8;
   animation: reservePop 0.3s ease both;
+}
+
+.reserve-success-note--ok {
+  border: 1px solid #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.reserve-success-note--guest {
+  border: 1px solid #c7d2fe;
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.reserve-success-note--guest p {
+  margin: 0 0 10px;
+}
+
+.reserve-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 9px;
+  background: #4f46e5;
+  color: #fff;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.reserve-login-btn:hover {
+  background: #4338ca;
+}
+
+.reserve-success .reserve-confirm-btn {
+  margin-top: 4px;
 }
 
 @keyframes reservePop {
@@ -245,14 +324,5 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@media (max-width: 480px) {
-  .reserve-alt-list li {
-    grid-template-columns: 1fr;
-  }
-  .reserve-alt-price {
-    justify-self: start;
   }
 }

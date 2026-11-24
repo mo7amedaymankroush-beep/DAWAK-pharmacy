@@ -1,88 +1,67 @@
 import { useState } from "react";
 import {
-  Lightbulb,
   BellRing,
-  ShoppingCart,
   MessageCircle,
   Smartphone,
-  ShieldAlert,
+  LogIn,
+  PackageX,
+  CheckCircle2,
 } from "lucide-react";
-import { createReservation } from "../api/mockApi";
+import { createProductReservation } from "../api/mockApi";
+import { getSessionPhone } from "../api/sessionApi";
 import { useToast } from "./ToastProvider";
-import { isAlertActive, saveStockAlert } from "../utils/stockAlerts";
 import money from "../utils/money";
 import "./ReserveModal.css";
 
 export default function ReserveModal({
   drug,
-  pharmacy,
   alternatives = [],
   onClose,
   customerPhone = "",
-  onAddAlternative,
+  onOpenLogin,
   onBooked,
 }) {
   const toast = useToast();
-  const isOutOfStock = drug.inStock === false;
-  const availableAlternatives = alternatives.filter(
+  const loggedInPhone = getSessionPhone() || customerPhone || "";
+
+  // البدائل المتوفرة فعليًا — القسم يظهر فقط عند وجود بدائل حقيقية
+  const availableAlternatives = (alternatives || []).filter(
     (item) => item.inStock !== false && item.id !== drug.id,
   );
 
-  const [file, setFile] = useState(null);
-  const [error, setError] = useState("");
-  const [done, setDone] = useState(null);
-  const [busy, setBusy] = useState(false);
-
-  // حالة قسم تنبيه التوفر
-  const [phone, setPhone] = useState(customerPhone || "");
+  const [phone, setPhone] = useState(loggedInPhone);
   const [method, setMethod] = useState("whatsapp");
-  const [alertDone, setAlertDone] = useState(() => isAlertActive(drug.id));
-  const [alertError, setAlertError] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(null); // الحجز بعد التأكيد
 
-  async function submit() {
+  async function confirmReservation() {
     if (busy) return;
 
-    setError("");
-
-    if (drug.requiresPrescription && !file) {
-      setError("من فضلك ارفع صورة الروشتة أولاً.");
+    const trimmed = phone.trim();
+    if (trimmed.length < 8) {
+      setError("من فضلك اكتب رقم موبايل صحيح.");
       return;
     }
 
+    setError("");
     setBusy(true);
 
     try {
-      const reservation = await createReservation({
+      const reservation = await createProductReservation({
         drugId: drug.id,
-        pharmacyId: pharmacy?.id ?? null,
-        prescriptionImage: file,
+        phone: trimmed,
+        alertMethod: method,
       });
 
       setDone(reservation);
+      toast(`تم تأكيد حجز ${drug.name} ✅ · يمكنك متابعته من «حجوزاتي»`);
       onBooked?.(reservation, drug);
-      toast(
-        reservation?.type === "waitlist"
-          ? `تم تسجيل ${drug.name} في قائمة انتظار التوفر 🔔`
-          : `تم حجز ${drug.name} بنجاح`
-      );
     } catch (e) {
       setError(e.message || "حصل خطأ أثناء الحجز، حاول مرة أخرى.");
     } finally {
       setBusy(false);
     }
-  }
-
-  function activateAlert() {
-    const trimmed = phone.trim();
-    if (trimmed.length < 8) {
-      setAlertError("من فضلك اكتب رقم موبايل صحيح");
-      return;
-    }
-
-    saveStockAlert({ drug, phone: trimmed, method });
-    setAlertDone(true);
-    setAlertError("");
-    toast(`تم تفعيل تنبيه التوفر لـ ${drug.name} 🔔`);
   }
 
   return (
@@ -94,183 +73,147 @@ export default function ReserveModal({
         aria-modal="true"
         aria-labelledby="reserve-title"
       >
+        <button className="reserve-close" onClick={onClose} aria-label="إغلاق">
+          ×
+        </button>
+
+        {/* ===== بيانات المنتج في الأعلى ===== */}
+        <header className="reserve-product">
+          <h3 id="reserve-title">احجز المنتج</h3>
+          <div className="reserve-product-card">
+            <strong className="reserve-product-name">{drug.name}</strong>
+            <span className="reserve-product-price">{money(drug.price)}</span>
+          </div>
+          {drug.inStock === false && (
+            <p className="reserve-outofstock">
+              <PackageX size={13} /> المنتج غير متوفر حاليًا — سيتم تنبيهك فور
+              توفره
+            </p>
+          )}
+        </header>
+
+        {/* ===== البدائل (تظهر فقط عند وجود بدائل فعلية) ===== */}
+        {availableAlternatives.length > 0 && (
+          <section className="reserve-alternatives">
+            <h4>البدائل المتوفرة بنفس المادة الفعالة</h4>
+            <ul className="reserve-alt-list">
+              {availableAlternatives.map((alternative) => (
+                <li key={alternative.id}>
+                  <span className="reserve-alt-name">{alternative.name}</span>
+                  <span className="reserve-alt-price">
+                    {money(alternative.price)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {done ? (
-          <>
-            <h3 id="reserve-title">تم تسجيل طلبك بنجاح</h3>
-
+          /* ===== شاشة النجاح ===== */
+          <section className="reserve-success">
+            <CheckCircle2 size={34} className="reserve-success-icon" />
+            <strong>تم استلام طلب حجزك بنجاح!</strong>
             <p>
-              {done.type === "waitlist"
-                ? "تم تسجيل طلبك في قائمة الانتظار. ميزة إرسال إشعار عند التوفر تحتاج ربطًا بالباك إند."
-                : "تم حفظ الحجز، وهو صالح لمدة 24 ساعة."}
+              حجزك لـ <b>{drug.name}</b> قيد الانتظار الآن، ومتابعته متاحة من
+              صفحة «حجوزاتي».
             </p>
 
-            <button onClick={onClose}>تمام</button>
-          </>
-        ) : (
-          <>
-            <h3 id="reserve-title">
-              {pharmacy
-                ? "تأكيد الحجز"
-                : isOutOfStock
-                  ? "دواء غير متوفر حاليًا"
-                  : "طلب الدواء عند توفره"}
-            </h3>
-
-            <p>
-              <b>{drug.name}</b>
-              {pharmacy && ` · ${pharmacy.name}`}
-            </p>
-
-            {/* ===== القسم الأول: البدائل المتوفرة بنفس المادة الفعالة ===== */}
-            {isOutOfStock && (
-              <section className="reserve-alternatives">
-                <h4>
-                  <Lightbulb size={15} /> البدائل المتوفرة بنفس المادة الفعالة
-                </h4>
-
-                {availableAlternatives.length > 0 ? (
-                  <>
-                    <p className="reserve-alt-note">
-                      <ShieldAlert size={13} />
-                      نفس المادة الفعالة — يُؤكد الصيدلي ملاءمتها قبل التوصيل
-                    </p>
-
-                    <ul className="reserve-alt-list">
-                      {availableAlternatives.map((alternative) => (
-                        <li key={alternative.id}>
-                          <div className="reserve-alt-info">
-                            <strong>{alternative.name}</strong>
-                            <span>
-                              {alternative.brand} ·{" "}
-                              {alternative.activeIngredient}
-                            </span>
-                          </div>
-                          <span className="reserve-alt-price">
-                            {money(alternative.price)}
-                          </span>
-                          <button
-                            type="button"
-                            className="reserve-alt-add"
-                            onClick={() => onAddAlternative?.(alternative)}
-                          >
-                            <ShoppingCart size={14} />
-                            إضافة البديل للعربة 🛒
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <p className="reserve-alt-empty">
-                    لا تتوفر بدائل بنفس المادة الفعالة حاليًا
-                  </p>
-                )}
-              </section>
-            )}
-
-            {/* نموذج الحجز التقليدي (للأدوية المتوفرة أو عند اختيار صيدلية) */}
-            {(!isOutOfStock || pharmacy) && drug.requiresPrescription && (
-              <label className="dw-file">
-                ارفع صورة الروشتة (مطلوبة)
-                <input
-                  type="file"
-                  accept="image/*,.pdf"
-                  onChange={(e) => {
-                    setFile(e.target.files?.[0] || null);
-                    setError("");
+            {done.customerPhone ? (
+              <div className="reserve-success-note reserve-success-note--ok">
+                الحجز مرتبط بحسابك ويظهر تلقائيًا في صفحة «حجوزاتي».
+              </div>
+            ) : (
+              <div className="reserve-success-note reserve-success-note--guest">
+                <p>
+                  تم استلام طلب حجزك! سجّل الدخول أو أنشئ حسابًا الآن لحفظ
+                  حجوزاتك ومتابعتها بسهولة والحصول على تجربة أفضل.
+                </p>
+                <button
+                  type="button"
+                  className="reserve-login-btn"
+                  onClick={() => {
+                    onClose();
+                    onOpenLogin?.();
                   }}
-                  disabled={busy}
-                />
-                {file && <small>{file.name}</small>}
-              </label>
+                >
+                  <LogIn size={15} />
+                  تسجيل الدخول
+                </button>
+              </div>
             )}
+
+            <button className="reserve-confirm-btn" onClick={onClose}>
+              تمام
+            </button>
+          </section>
+        ) : (
+          /* ===== نموذج الحجز ===== */
+          <section className="reserve-form">
+            <label className="reserve-phone-field">
+              رقم الموبايل
+              <input
+                type="tel"
+                dir="ltr"
+                value={phone}
+                onChange={(event) => {
+                  setPhone(event.target.value);
+                  setError("");
+                }}
+                placeholder="01012345678"
+                maxLength={15}
+                disabled={busy}
+              />
+            </label>
+
+            <div
+              className="reserve-methods"
+              role="radiogroup"
+              aria-label="طريقة التنبيه"
+            >
+              <span className="reserve-methods-label">طريقة التنبيه</span>
+              <div className="reserve-methods-buttons">
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={method === "whatsapp"}
+                  className={method === "whatsapp" ? "is-active" : ""}
+                  onClick={() => setMethod("whatsapp")}
+                  disabled={busy}
+                >
+                  <MessageCircle size={14} />
+                  واتساب
+                </button>
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={method === "sms"}
+                  className={method === "sms" ? "is-active" : ""}
+                  onClick={() => setMethod("sms")}
+                  disabled={busy}
+                >
+                  <Smartphone size={14} />
+                  SMS
+                </button>
+              </div>
+            </div>
 
             {error && <p className="dw-error">{error}</p>}
 
-            {/* ===== القسم الثاني: تنبيه التوفر ===== */}
-            {isOutOfStock && (
-              <section className="reserve-alert">
-                <h4>
-                  <BellRing size={15} /> 🔔 بلّغني أول ما يتوفر
-                </h4>
+            <button
+              type="button"
+              className="reserve-confirm-btn"
+              onClick={confirmReservation}
+              disabled={busy}
+            >
+              {busy ? "جاري التأكيد..." : "تأكيد الحجز"}
+            </button>
 
-                {alertDone ? (
-                  <p className="reserve-alert-success" role="status">
-                    تم تسجيل تنبيهك! هنبعتلك رسالة على{" "}
-                    {method === "whatsapp" ? "واتساب" : "SMS"} أول ما الدواء
-                    يتوفر في أقرب صيدلية ✅
-                  </p>
-                ) : (
-                  <>
-                    <label className="reserve-alert-phone">
-                      رقم الموبايل / واتساب
-                      <input
-                        type="tel"
-                        value={phone}
-                        onChange={(event) => {
-                          setPhone(event.target.value);
-                          setAlertError("");
-                        }}
-                        placeholder="مثال: 01012345678"
-                        maxLength={20}
-                      />
-                    </label>
-
-                    <div
-                      className="reserve-alert-methods"
-                      role="radiogroup"
-                      aria-label="وسيلة التنبيه"
-                    >
-                      <button
-                        type="button"
-                        role="radio"
-                        aria-checked={method === "whatsapp"}
-                        className={method === "whatsapp" ? "is-active" : ""}
-                        onClick={() => setMethod("whatsapp")}
-                      >
-                        <MessageCircle size={14} />
-                        واتساب
-                      </button>
-
-                      <button
-                        type="button"
-                        role="radio"
-                        aria-checked={method === "sms"}
-                        className={method === "sms" ? "is-active" : ""}
-                        onClick={() => setMethod("sms")}
-                      >
-                        <Smartphone size={14} />
-                        رسالة SMS
-                      </button>
-                    </div>
-
-                    {alertError && <p className="dw-error">{alertError}</p>}
-
-                    <button
-                      type="button"
-                      className="reserve-alert-submit"
-                      onClick={activateAlert}
-                    >
-                      <BellRing size={15} />
-                      تفعيل تنبيه التوفر 🔔
-                    </button>
-                  </>
-                )}
-              </section>
-            )}
-
-            <div className="dw-actions">
-              {(!isOutOfStock || pharmacy) && (
-                <button onClick={submit} disabled={busy}>
-                  {busy ? "جاري التأكيد..." : "تأكيد"}
-                </button>
-              )}
-
-              <button className="dw-ghost" onClick={onClose} disabled={busy}>
-                إغلاق
-              </button>
-            </div>
-          </>
+            <p className="reserve-hint">
+              <BellRing size={12} />
+              هنبلغك أول ما يبقى المنتج متوفرًا في أقرب صيدلية.
+            </p>
+          </section>
         )}
       </div>
     </div>

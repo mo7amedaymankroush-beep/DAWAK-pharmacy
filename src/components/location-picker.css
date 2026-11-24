@@ -15,23 +15,174 @@
   animation: loc-fade 0.16s ease-out;
 }
 
+/* حاوية البطاقة: تنتقل بسلاسة من المقاس المدمج إلى الموسّع */
+.loc-card {
+  transition:
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.loc-card--choice {
+  width: min(400px, calc(100vw - 36px)) !important;
+  height: auto !important;
+}
+
+.loc-card--manual {
+  width: min(480px, calc(100vw - 36px)) !important;
+  height: auto !important;
+}
+
 /* البطاقة الداخلية — نفس مقاسات وظلال .phone-login */
 .loc-modal {
   position: relative;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 20px 18px 16px;
-  border-radius: 14px;
+  padding: 28px 24px;
+  border-radius: 24px;
   background: transparent !important;
   color: #f4f4f5;
+  text-align: start;
   animation: loc-rise 0.18s ease-out;
   user-select: none;
   scrollbar-width: thin;
+}
+
+.loc-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: start;
+}
+
+/* زر رجوع صغير في حالة التحديد اليدوي */
+.loc-back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 8px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #a7f3d0;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.loc-back:hover {
+  color: #ffffff;
+  background: rgba(16, 185, 129, 0.18);
+}
+
+/* ---------- الخيارين الرئيسيين ---------- */
+.loc-choices {
+  display: grid;
+  gap: 10px;
+  margin: 4px 0 2px;
+}
+
+.loc-choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  background: rgba(16, 185, 129, 0.14);
+  color: #ffffff;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.loc-choice:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(16, 185, 129, 0.7);
+  background: rgba(16, 185, 129, 0.24);
+  box-shadow: 0 10px 24px rgba(4, 40, 32, 0.35);
+}
+
+.loc-choice:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loc-choice--manual {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.loc-choice-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 13px;
+  background: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+}
+
+.loc-choice-text {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.loc-choice-text strong {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.loc-choice-text small {
+  color: rgba(244, 244, 245, 0.68);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.loc-choice-arrow {
+  flex: 0 0 auto;
+  color: rgba(244, 244, 245, 0.5);
+}
+
+/* زر المتابعة بعد ظهور النتيجة */
+.loc-save-close {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 10px;
+  background: #10b981 !important;
+  color: #ffffff !important;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(6, 72, 63, 0.2);
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.loc-save-close:hover {
+  transform: translateY(-1px);
+  background: #059669 !important;
 }
 
 .loc-modal * {
@@ -67,8 +218,8 @@
 /* العنوان الرئيسي — مثل .phone-login h2 */
 .loc-modal h2,
 .loc-title {
-  margin: 6px 0 6px;
-  padding-inline-start: 40px;
+  margin: 0 0 6px;
+  padding-inline-start: 34px;
   color: #34d399 !important;
   font-size: 21px;
   font-weight: 800;
@@ -77,10 +228,10 @@
 
 /* النص التوضيحي — مثل .phone-login-sub */
 .loc-sub {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   color: rgba(244, 244, 245, 0.78) !important;
-  font-size: 12px;
-  line-height: 1.8;
+  font-size: 12.5px;
+  line-height: 1.7;
 }
 
 /* جسم البطاقة */
@@ -89,6 +240,67 @@
   flex: 1 1 auto;
   align-content: start;
   gap: 10px;
+}
+
+/* ---------- رسالة النتيجة ---------- */
+.loc-modal .loc-result {
+  grid-template-columns: 1fr !important;
+  gap: 10px;
+}
+
+.loc-modal .loc-delivery {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.loc-modal .loc-delivery-row:last-child:nth-child(odd) {
+  grid-column: auto;
+}
+
+.loc-modal .loc-delivery-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.loc-modal .loc-delivery-row strong {
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------
+   الخطوة الأولى: كارت مربع مضغوط
+   ------------------------------------ */
+.loc-backdrop:has(.loc-card--choice) {
+  align-items: center;
+}
+
+.loc-card--choice .loc-modal {
+  padding: 26px 22px 20px;
+}
+
+.loc-card--choice .loc-step {
+  gap: 12px;
+}
+
+.loc-card--choice .loc-modal h2 {
+  font-size: 20px;
+}
+
+.loc-card--choice .loc-sub {
+  margin: 0;
+}
+
+.loc-card--choice .loc-choices {
+  gap: 8px;
+  margin: 2px 0 0;
+}
+
+.loc-card--choice .loc-choice {
+  padding: 11px 12px;
+}
+
+.loc-card--choice .loc-skip {
+  margin-top: 2px;
 }
 
 /* ---------- الحقول ---------- */
@@ -431,7 +643,11 @@
 
 @media (max-width: 420px) {
   .loc-modal {
-    padding: 20px 14px 14px;
+    padding: 24px 18px 18px;
+  }
+  .loc-card--choice,
+  .loc-card--manual {
+    width: calc(100vw - 28px) !important;
   }
   .loc-modal h2 {
     font-size: 19px;
@@ -483,6 +699,46 @@
 [data-theme="dark"] .loc-field > label,
 [data-theme="dark"] .loc-modal .pharmacy-location-fields label {
   color: #ffb3ad !important;
+}
+
+[data-theme="dark"] .loc-choice,
+[data-theme="dark"] .loc-choice--manual {
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(244, 241, 234, 0.18) !important;
+  color: #f4f1ea !important;
+}
+
+[data-theme="dark"] .loc-choice:hover:not(:disabled) {
+  border-color: rgba(255, 90, 78, 0.65) !important;
+  background: rgba(255, 90, 78, 0.22) !important;
+}
+
+[data-theme="dark"] .loc-choice-icon {
+  background: rgba(255, 90, 78, 0.22) !important;
+  color: #ff8a80 !important;
+}
+
+[data-theme="dark"] .loc-choice-text small,
+[data-theme="dark"] .loc-choice-arrow {
+  color: rgba(244, 241, 234, 0.62) !important;
+}
+
+[data-theme="dark"] .loc-back {
+  color: #ffb3ad !important;
+}
+
+[data-theme="dark"] .loc-back:hover {
+  color: #ffffff !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+}
+
+[data-theme="dark"] .loc-save-close {
+  background: #ff5a4e !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .loc-save-close:hover {
+  background: #e84d41 !important;
 }
 
 [data-theme="dark"] .loc-modal .pharmacy-location-fields select {

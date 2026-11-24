@@ -1,4 +1,4 @@
-﻿/* ===== PromoSlider — شريط ترويجي بشريحتين ===== */
+/* ===== PromoSlider — شريط ترويجي بشريحتين ===== */
 
 .promo-slider {
   --promo-radius: 22px;
@@ -426,39 +426,46 @@
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* --- الأشرطة الإعلانية: Forest + Purple + Sand لتبرز عن الخلفية --- */
+/* حاوية السلايدر نفسها (الحافة الخضراء القديمة) ⇒ كحلي ليلي بحد خفيف */
+[data-theme="dark"] .promo-slider {
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42) !important;
+}
+
+/* --- الأشرطة الإعلانية: كحلي ليلي + لمسة مرجاني بارزة عن الخلفية --- */
 [data-theme="dark"] .promo-slide,
 [data-theme="dark"] .promo-slide--location,
 [data-theme="dark"] .promo-slide--pharmacies,
 [data-theme="dark"] .promo-slide--monthly,
 [data-theme="dark"] .promo-card {
   background:
-    radial-gradient(circle at 88% 18%, rgba(183, 255, 114, 0.26) 0%, transparent 48%),
-    radial-gradient(circle at 8% 88%, rgba(163, 184, 172, 0.07) 0%, transparent 44%),
-    linear-gradient(135deg, #1F2F25 0%, #26392D 65%, #3B2868 100%) !important;
-  border: 1.5px solid rgba(163, 184, 172, 0.45) !important;
+    radial-gradient(circle at 88% 18%, rgba(255, 90, 78, 0.26) 0%, transparent 48%),
+    radial-gradient(circle at 8% 88%, rgba(244, 241, 234, 0.07) 0%, transparent 44%),
+    linear-gradient(135deg, #1B243B 0%, #212C46 65%, #26314D 100%) !important;
+  border: 1.5px solid rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-slide-copy h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-slide--pharmacies .promo-slide-copy h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-slide-copy p,
 [data-theme="dark"] .promo-slide--pharmacies .promo-slide-copy p {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 /* الشارة/الوسم ⇒ Electric Purple */
 [data-theme="dark"] .promo-tag,
 [data-theme="dark"] .promo-tag--monthly {
-  background: #B7FF72 !important;
-  border: 1px solid rgba(183, 255, 114, 0.6) !important;
+  background: #FF5A4E !important;
+  border: 1px solid rgba(255, 90, 78, 0.6) !important;
   color: #FFFFFF !important;
 }
 
@@ -472,24 +479,24 @@
 [data-theme="dark"] .promo-cta--orange,
 [data-theme="dark"] .promo-cta--mint,
 [data-theme="dark"] .promo-cta--white {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   background-image: none !important;
   color: #FFFFFF !important;
-  border: 1px solid rgba(183, 255, 114, 0.6) !important;
-  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.36) !important;
+  border: 1px solid rgba(255, 90, 78, 0.6) !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.36) !important;
 }
 
 [data-theme="dark"] .promo-cta--orange:hover,
 [data-theme="dark"] .promo-cta--mint:hover,
 [data-theme="dark"] .promo-cta--white:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 /* --- العناصر البصرية --- */
 [data-theme="dark"] .promo-pin-core {
-  background: #1F2F25 !important;
-  color: #B7FF72 !important;
+  background: #1B243B !important;
+  color: #FF5A4E !important;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42) !important;
 }
 
@@ -498,9 +505,9 @@
 }
 
 [data-theme="dark"] .promo-float-icon {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
-  border: 1px solid rgba(163, 184, 172, 0.14);
+  background: #1B243B !important;
+  color: #F4F1EA !important;
+  border: 1px solid rgba(244, 241, 234, 0.12);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -508,25 +515,25 @@
 [data-theme="dark"] .promo-float-icon--truck,
 [data-theme="dark"] .promo-float-icon--clock,
 [data-theme="dark"] .promo-monthly-float {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .promo-float-icon--clock small,
 [data-theme="dark"] .promo-monthly-float small {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 /* --- بطاقات الصيدليات المصغرة --- */
 [data-theme="dark"] .promo-mini-card {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16);
+  background: #1B243B !important;
+  color: #F4F1EA !important;
+  border: 1px solid rgba(244, 241, 234, 0.12);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4) !important;
 }
 
 [data-theme="dark"] .promo-mini-logo {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .promo-mini-verified {
@@ -535,42 +542,42 @@
 }
 
 [data-theme="dark"] .promo-mini-card strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-mini-card small {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .promo-mini-delivery,
 [data-theme="dark"] .promo-monthly-badge {
-  background: rgba(183, 255, 114, 0.18) !important;
+  background: rgba(255, 90, 78, 0.18) !important;
   color: #FFB3AD !important;
 }
 
 /* --- بطاقة الاشتراك الشهري --- */
 [data-theme="dark"] .promo-monthly-card {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16);
+  background: #1B243B !important;
+  color: #F4F1EA !important;
+  border: 1px solid rgba(244, 241, 234, 0.12);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.44) !important;
 }
 
 [data-theme="dark"] .promo-monthly-pill-icon {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .promo-monthly-card strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-monthly-facts span {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .promo-monthly-facts span svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .promo-monthly-facts .is-discount,
@@ -580,13 +587,13 @@
 
 /* --- أسهم ونقاط التنقل --- */
 [data-theme="dark"] .promo-arrow {
-  background: rgba(24, 37, 29, 0.55) !important;
-  border-color: rgba(255, 255, 255, 0.32) !important;
-  color: #FFFFFF !important;
+  background: rgba(27, 36, 59, 0.7) !important;
+  border-color: rgba(244, 241, 234, 0.2) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-arrow:hover {
-  background: rgba(24, 37, 29, 0.8) !important;
+  background: rgba(27, 36, 59, 0.92) !important;
 }
 
 [data-theme="dark"] .promo-dot {
@@ -594,5 +601,5 @@
 }
 
 [data-theme="dark"] .promo-dot.is-active {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
 }

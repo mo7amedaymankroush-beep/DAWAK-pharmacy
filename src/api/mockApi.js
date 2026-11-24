@@ -1,7 +1,7 @@
 import { drugs } from "../data/drugs";
 import { pharmacies } from "../data/pharmacies";
 import { getPharmaciesForProduct } from "./pharmaciesApi";
-import { getSessionPhone } from "./sessionApi";
+import { getSessionPhone, normalizePhone } from "./sessionApi";
 
 const delay = (ms = 300) =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -299,6 +299,106 @@ export async function createProductBooking(product) {
   saveReservations();
 
   return booking;
+}
+
+// POST /reservations — حجز منتج غير متوفر من نافذة الحجز
+// يعمل للمستخدم المسجّل والزائر (يُربط الحجز بالحساب عند تسجيل الدخول لاحقًا)
+export async function createProductReservation({
+  drugId,
+  phone,
+  alertMethod = "whatsapp",
+}) {
+  await delay();
+
+  const drug = drugs.find((item) => item.id === Number(drugId));
+
+  if (!drug) throw new Error("المنتج غير موجود.");
+
+  const normalizedPhone = normalizePhone(phone);
+  if (!normalizedPhone) {
+    throw new Error("اكتب رقم موبايل صحيح أولًا.");
+  }
+
+  const now = Date.now();
+
+  const reservation = {
+    id: nextReservationId++,
+    drugId: drug.id,
+    drugName: drug.name,
+    // رقم الجلسة إن كان مسجّلًا، وإلا يبقى الحجز زائرًا ويُربط عند تسجيل الدخول
+    customerPhone: getSessionPhone() || null,
+    guestPhone: getSessionPhone() ? null : normalizedPhone,
+    alertPhone: normalizedPhone,
+    alertMethod,
+    pharmacyId: null,
+    product: {
+      name: drug.name,
+      detail: drug.detail,
+      category: drug.category,
+      activeIngredient: drug.activeIngredient,
+      strength: drug.strength,
+      form: drug.form,
+      description: drug.description,
+    },
+    pharmacy: null,
+    price: drug.price,
+    quantityAtReservation: 0,
+    type: "waitlist",
+    status: "pending",
+    source: "reserve-modal",
+    createdAt: now,
+    updatedAt: now,
+    expiresAt: now + 24 * 60 * 60 * 1000,
+  };
+
+  reservations.push(reservation);
+  saveReservations();
+
+  // إشعار صفحات مفتوحة (مثل «حجوزاتي») لتحديث القائمة فورًا
+  try {
+    window.dispatchEvent(new CustomEvent("dawak:reservations-updated"));
+  } catch {
+    /* تجاهل */
+  }
+
+  return reservation;
+}
+
+// ربط الحجوزات التي تمت كزائر بحساب المستخدم بعد تسجيل الدخول
+export function linkGuestReservations(phone) {
+  const targetPhone = normalizePhone(phone);
+  if (!targetPhone) return 0;
+
+  let linkedCount = 0;
+
+  reservations = reservations.map((reservation) => {
+    const belongsToGuest =
+      !reservation.customerPhone &&
+      (reservation.guestPhone
+        ? normalizePhone(reservation.guestPhone) === targetPhone
+        : normalizePhone(reservation.alertPhone) === targetPhone);
+
+    if (!belongsToGuest) return reservation;
+
+    linkedCount += 1;
+    return {
+      ...reservation,
+      customerPhone: targetPhone,
+      guestPhone: null,
+      updatedAt: Date.now(),
+    };
+  });
+
+  if (linkedCount) {
+    saveReservations();
+    try {
+      window.dispatchEvent(new CustomEvent("dawak:reservations-updated"));
+    } catch {
+      /* تجاهل */
+    }
+  }
+
+  return linkedCount;
 }
 
 // GET /reservations/me

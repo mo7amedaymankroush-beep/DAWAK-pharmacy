@@ -1,0 +1,415 @@
+/* ===== AdvertiseBanner — بانر إعلاني للشركات والماركات + نافذة طلب الإعلان ===== */
+
+.ad-banner {
+  position: relative;
+  margin: 14px 0 24px;
+  padding: 38px 40px;
+  border-radius: 24px;
+  overflow: hidden;
+  color: #fff;
+  /* تخطيط أفقي مدمج: النص يمين، الأزرار يسار */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  flex-wrap: wrap;
+  /* تدرج ملكي فاخر: زمردي + كحلي داكن + لمسات ذهبية */
+  background:
+    radial-gradient(
+      ellipse at 88% 14%,
+      rgba(212, 175, 55, 0.22),
+      transparent 44%
+    ),
+    radial-gradient(
+      ellipse at 6% 96%,
+      rgba(163, 230, 205, 0.13),
+      transparent 48%
+    ),
+    linear-gradient(135deg, #073b34 0%, #0b4f45 50%, #132a3a 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow:
+    0 24px 60px rgba(4, 32, 28, 0.34),
+    0 0 0 1px rgba(212, 175, 55, 0.08) inset;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.ad-banner:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow:
+    0 30px 72px rgba(4, 32, 28, 0.42),
+    0 0 26px rgba(212, 175, 55, 0.28),
+    0 0 0 1px rgba(212, 175, 55, 0.16) inset;
+}
+
+.ad-banner:focus-visible {
+  outline: 2px solid rgba(240, 217, 168, 0.85);
+  outline-offset: 3px;
+}
+
+/* نقاط ضوئية خفيفة في الخلفية */
+.ad-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      circle at 96% 12%,
+      rgba(255, 255, 255, 0.1) 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 84% 82%,
+      rgba(255, 255, 255, 0.08) 0 2px,
+      transparent 3px
+    );
+}
+
+/* توهج ذهبي خفيف في الزاوية — إحساس بمساحة إعلانية مميزة (VIP) */
+.ad-banner::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.32) 0%,
+    rgba(212, 175, 55, 0.08) 45%,
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.ad-banner-copy {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 340px;
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+/* --- شارة فوق العنوان --- */
+.ad-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  color: #f0d9a8;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  backdrop-filter: blur(4px);
+}
+
+/* --- العنوان والنص --- */
+.ad-banner-title {
+  margin: 0;
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+  color: #f7fbf8;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+}
+
+.ad-banner-text {
+  margin: 0;
+  color: rgba(220, 240, 232, 0.92);
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.75;
+}
+
+/* --- أزرار الإجراء --- */
+.ad-banner-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.ad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 26px;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 14px;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    filter 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.ad-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+}
+
+.ad-btn--primary {
+  background: linear-gradient(135deg, #d4af37 0%, #b08d56 100%);
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 12px 28px rgba(212, 175, 55, 0.38),
+    0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+}
+
+.ad-btn--primary:hover {
+  box-shadow:
+    0 16px 34px rgba(212, 175, 55, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.24) inset;
+}
+
+.ad-btn--whatsapp {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.ad-btn--whatsapp:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============ نافذة طلب الإعلان ============ */
+
+.ad-modal {
+  width: min(94vw, 460px);
+  padding: 24px;
+}
+
+.ad-modal-close {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  color: #55766c;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ad-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.ad-modal-icon {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #06483f, #198c78);
+  color: #f0d9a8;
+}
+
+.ad-modal-head h3 {
+  margin: 0 0 3px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink, #14342b);
+}
+
+.ad-modal-head p {
+  margin: 0;
+  color: #708783;
+  font-size: 11.5px;
+}
+
+/* --- النموذج --- */
+.ad-form {
+  display: grid;
+  gap: 13px;
+}
+
+.ad-form label {
+  display: grid;
+  gap: 6px;
+  color: #607c75;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ad-form input,
+.ad-form select {
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13.5px;
+  outline: none;
+}
+
+.ad-form input:focus,
+.ad-form select:focus {
+  border-color: var(--green-bright);
+  box-shadow: 0 0 0 3px rgba(22, 167, 131, 0.12);
+}
+
+.ad-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(
+    135deg,
+    var(--green, #075e50) 0%,
+    var(--green-bright, #16a783) 100%
+  );
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(7, 94, 80, 0.25);
+  transition:
+    transform 0.2s,
+    filter 0.2s;
+}
+
+.ad-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.ad-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* ============ Dark Mode ============ */
+
+[data-theme="dark"] .ad-banner {
+  background:
+    radial-gradient(
+      ellipse at 88% 14%,
+      rgba(212, 175, 55, 0.26),
+      transparent 44%
+    ),
+    radial-gradient(
+      ellipse at 6% 96%,
+      rgba(163, 230, 205, 0.08),
+      transparent 48%
+    ),
+    linear-gradient(135deg, #04231f 0%, #06332c 50%, #0c1f2c 100%);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .ad-banner:hover {
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow:
+    0 30px 72px rgba(0, 0, 0, 0.58),
+    0 0 26px rgba(212, 175, 55, 0.3);
+}
+
+[data-theme="dark"] .ad-modal {
+  background: var(--dark-card, #10201c);
+  border-color: rgba(176, 141, 86, 0.25);
+}
+
+[data-theme="dark"] .ad-modal-close {
+  background: rgba(255, 255, 255, 0.06);
+  color: #b9d9d0;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .ad-modal-head h3 {
+  color: #F4F1EA;
+}
+
+[data-theme="dark"] .ad-modal-head p {
+  color: rgba(244, 241, 234, 0.85);
+}
+
+[data-theme="dark"] .ad-modal-icon {
+  background: linear-gradient(135deg, #b08d56, #d8b878);
+  color: #10201c;
+}
+
+[data-theme="dark"] .ad-form label {
+  color: rgba(244, 241, 234, 0.9);
+}
+
+[data-theme="dark"] .ad-form input,
+[data-theme="dark"] .ad-form select {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #F4F1EA;
+}
+
+/* ============ التجاوب ============ */
+
+@media (max-width: 720px) {
+  .ad-banner {
+    padding: 26px 22px;
+    border-radius: 20px;
+    align-items: stretch;
+    gap: 18px;
+    /* تعطيل رفع الكارت على الموبايل لتجربة لمس أنعم */
+    transform: none;
+  }
+  .ad-banner:hover {
+    transform: none;
+  }
+  .ad-banner-copy {
+    flex: 1 1 100%;
+    gap: 8px;
+  }
+  .ad-banner-actions {
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .ad-btn {
+    flex: 1 1 0;
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+  .ad-modal {
+    padding: 20px;
+  }
+}

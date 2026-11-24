@@ -10,6 +10,14 @@ export default function WeightLossSection({ products, onOpenProduct, onAddToCart
   const trackRef = useRef(null);
   const isRtlRef = useRef(true);
 
+  // فتح صفحة المنتجات مفلترة على قسم خسارة الوزن (من البانر أو زر عرض الكل)
+  const openWeightLossProducts = () => {
+    if (onViewAll) {
+      onViewAll();
+      return;
+    }
+  };
+
   const [offset, setOffset] = useState(0);
   const [maxOffset, setMaxOffset] = useState(0);
   const toast = useToast();
@@ -61,8 +69,13 @@ export default function WeightLossSection({ products, onOpenProduct, onAddToCart
   return (
     <section className="wl-section" aria-labelledby="weight-loss-title">
 
-      {/* بانر الحملة الترويجي العريض */}
-      <div className="wl-banner" aria-label="حملة خسارة الوزن من جريبكسون">
+      {/* بانر الحملة الترويجي العريض — قابل للضغط للانتقال لصفحة المنتجات مفلترة */}
+      <button
+        type="button"
+        className="wl-banner wl-banner--clickable"
+        aria-label="تسوّق كل منتجات رحلة خسارة الوزن من جريبكسون"
+        onClick={openWeightLossProducts}
+      >
         {/* صور المنتجات على اليسار (RTL end) — مائلة ومتداخلة */}
         <div className="wl-banner-images" aria-hidden="true">
           {bannerImages.map((id) => (
@@ -83,11 +96,11 @@ export default function WeightLossSection({ products, onOpenProduct, onAddToCart
           <h2 id="weight-loss-title">كل اللي محتاجه لرحلة خسارة الوزن</h2>
           <p>{products.length} منتجات من جريبكسون</p>
         </div>
-      </div>
+      </button>
 
       {/* شريط التحكم: رابط عرض الكل على اليمين + أسهم التمرير */}
       <div className="wl-head">
-        <button type="button" className="wl-view-all" onClick={onViewAll}>
+        <button type="button" className="wl-view-all" onClick={openWeightLossProducts}>
           عرض الكل {'>'}
           <ArrowLeft size={15} aria-hidden="true" />
         </button>

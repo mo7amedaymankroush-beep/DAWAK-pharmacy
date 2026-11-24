@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import ReserveModal from "./ReserveModal";
+import { getSessionPhone } from "../api/sessionApi";
 
 export default function DrugResult({
   drug,
@@ -229,7 +230,7 @@ export default function DrugResult({
             <span>يمكنك طلب حجزه أو البحث في مناطق أخرى. بيانات الصيدليات والأسعار تجريبية.</span>
             <div className="dw-unavailable-actions">
               {unavailablePharmacies.length === 0 && (
-                <button type="button" onClick={() => setReserving({ drug, pharmacy: null })}>احجز لما يتوفر</button>
+                <button type="button" onClick={() => setReserving({ drug, pharmacy: null, alternatives: alt })}>احجز لما يتوفر</button>
               )}
               {locationChoice.mode === "manual" && !showingOtherPharmacies && (
                 <button type="button" className="dw-other-pharmacies-button" onClick={onShowOtherPharmacies}>عرض صيدليات أخرى</button>
@@ -392,6 +393,7 @@ export default function DrugResult({
         <ReserveModal
           {...reserving}
           onClose={() => setReserving(null)}
+          onBooked={() => setReserving(null)}
         />
       )}
 

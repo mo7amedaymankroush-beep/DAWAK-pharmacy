@@ -1,4 +1,4 @@
-﻿.bookings-page {
+.bookings-page {
   width: 100%;
   max-width: 1180px;
   min-height: 58vh;
@@ -729,111 +729,111 @@
    ======================================================================= */
 
 [data-theme="dark"] .bookings-page {
-  background: #18251D !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-head-copy h1 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-head-copy p,
 [data-theme="dark"] .bookings-pending-quiet,
 [data-theme="dark"] .bookings-status {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .bookings-head-copy b {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .bookings-tally {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-tally div + div {
-  border-inline-start-color: rgba(163, 184, 172, 0.16) !important;
+  border-inline-start-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .bookings-tally dt {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .bookings-tally dd {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-empty {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-empty svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .bookings-empty p {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .bookings-pending-head h2,
 [data-theme="dark"] .bookings-ledger-head h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-count {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 /* --- تذاكر الحجز --- */
 [data-theme="dark"] .booking-ticket {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16) !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .booking-ticket h3 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .booking-ticket-type,
 [data-theme="dark"] .booking-ticket-facts span {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .booking-ticket-facts strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .booking-ticket-line svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .booking-ticket-facts {
-  border-color: rgba(163, 184, 172, 0.16) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .booking-ticket button,
 [data-theme="dark"] .booking-ticket a {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
-  border-color: #B7FF72 !important;
+  border-color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .booking-ticket button:hover,
 [data-theme="dark"] .booking-ticket a:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 /* --- شارات الحالة --- */
 [data-theme="dark"] .booking-chip {
-  background: rgba(163, 184, 172, 0.08) !important;
+  background: rgba(244, 241, 234, 0.08) !important;
 }
 
 [data-theme="dark"] .booking-chip--amber {
@@ -852,40 +852,40 @@
 }
 
 [data-theme="dark"] .booking-chip--red {
-  background: rgba(183, 255, 114, 0.18) !important;
+  background: rgba(255, 90, 78, 0.18) !important;
   color: #FFA8A1 !important;
 }
 
 [data-theme="dark"] .booking-chip--muted {
-  background: rgba(163, 184, 172, 0.1) !important;
-  color: rgba(163, 184, 172, 0.6) !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  color: rgba(244, 241, 234, 0.6) !important;
 }
 
 /* --- سجل الحجوزات --- */
 [data-theme="dark"] .bookings-ledger {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .bookings-filter button {
-  background: rgba(163, 184, 172, 0.06) !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  color: rgba(163, 184, 172, 0.78) !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .bookings-filter button span {
-  color: rgba(163, 184, 172, 0.6) !important;
+  color: rgba(244, 241, 234, 0.6) !important;
 }
 
 [data-theme="dark"] .bookings-filter button:hover {
-  color: #F2F8F4 !important;
-  border-color: rgba(183, 255, 114, 0.45) !important;
+  color: #F4F1EA !important;
+  border-color: rgba(255, 90, 78, 0.45) !important;
 }
 
 [data-theme="dark"] .bookings-filter button.is-active {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 

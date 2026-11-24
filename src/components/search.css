@@ -1,4 +1,4 @@
-﻿/* ===== البحث والنتائج ===== */
+/* ===== البحث والنتائج ===== */
 
 .dw-search {
   position: relative;
@@ -519,25 +519,25 @@
 
 /* --- حقل البحث الكبير في قسم البطل --- */
 [data-theme="dark"] .dw-input-row input {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
-  border-color: rgba(183, 255, 114, 0.45) !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
+  border-color: rgba(255, 90, 78, 0.45) !important;
 }
 
 [data-theme="dark"] .dw-input-row input::placeholder {
-  color: rgba(163, 184, 172, 0.5) !important;
+  color: rgba(244, 241, 234, 0.5) !important;
 }
 
 [data-theme="dark"] .dw-input-row input:focus {
-  border-color: #B7FF72 !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+  border-color: #FF5A4E !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.24) !important;
 }
 
 /* زر البحث الكهربائي — مرجاني ونص أبيض */
 [data-theme="dark"] .dw-search button:disabled,
 [data-theme="dark"] .dw-modal button:disabled,
 [data-theme="dark"] .dw-input-row button:disabled {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
   opacity: 0.82 !important;
   cursor: not-allowed;
@@ -545,41 +545,41 @@
 
 [data-theme="dark"] .dw-search button:hover,
 [data-theme="dark"] .dw-modal button:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   opacity: 1;
 }
 
 [data-theme="dark"] .dw-search button.dw-ghost,
 [data-theme="dark"] .dw-modal button.dw-ghost {
-  background: rgba(163, 184, 172, 0.1) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  color: #F4F1EA !important;
 }
 
 /* --- الاقتراحات --- */
 [data-theme="dark"] .dw-suggest {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16);
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-suggest li {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-suggest li:hover {
-  background: rgba(183, 255, 114, 0.16) !important;
+  background: rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .dw-suggest span,
 [data-theme="dark"] .dw-sub,
 [data-theme="dark"] .dw-row small {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .dw-show-more {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dw-error,
@@ -589,39 +589,39 @@
 
 /* --- نتيجة الدواء --- */
 [data-theme="dark"] .dw-result {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16) !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-product-info h3 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-price {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dw-product-image {
-  background: rgba(163, 184, 172, 0.08) !important;
+  background: rgba(244, 241, 234, 0.08) !important;
 }
 
 [data-theme="dark"] .dw-info-section,
 [data-theme="dark"] .dw-usage-section {
-  background: rgba(163, 184, 172, 0.06) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-info-section h4,
 [data-theme="dark"] .dw-usage-section h4,
 [data-theme="dark"] .dw-available-label {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-info-section p,
 [data-theme="dark"] .dw-usage-section p {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .dw-warning,
@@ -633,29 +633,29 @@
 
 /* --- صفوف الصيدليات والمخزون --- */
 [data-theme="dark"] .dw-row {
-  border-top-color: rgba(163, 184, 172, 0.1) !important;
-  color: #F2F8F4 !important;
+  border-top-color: rgba(244, 241, 234, 0.1) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-unavailable button {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .dw-pharmacy-action button {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 /* --- البدائل والشارات --- */
 [data-theme="dark"] .dw-alt {
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  background: rgba(163, 184, 172, 0.04) !important;
-  color: #F2F8F4 !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  background: rgba(244, 241, 234, 0.04) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-badge {
-  background: rgba(183, 255, 114, 0.18) !important;
+  background: rgba(255, 90, 78, 0.18) !important;
   color: #FFC2BC !important;
 }
 
@@ -665,60 +665,60 @@
 }
 
 [data-theme="dark"] .dw-modal {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16);
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12);
+  color: #F4F1EA !important;
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5) !important;
 }
 
 [data-theme="dark"] .dw-modal h3 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-file {
-  background: rgba(163, 184, 172, 0.06) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-file small {
-  color: rgba(163, 184, 172, 0.65) !important;
+  color: rgba(244, 241, 234, 0.65) !important;
 }
 
 /* ===== صفحة حجوزاتي (dw-reservations) ===== */
 [data-theme="dark"] .dw-res-head {
-  border-bottom-color: rgba(163, 184, 172, 0.16) !important;
+  border-bottom-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .dw-res-head h2,
 [data-theme="dark"] .dw-res-title-line > b,
 [data-theme="dark"] .dw-reservation-details h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-res-card {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-res-card small,
 [data-theme="dark"] .dw-reservations > .dw-sub,
 [data-theme="dark"] .dw-reservation-facts span {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .dw-res-head button,
 [data-theme="dark"] .dw-res-card button,
 [data-theme="dark"] .dw-res-card .dw-res-details-button,
 [data-theme="dark"] .dw-reservation-modal-actions .dw-res-details-button {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dw-res-head button:hover,
 [data-theme="dark"] .dw-res-card button:hover {
-  background: rgba(183, 255, 114, 0.28) !important;
+  background: rgba(255, 90, 78, 0.3) !important;
   color: #FFFFFF !important;
 }
 
@@ -734,31 +734,31 @@
 }
 
 [data-theme="dark"] .dw-reservation-details {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(163, 184, 172, 0.16);
+  background: #1B243B !important;
+  border: 1px solid rgba(244, 241, 234, 0.12);
 }
 
 [data-theme="dark"] .dw-reservation-close {
-  background: rgba(163, 184, 172, 0.1) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-reservation-details-icon {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dw-reservation-product-name {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dw-reservation-facts,
 [data-theme="dark"] .dw-reservation-facts > div {
-  border-color: rgba(163, 184, 172, 0.1) !important;
+  border-color: rgba(244, 241, 234, 0.1) !important;
 }
 
 [data-theme="dark"] .dw-reservation-facts strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .dw-reservation-delivery-note {
@@ -767,8 +767,8 @@
 }
 
 [data-theme="dark"] .dw-reservation-note {
-  background: rgba(163, 184, 172, 0.06) !important;
-  color: rgba(163, 184, 172, 0.75) !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 /* --- شارات الحالة --- */
@@ -778,7 +778,7 @@
 }
 
 [data-theme="dark"] .dw-status-confirmed {
-  background: rgba(183, 255, 114, 0.18) !important;
+  background: rgba(255, 90, 78, 0.18) !important;
   color: #FFB3AD !important;
 }
 
@@ -789,6 +789,6 @@
 
 [data-theme="dark"] .dw-status-cancelled,
 [data-theme="dark"] .dw-status-expired {
-  background: rgba(163, 184, 172, 0.1) !important;
-  color: rgba(163, 184, 172, 0.6) !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  color: rgba(244, 241, 234, 0.6) !important;
 }

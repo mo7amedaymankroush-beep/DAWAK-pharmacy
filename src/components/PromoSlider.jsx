@@ -64,13 +64,13 @@ export default function PromoSlider({ onOpenLocationPicker, onBrowsePharmacies, 
 
               <span className="promo-tag">
                 <MapPin size={14} />
-                خدمة جديدة
+                التوصيل السريع 📍
               </span>
 
-              <h2>حدّد موقعك لسرعة الطلب</h2>
+              <h2>حدد موقعك</h2>
 
               <p>
-                اعرف الصيدليات القريبة منك ووقت التوصيل المتوقع في ثواني
+                اعرف أقرب صيدلية ووقت التوصيل فوراً.
               </p>
 
               <button
@@ -81,7 +81,7 @@ export default function PromoSlider({ onOpenLocationPicker, onBrowsePharmacies, 
                   else window.location.hash = "#products";
                 }}
               >
-                📍 تحديد موقعي الآن
+                📍 تحديد الموقع
                 <ArrowLeft size={17} />
               </button>
 

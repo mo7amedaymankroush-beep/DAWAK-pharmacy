@@ -1,4 +1,4 @@
-﻿/* ===== RateDawakBanner — كارت تقييم تجربة دواك =====
+/* ===== RateDawakBanner — كارت تقييم تجربة دواك =====
    أوف وايت مطفي (Matte Off-White) في الوضعين النهاري والليلي
    البانر: #F5F3EE · البطاقات: #ECE9E1 · نصوص: #18251D / #4A5D52 · نجوم: #D99B26 */
 
@@ -505,19 +505,17 @@
 
 
 /* =======================================================================
-   الوضع الليلي — نفس الكارت أوف وايت مطفي (Matte) بدون تغيير
-   القواعد هنا تعيد تأكيد الألوان فوق أي قاعدة [data-theme="dark"] عامة
-   في index.css حتى يبقى الكارت بتباين ممتاز في الوضعين.
+   الوضع الليلي — لوحة الكحلي الليلي (Navy) مع لمسة مرجاني
    ======================================================================= */
 
 [data-theme="dark"] .rate-banner,
 [data-theme="dark"] .rate-banner::before {
-  background: #F5F3EE !important;
+  background: var(--dark-card, #1B243B) !important;
   background-image: none !important;
-  border: 1px solid rgba(24, 37, 29, 0.14) !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
   border-radius: 24px !important;
-  box-shadow: none !important;
-  color: #18251D !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28) !important;
+  color: var(--dark-text, #F4F1EA) !important;
   display: block;
 }
 
@@ -526,188 +524,16 @@
 }
 
 [data-theme="dark"] .rate-banner-kicker {
-  background: rgba(24, 37, 29, 0.08) !important;
-  border-color: rgba(24, 37, 29, 0.14) !important;
-  color: #18251D !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .rate-banner-kicker svg {
-  color: #18251D !important;
-  stroke: #18251D !important;
+  color: #FF5A4E !important;
+  stroke: #FF5A4E !important;
 }
 
 [data-theme="dark"] .rate-banner-copy h2 {
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-banner-copy p {
-  color: #4A5D52 !important;
-}
-
-[data-theme="dark"] .rate-open-button {
-  background: #18251D !important;
-  color: #B7FF72 !important;
-  box-shadow: none !important;
-}
-
-[data-theme="dark"] .rate-open-button svg {
-  color: #B7FF72 !important;
-}
-
-[data-theme="dark"] .rate-open-button:hover {
-  background: #24382C !important;
-}
-
-[data-theme="dark"] .rate-banner-score {
-  background: #ECE9E1 !important;
-  border-color: rgba(24, 37, 29, 0.12) !important;
-  box-shadow: none !important;
-}
-
-[data-theme="dark"] .rate-banner .rate-score-number,
-[data-theme="dark"] .rate-banner .rate-score-of {
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-banner .rate-score-count {
-  color: #4A5D52 !important;
-}
-
-/* النجوم: فارغة باهتة والنشطة ذهبي مطفي #D99B26 */
-[data-theme="dark"] .rate-star {
-  color: rgba(24, 37, 29, 0.22) !important;
-}
-
-[data-theme="dark"] .rate-star svg {
-  stroke: rgba(24, 37, 29, 0.32) !important;
-}
-
-[data-theme="dark"] .rate-star.is-active {
-  color: #D99B26 !important;
-}
-
-[data-theme="dark"] .rate-star.is-active svg {
-  fill: #D99B26 !important;
-  stroke: #D99B26 !important;
-}
-
-/* نموذج التقييم */
-[data-theme="dark"] .rate-form {
-  background: #ECE9E1 !important;
-  border-color: rgba(24, 37, 29, 0.12) !important;
-  box-shadow: none !important;
-}
-
-[data-theme="dark"] .rate-form-title {
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-form-close {
-  background: rgba(24, 37, 29, 0.08) !important;
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-form-close:hover {
-  background: rgba(24, 37, 29, 0.16) !important;
-}
-
-[data-theme="dark"] .rate-format {
-  color: #4A5D52 !important;
-}
-
-[data-theme="dark"] .rate-comment,
-[data-theme="dark"] .rate-name-field {
-  background: #F5F3EE !important;
-  border-color: rgba(24, 37, 29, 0.16) !important;
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-comment::placeholder,
-[data-theme="dark"] .rate-name-field input::placeholder {
-  color: rgba(24, 37, 29, 0.45) !important;
-}
-
-[data-theme="dark"] .rate-comment:focus {
-  border-color: #18251D !important;
-  box-shadow: 0 0 0 3px rgba(24, 37, 29, 0.1) !important;
-}
-
-[data-theme="dark"] .rate-name-field input {
-  background: transparent !important;
-  color: #18251D !important;
-  border: 0 !important;
-}
-
-[data-theme="dark"] .rate-name-field svg {
-  color: #4A5D52 !important;
-}
-
-[data-theme="dark"] .rate-cancel {
-  background: #F5F3EE !important;
-  border-color: rgba(24, 37, 29, 0.16) !important;
-  color: #4A5D52 !important;
-}
-
-[data-theme="dark"] .rate-cancel:hover {
-  background: rgba(24, 37, 29, 0.08) !important;
-}
-
-[data-theme="dark"] .rate-submit {
-  background: #18251D !important;
-  color: #B7FF72 !important;
-  box-shadow: none !important;
-}
-
-[data-theme="dark"] .rate-submit svg {
-  color: #B7FF72 !important;
-}
-
-[data-theme="dark"] .rate-submit:hover:not(:disabled) {
-  background: #24382C !important;
-}
-
-[data-theme="dark"] .rate-thanks {
-  background: #ECE9E1 !important;
-  border-color: rgba(24, 37, 29, 0.14) !important;
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-thanks svg {
-  color: #D99B26 !important;
-  fill: #D99B26 !important;
-}
-
-/* آراء العملاء — بطاقات #ECE9E1 */
-[data-theme="dark"] .rate-reviews {
-  border-top-color: rgba(24, 37, 29, 0.16) !important;
-}
-
-[data-theme="dark"] .rate-reviews-head {
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-review {
-  background: #ECE9E1 !important;
-  border: 1px solid rgba(24, 37, 29, 0.12) !important;
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-review:hover {
-  box-shadow: 0 8px 18px rgba(24, 37, 29, 0.1) !important;
-}
-
-[data-theme="dark"] .rate-review-name {
-  color: #18251D !important;
-}
-
-[data-theme="dark"] .rate-review-name svg {
-  color: #D99B26 !important;
-}
-
-[data-theme="dark"] .rate-review-date {
-  color: #4A5D52 !important;
-}
-
-[data-theme="dark"] .rate-review-text {
-  color: #4A5D52 !important;
+  color: #F4F1EA !important;
 }

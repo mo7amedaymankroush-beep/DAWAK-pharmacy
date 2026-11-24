@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, Fragment } from "react";
 import {
   ShoppingCart,
   CalendarCheck,
@@ -20,6 +20,7 @@ import {
 import { drugs, coreCategories, collectionCategories } from "./data/drugs";
 import { chronicProducts } from "./data/chronicDrugs";
 import { submitOrder } from "./api/ordersApi";
+import { linkGuestReservations } from "./api/mockApi";
 
 import ProductCard from "./components/ProductCard";
 import SearchSection from "./components/SearchSection";
@@ -33,8 +34,14 @@ import PharmacyChatbot from "./components/PharmacyChatbot";
 import Footer from "./components/Footer";
 import AccountMenu from "./components/AccountMenu";
 import ReserveModal from "./components/ReserveModal";
+import AdvertiseBanner, { AdvertiseModal } from "./components/AdvertiseBanner";
 import LocationPickerModal from "./components/LocationPickerModal";
+import {
+  readMonthlyRxList,
+  setMonthlyRxStorageKey,
+} from "./components/MonthlyPrescriptionModal";
 import { ToastProvider } from "./components/ToastProvider";
+import { runInkTransition } from "./utils/inkTransition";
 import { supportWhatsAppNumber, openWhatsAppMessage } from "./components/WhatsAppSupport";
 import PharmacyRegister from "./components/PharmacyRegister";
 
@@ -77,6 +84,8 @@ export default function App() {
   const [prescriptionFile, setPrescriptionFile] = useState(null);
   const [showMonthlyRx, setShowMonthlyRx] = useState(false);
   const [rxTab, setRxTab] = useState("upload");
+  // عداد الروشتات الشهرية المحفوظة — يتحدث فورًا عند الإضافة أو الحذف
+  const [monthlyRxCount, setMonthlyRxCount] = useState(0);
   const [activeCategory, setActiveCategory] = useState(coreCategories[0]);
   const [reservingDrug, setReservingDrug] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -109,6 +118,11 @@ export default function App() {
     };
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // تبديل الوضع الليلي/النهاري مع تأثير سكب الحبر من أعلى الزاوية اليمنى
+  const toggleDarkMode = useCallback(() => {
+    runInkTransition(() => setDarkMode((prev) => !prev));
   }, []);
 
   useEffect(() => {
@@ -324,8 +338,22 @@ export default function App() {
     localStorage.setItem("dawak_phone", cleanPhone);
     setUserPhone(cleanPhone);
     setShowLogin(false);
-    showToast("تم تسجيل الدخول بنجاح");
+
+    // ربط الحجوزات التي تمت كزائر بنفس الرقم بحساب المستخدم
+    const linked = linkGuestReservations(cleanPhone);
+
+    showToast(
+      linked
+        ? `تم تسجيل الدخول وربط ${linked} حجز بحسابك — تابعها من «حجوزاتي»`
+        : "تم تسجيل الدخول بنجاح"
+    );
   };
+
+  // مزامنة مفتاح التخزين وعدّاد الروشتات مع رقم الهاتف (زائر => guest)
+  useEffect(() => {
+    setMonthlyRxStorageKey(userPhone);
+    setMonthlyRxCount(readMonthlyRxList(userPhone).length);
+  }, [userPhone]);
 
   const handleLogout = () => {
     localStorage.removeItem("dawak_phone");
@@ -519,6 +547,9 @@ export default function App() {
                   >
                     <h2>روشتتك الشهرية</h2>
                     <p>توصلك قبل ما تخلص بخصم 5% تلقائي وتذكير قبل يومين</p>
+                    {monthlyRxCount > 0 && (
+                      <span className="rx-monthly-count">محفوظ لديك: {monthlyRxCount} {monthlyRxCount === 1 ? "روشتة" : "روشتات"}</span>
+                    )}
                     <ul className="rx-monthly-list">
                       <li>
                         <Pill size={14} />
@@ -656,31 +687,68 @@ export default function App() {
               />
             ))}
           </div>
+
+          <div className="show-more-container">
+            <button
+              type="button"
+              className="show-more-btn show-more-btn--primary"
+              onClick={() => {
+                setSearchQuery("");
+                navigate("products");
+              }}
+            >
+              عرض المزيد
+              <ArrowRight size={16} />
+            </button>
+          </div>
         </section>
 
         <WeightLossSection
           products={drugs.filter((d) => d.category === "خسارة الوزن")}
           onAddToCart={addToCart}
           onBookProduct={bookProduct}
+          onViewAll={() => {
+            setSearchQuery("");
+            navigate("products", null, { categories: ["خسارة الوزن"] });
+          }}
           onOpenProduct={(product) => {
             setSelectedProduct(product);
             navigate("product-details");
           }}
         />
-        {collectionCategories.map((cat) => (
-          <section key={cat} className="products-section">
-            <div className="section-heading">
-              <h2>{cat}</h2>
-            </div>
-            <div className="products-grid products-grid--six">
-              {drugs
-                .filter((d) => d.category === cat)
-                .slice(0, 6)
-                .map((p) => (
-                  <ProductCard key={p.id} product={p} onAdd={addToCart} onBook={bookProduct} />
-                ))}
-            </div>
-          </section>
+        {collectionCategories.map((cat, index) => (
+          <Fragment key={cat}>
+            <section className="products-section">
+              <div className="section-heading">
+                <h2>{cat}</h2>
+              </div>
+              <div className="products-grid products-grid--six">
+                {drugs
+                  .filter((d) => d.category === cat)
+                  .slice(0, 6)
+                  .map((p) => (
+                    <ProductCard key={p.id} product={p} onAdd={addToCart} onBook={bookProduct} />
+                  ))}
+              </div>
+
+              <div className="show-more-container">
+                <button
+                  type="button"
+                  className="show-more-btn show-more-btn--primary"
+                  onClick={() => {
+                    setSearchQuery("");
+                    navigate("products", null, { categories: [cat] });
+                  }}
+                >
+                  عرض المزيد
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </section>
+
+            {/* البانر الإعلاني للشركات والماركات — أسفل قسم «العروض» مباشرة */}
+            {index === 0 && <AdvertiseBanner />}
+          </Fragment>
         ))}
       </>
     );
@@ -887,9 +955,9 @@ export default function App() {
           </div>
 
           <div className="nav-actions">
-            <button className="monthly-rx-button" onClick={() => setShowMonthlyRx(true)}>
+            <button className="monthly-rx-button" onClick={() => setShowMonthlyRx(true)} data-count={monthlyRxCount}>
               <CalendarCheck size={18} />
-              روشتتي الشهرية
+              <span>روشتتي الشهرية{monthlyRxCount > 0 ? ` (${monthlyRxCount})` : ""}</span>
             </button>
             <button className="cart-button" onClick={() => navigate("cart")} data-count={cartCount}>
               <ShoppingCart size={18} />
@@ -899,7 +967,7 @@ export default function App() {
             <button
               type="button"
               className={`nav-theme-toggle${darkMode ? " is-dark" : ""}`}
-              onClick={() => setDarkMode((prev) => !prev)}
+              onClick={toggleDarkMode}
               title={darkMode ? "التبديل إلى الوضع النهاري" : "التبديل إلى الوضع الليلي"}
               aria-label={darkMode ? "التبديل إلى الوضع النهاري" : "التبديل إلى الوضع الليلي"}
               aria-pressed={darkMode}
@@ -959,11 +1027,31 @@ export default function App() {
             onSuccess={handleLoginSuccess}
           />
         )}
-        {showMonthlyRx && <MonthlyPrescriptionModal onClose={() => setShowMonthlyRx(false)} />}
+        {showMonthlyRx && (
+          <MonthlyPrescriptionModal
+            phone={userPhone}
+            onClose={() => setShowMonthlyRx(false)}
+            onNotice={showToast}
+            onRxCountChange={setMonthlyRxCount}
+            onAddMonthlyToCart={(items) => {
+              items.forEach((item) =>
+                addToCart({
+                  id: item.id,
+                  name: item.name,
+                  price: item.price,
+                  quantity: item.quantity,
+                }),
+              );
+              setShowMonthlyRx(false);
+            }}
+          />
+        )}
         {reservingDrug && (
           <ReserveModal
             drug={reservingDrug}
             onClose={() => setReservingDrug(null)}
+            customerPhone={userPhone}
+            onOpenLogin={() => setShowLogin(true)}
             onBooked={(reservation) => handleBooked(reservingDrug, reservation)}
           />
         )}

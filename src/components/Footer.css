@@ -1,4 +1,4 @@
-﻿.dawak-footer {
+.dawak-footer {
   --footer-bg: #2a2a2a;
   --footer-ink: #ffffff;
   --footer-muted: #e2f1ec;
@@ -15,11 +15,11 @@
 }
 
 [data-theme="dark"] .dawak-footer {
-  --footer-bg: #18251D;
+  --footer-bg: #141B2D;
   --footer-ink: #F5F5F5;
   --footer-muted: rgba(153, 153, 153, 0.8);
-  --footer-accent: #B7FF72;
-  background: #18251D !important;
+  --footer-accent: #FF5A4E;
+  background: #141B2D !important;
   background-image: none !important;
   border-top: 1px solid rgba(176, 141, 86, 0.12) !important;
   box-shadow: none !important;
@@ -329,46 +329,46 @@
 }
 
 [data-theme="dark"] .dawak-footer-support {
-  border-color: rgba(183, 255, 114, .18) !important;
-  background: rgba(183, 255, 114, .05) !important;
+  border-color: rgba(255, 90, 78, 0.18) !important;
+  background: rgba(255, 90, 78, .05) !important;
 }
 
 [data-theme="dark"] .dawak-footer-support h2 {
-  color: #b7ff72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dawak-footer-support p {
-  color: rgba(163, 184, 172, .85) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .dawak-footer-support-icon {
-  color: #101a14 !important;
-  background: #b7ff72 !important;
+  color: #FFFFFF !important;
+  background: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dawak-footer-support-btn {
-  border-color: #b7ff72 !important;
-  color: #101a14 !important;
-  background: #b7ff72 !important;
+  border-color: #FF5A4E !important;
+  color: #FFFFFF !important;
+  background: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dawak-footer-support-btn:hover,
 [data-theme="dark"] .dawak-footer-support-btn:focus-visible {
-  background: #8fe25a !important;
-  border-color: #8fe25a !important;
+  background: #E84D41 !important;
+  border-color: #E84D41 !important;
 }
 
 [data-theme="dark"] .dawak-footer-support-btn--ghost {
-  border-color: rgba(183, 255, 114, .32) !important;
+  border-color: rgba(255, 90, 78, .32) !important;
   color: #f5f5f5 !important;
   background: rgba(245, 245, 245, .06) !important;
 }
 
 [data-theme="dark"] .dawak-footer-support-btn--ghost:hover,
 [data-theme="dark"] .dawak-footer-support-btn--ghost:focus-visible {
-  color: #101a14 !important;
-  background: #b7ff72 !important;
-  border-color: #b7ff72 !important;
+  color: #FFFFFF !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
 }
 /* =======================================================================
    Dark Mode — الفوتر
@@ -379,7 +379,7 @@
   --footer-bg: #2a2a2a;
   --footer-ink: #F5F5F5;
   --footer-muted: #a5c4b3;
-  --footer-accent: #B7FF72;
+  --footer-accent: #FF5A4E;
   background: #2a2a2a !important;
   background-image: none !important;
   border-top: 1px solid #666666 !important;
@@ -394,7 +394,7 @@
 }
 
 [data-theme="dark"] .dawak-footer-brand h2 {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dawak-footer-brand p,
@@ -403,7 +403,7 @@
 }
 
 [data-theme="dark"] .dawak-footer-brand-link img {
-  background: #1f3026 !important;
+  background: #1B243B !important;
 }
 
 [data-theme="dark"] .dawak-footer-column a {
@@ -412,7 +412,7 @@
 
 [data-theme="dark"] .dawak-footer-column a:hover,
 [data-theme="dark"] .dawak-footer-column a:focus-visible {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dawak-footer-unavailable {
@@ -427,19 +427,19 @@
 
 [data-theme="dark"] .dawak-footer-social-links a:hover,
 [data-theme="dark"] .dawak-footer-social-links a:focus-visible {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #222222 !important;
 }
 
 [data-theme="dark"] .dawak-footer a:focus-visible {
-  outline-color: #B7FF72 !important;
+  outline-color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .dawak-footer-bottom {
-  border-top-color: rgba(183, 255, 114, 0.12) !important;
+  border-top-color: rgba(255, 90, 78, 0.12) !important;
 }
 
 [data-theme="dark"] .dawak-footer-bottom p {
-  color: rgba(163, 184, 172, 0.8) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }

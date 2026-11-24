@@ -1,4 +1,4 @@
-﻿/* ===== قسم رحلة خسارة الوزن (تم تطويره وتجميله) ===== */
+/* ===== قسم رحلة خسارة الوزن (تم تطويره وتجميله) ===== */
 
 .wl-section { padding: 30px 0 28px; }
 
@@ -14,6 +14,25 @@
   border: 1px solid rgba(176, 141, 86, 0.14);
   box-shadow: 0 20px 50px rgba(176, 141, 86, 0.24);
   overflow: hidden;
+  font: inherit;
+  text-align: start;
+}
+
+/* البانر قابل للضغط: مؤشر يد + تكبير طيف عند التحويم */
+.wl-banner--clickable {
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wl-banner--clickable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 58px rgba(176, 141, 86, 0.32);
+}
+
+.wl-banner--clickable:focus-visible {
+  outline: 3px solid #b08d56;
+  outline-offset: 4px;
 }
 
 .wl-banner::before {
@@ -272,12 +291,12 @@
 
 [data-theme="dark"] .wl-banner {
   background:
-    radial-gradient(circle at 10% 30%, rgba(183, 255, 114, 0.24) 0%, transparent 52%),
-    radial-gradient(circle at 92% 88%, rgba(163, 184, 172, 0.06) 0%, transparent 46%),
-    linear-gradient(135deg, #1F2F25 0%, #272244 100%) !important;
-  border: 1.5px solid rgba(163, 184, 172, 0.35) !important;
+    radial-gradient(circle at 10% 30%, rgba(255, 90, 78, 0.24) 0%, transparent 52%),
+    radial-gradient(circle at 92% 88%, rgba(244, 241, 234, 0.06) 0%, transparent 46%),
+    linear-gradient(135deg, #1B243B 0%, #272244 100%) !important;
+  border: 1.5px solid rgba(244, 241, 234, 0.35) !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
   overflow: hidden !important;
 }
 
@@ -294,16 +313,16 @@
 
 [data-theme="dark"] .wl-banner::before {
   background-image:
-    radial-gradient(70% 150% at 8% 40%, rgba(183, 255, 114, 0.18), transparent 58%),
-    radial-gradient(55% 90% at 92% 12%, rgba(163, 184, 172, 0.05), transparent 48%) !important;
+    radial-gradient(70% 150% at 8% 40%, rgba(255, 90, 78, 0.18), transparent 58%),
+    radial-gradient(55% 90% at 92% 12%, rgba(244, 241, 234, 0.05), transparent 48%) !important;
 }
 
 [data-theme="dark"] .wl-banner-copy h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .wl-banner-copy p {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 [data-theme="dark"] .wl-banner-icon {
@@ -318,28 +337,28 @@
   opacity: 1 !important;
   filter: none !important;
   background: #FFFFFF !important;
-  border-color: rgba(163, 184, 172, 0.3) !important;
+  border-color: rgba(244, 241, 234, 0.3) !important;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34) !important;
 }
 
 [data-theme="dark"] .wl-view-all {
   background: #B08D56 !important;
-  border: 1px solid rgba(183, 255, 114, 0.6) !important;
+  border: 1px solid rgba(255, 90, 78, 0.6) !important;
   color: #FFFFFF !important;
   opacity: 1 !important;
-  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.32) !important;
+  box-shadow: 0 8px 20px rgba(255, 90, 78, 0.32) !important;
 }
 
 [data-theme="dark"] .wl-view-all:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 /* أسهم التنقل — إطار Sand واضح لتبزز فوق خلفية القسم */
 [data-theme="dark"] .wl-arrows button {
-  background: #1F2F25 !important;
-  border: 1.5px solid rgba(163, 184, 172, 0.45) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1.5px solid rgba(244, 241, 234, 0.45) !important;
+  color: #F4F1EA !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -355,28 +374,28 @@
 
 /* بطاقات المنتجات داخل القسم */
 [data-theme="dark"] .wl-card {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .wl-card:hover {
-  border-color: rgba(183, 255, 114, 0.5) !important;
+  border-color: rgba(255, 90, 78, 0.5) !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.42) !important;
 }
 
 [data-theme="dark"] .wl-card-image {
-  background: rgba(163, 184, 172, 0.05) !important;
-  border-bottom-color: rgba(163, 184, 172, 0.1) !important;
+  background: rgba(244, 241, 234, 0.05) !important;
+  border-bottom-color: rgba(244, 241, 234, 0.1) !important;
 }
 
 [data-theme="dark"] .wl-card-name {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .wl-card-size {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .wl-card-price {
@@ -387,10 +406,10 @@
   background: #B08D56 !important;
   background-image: none !important;
   color: #FFFFFF !important;
-  box-shadow: 0 6px 16px rgba(183, 255, 114, 0.3) !important;
+  box-shadow: 0 6px 16px rgba(255, 90, 78, 0.3) !important;
 }
 
 [data-theme="dark"] .wl-card-add:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }

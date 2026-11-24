@@ -71,13 +71,13 @@ a { color: inherit; text-decoration: none; }
   background: #d9f0e7;
 }
 [data-theme="dark"] .nav-links a.nav-orders-link {
-  border-color: rgba(183, 255, 114, 0.3) !important;
-  color: #B7FF72 !important;
-  background: rgba(183, 255, 114, 0.1) !important;
+  border-color: rgba(255, 90, 78, 0.3) !important;
+  color: #FF5A4E !important;
+  background: rgba(255, 90, 78, 0.12) !important;
 }
-[data-theme="dark"] .nav-links a.nav-orders-link svg { color: #B7FF72 !important; }
+[data-theme="dark"] .nav-links a.nav-orders-link svg { color: #FF5A4E !important; }
 [data-theme="dark"] .nav-links a.nav-orders-link:hover {
-  background: rgba(183, 255, 114, 0.2) !important;
+  background: rgba(255, 90, 78, 0.2) !important;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 .nav-links a.active::after { content: ""; position: absolute; bottom: 3px; right: 0; width: 100%; height: 3px; border-radius: 4px; background: var(--accent); }
@@ -134,20 +134,28 @@ a { color: inherit; text-decoration: none; }
   outline-offset: 2px;
 }
 
+/* حالة الوضع الليلي — ألوان المرجاني داخل [data-theme="dark"] فقط */
+[data-theme="dark"] .nav-theme-toggle.is-dark,
+[data-theme="dark"] .nav-theme-toggle.is-dark:hover {
+  border-color: var(--accent-coral) !important;
+  color: var(--on-accent) !important;
+  background: var(--accent-coral) !important;
+}
+
 [data-theme="dark"] .nav-theme-toggle {
-  border-color: rgba(183, 255, 114, 0.3) !important;
-  color: #B7FF72 !important;
-  background: rgba(183, 255, 114, 0.1) !important;
+  border-color: rgba(244, 241, 234, 0.16) !important;
+  color: var(--accent-coral) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
 }
 
 [data-theme="dark"] .nav-theme-toggle:hover {
-  background: rgba(183, 255, 114, 0.2) !important;
+  background: rgba(255, 90, 78, 0.2) !important;
 }
 
 [data-theme="dark"] .nav-theme-toggle.is-dark {
-  border-color: #B7FF72 !important;
-  color: #18251D !important;
-  background: #B7FF72 !important;
+  border-color: var(--accent-coral) !important;
+  color: var(--on-accent) !important;
+  background: var(--accent-coral) !important;
 }
 .mobile-toggle { display: none; }
 .hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 1.12fr .88fr; gap: clamp(22px, 4vw, 60px); align-items: start; padding: clamp(32px, 4vw, 58px) clamp(18px, 3vw, 42px) 48px; min-height: 390px; }
@@ -200,16 +208,32 @@ a { color: inherit; text-decoration: none; }
 .rx-tabs .rx-tab.is-active { color: #075e50 !important; }
 .rx-tabs .rx-tab.is-active svg { color: #0d9488 !important; stroke: #0d9488 !important; }
 .prescription-card svg { stroke: currentColor !important; }
-[data-theme="dark"] .rx-tabs .rx-tab.is-active { color: #101A14 !important; }
-[data-theme="dark"] .rx-tabs .rx-tab.is-active svg { color: #101A14 !important; stroke: #101A14 !important; }
+[data-theme="dark"] .rx-tabs .rx-tab.is-active { color: #FFFFFF !important; }
+[data-theme="dark"] .rx-tabs .rx-tab.is-active svg { color: #FFFFFF !important; stroke: #FFFFFF !important; }
 .prescription-card .upload-area { border-color: rgba(255,255,255,.8) !important; color: #ffffff !important; }
 .prescription-icon { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: rgba(255,255,255,.13); color: #b5f0d9; margin-bottom: 12px; }
 .prescription-card h2 { font-size: 21px; margin: 0 0 4px; font-weight: 800; }
 .prescription-card p { margin: 0 0 15px; color: #c2e4da; font-size: 12px; }
 .upload-area { width: 100%; min-height: 58px; display: flex; align-items: center; justify-content: center; gap: 10px; border: 1.5px dashed rgba(255,255,255,.72); border-radius: 14px; background: rgba(255,255,255,.05); color: white; padding: 10px; font-size: 11px; font-weight: 700; overflow-wrap: anywhere; cursor: pointer; text-align: center; }
 .upload-area:hover, .upload-area.has-file { background: rgba(255,255,255,.12); }
-.submit-prescription { margin-top: 11px; height: 44px; width: 100%; border: 0; border-radius: 12px; background: linear-gradient(270deg, #d97706 0%, #f59e0b 100%) !important; color: #ffffff !important; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; box-shadow: 0 7px 18px rgba(217,119,6,.18); }
-.submit-prescription:hover { background: linear-gradient(270deg, #b45309 0%, #fbbf24 100%) !important; }
+.submit-prescription { margin-top: 11px; height: 44px; width: 100%; border: 0; border-radius: 12px; background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important; color: #ffffff !important; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; box-shadow: 0 7px 18px rgba(6, 72, 63, .22); }
+.submit-prescription:hover { background: linear-gradient(270deg, #05554a 0%, #0a7f6d 52%, #17a389 100%) !important; filter: brightness(1.04); }
+
+/* شارة "محفوظ لديك: X روشتات" في كارت الصفحة الرئيسية */
+.rx-monthly-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid rgba(25, 140, 120, 0.35);
+  border-radius: 999px;
+  background: linear-gradient(270deg, rgba(6, 72, 63, 0.12) 0%, rgba(25, 140, 120, 0.12) 100%);
+  color: #06483f;
+  font-size: 11.5px;
+  font-weight: 800;
+}
 .prescription-card small { display: block; margin-top: 10px; text-align: center; color: #b9d9d0; font-size: 10px; }
 
 /* =========================
@@ -640,7 +664,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .show-more-btn--primary:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: var(--on-acid) !important;
 }
 /* الأقسام الإضافية المتتالية وزر عرض المزيد */
@@ -970,6 +994,7 @@ a { color: inherit; text-decoration: none; }
 
 /* زر "روشتتي الشهرية" الأصفر في الهيدر */
 .monthly-rx-button {
+  position: relative;
   border: 0;
   display: flex;
   align-items: center;
@@ -987,6 +1012,31 @@ a { color: inherit; text-decoration: none; }
 }
 
 .monthly-rx-button svg { color: #5c3d00; }
+
+/* شارة عدّاد الروشتات المحفوظة على زر الهيدر */
+.monthly-rx-button[data-count]::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -7px;
+  inset-inline-end: -6px;
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
+  box-shadow: 0 3px 8px rgba(6, 72, 63, 0.35);
+  pointer-events: none;
+}
+
+/* الشارة لا تظهر عندما يكون العداد صفرًا */
+.monthly-rx-button[data-count="0"]::after {
+  content: none;
+}
 
 .monthly-rx-button:hover {
   background: linear-gradient(270deg, #f59e0b 0%, #fbbf24 100%);
@@ -1105,15 +1155,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .rx-tabs {
-  background: rgba(183, 255, 114, .08) !important;
-  border-color: rgba(183, 255, 114, .18) !important;
+  background: rgba(255, 90, 78, 0.1) !important;
+  border-color: rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .rx-tab { color: rgba(242, 251, 246, .78); }
-[data-theme="dark"] .rx-tab:hover { background: rgba(183, 255, 114, .12); color: #F5F5F5; }
-[data-theme="dark"] .rx-tab.is-active { background: #B7FF72; color: #101A14; }
-[data-theme="dark"] .rx-tab.is-active svg { color: #101A14 !important; stroke: #101A14 !important; }
-[data-theme="dark"] .rx-monthly-list li { background: rgba(183, 255, 114, .1); }
+[data-theme="dark"] .rx-tab:hover { background: rgba(255, 90, 78, 0.12); color: #F5F5F5; }
+[data-theme="dark"] .rx-tab.is-active { background: #FF5A4E; color: #FFFFFF; }
+[data-theme="dark"] .rx-tab.is-active svg { color: #FFFFFF !important; stroke: #FFFFFF !important; }
+[data-theme="dark"] .rx-monthly-list li { background: rgba(255, 90, 78, 0.12); }
 
 /* شارة المادة الفعالة */
 .product-ingredient-tag {
@@ -1161,56 +1211,70 @@ a { color: inherit; text-decoration: none; }
    الأسطح: #18251D · #1f3026 · #22352a | بارز: #B7FF72 | نص: #f2fbf6 / #a5c4b3
    ========================= */
 [data-theme="dark"] {
-  /* 1) Bronze Graphite — الأساس والبطاقات */
-  --forest-main: #18251D;
-  --forest-deep: #1f3026;
-  --forest-card: #22352a;
-  --forest-card-raised: #22352a;
-  --forest-soft: #263b2f;
-  /* 2) Bronze Accent — اللون البارز للأزرار والروابط النشطة */
-  --accent-mint: #B7FF72;
-  --accent-mint-hover: #9ee858;
-  --accent-mint-soft: rgba(183, 255, 114, 0.16);
-  --accent-mint-border: rgba(183, 255, 114, 0.32);
-  --on-accent: #122419;
+  /* 1) Midnight Navy — الأساس والبطاقات */
+  --forest-main: #141B2D;
+  --forest-deep: #1B243B;
+  --forest-card: #1B243B;
+  --forest-card-raised: #212C46;
+  --forest-soft: #26314D;
+  /* 2) Coral Accent — اللون المميز للأزرار والروابط النشطة */
+  --accent-coral: #FF5A4E;
+  --accent-coral-hover: #E84D41;
+  --accent-coral-soft: rgba(255, 90, 78, 0.16);
+  --accent-coral-border: rgba(255, 90, 78, 0.34);
+  --on-accent: #FFFFFF;
+  /* 2b) أسماء قديمة (Mint) محوّلة إلى المرجاني — ملفات CSS الأخرى تعتمد عليها */
+  --accent-mint: #FF5A4E;
+  --accent-mint-hover: #E84D41;
+  --accent-mint-soft: rgba(255, 90, 78, 0.16);
+  --accent-mint-border: rgba(255, 90, 78, 0.34);
+  --acid-mint: #FF5A4E;
+  --on-acid: #FFFFFF;
+  --coral: #FF5A4E;
+  --coral-strong: #E84D41;
   /* 3) النصوص والحدود */
-  --text-primary: #F5F5F5;
-  --text-secondary: #999999;
-  --text-muted: rgba(153, 153, 153, 0.82);
+  --text-primary: #F4F1EA;
+  --text-secondary: rgba(244, 241, 234, 0.72);
+  --text-muted: rgba(244, 241, 234, 0.55);
 
   /* متغيرات مشتركة مع ملفات CSS الأخرى */
-  --ink: #f2fbf6;
-  --main-bg: #18251D;
-  --card-bg: #1f3026;
-  --input-bg: #263b2f;
-  --card-border: rgba(183, 255, 114, 0.16);
-  --text-primary: #F5F5F5;
-  --text-secondary: #999999;
-  --dark-bg: #333333;
-  --dark-card: #404040;
-  --dark-card-raised: #4a4a4a;
-  --dark-header: #333333;
-  --dark-on-header: #F5F5F5;
-  --dark-text: #F5F5F5;
-  --dark-text-muted: rgba(153, 153, 153, 0.82);
-  --dark-border: rgba(176, 141, 86, 0.16);
+  --ink: #F4F1EA;
+  --muted: rgba(244, 241, 234, 0.72);
+  --main-bg: #141B2D;
+  --card-bg: #1B243B;
+  --input-bg: #1B243B;
+  --border: rgba(244, 241, 234, 0.12);
+  --card-border: rgba(244, 241, 234, 0.12);
+  --accent: #FF5A4E;
+  --accent-hover: #E84D41;
+  --danger: #FF5A4E;
+  --dark-bg: #141B2D;
+  --dark-card: #1B243B;
+  --dark-card-raised: #212C46;
+  --dark-header: #1B243B;
+  --dark-on-header: #F4F1EA;
+  --dark-text: #F4F1EA;
+  --dark-text-muted: rgba(244, 241, 234, 0.72);
+  --dark-border: rgba(244, 241, 234, 0.12);
   --bronze: #B08D56;
   --bronze-strong: #9a7a48;
 }
 
 [data-theme="dark"] body {
   background: var(--dark-bg) !important;
+  background-color: var(--dark-bg) !important;
   color: var(--dark-text);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* ---------- الهيدر: Forest Graphite زجاجي مع حد سفلي Mint ---------- */
+/* ---------- الهيدر: كحلي ليلي زجاجي مع حد سفلي مرجاني خفيف ---------- */
 [data-theme="dark"] .navbar {
-  background: rgba(18, 29, 22, 0.92) !important;
+  background: rgba(27, 36, 59, 0.92) !important;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(183, 255, 114, 0.14) !important;
-  border-bottom: 1px solid rgba(183, 255, 114, 0.14) !important;
-  box-shadow: 0 8px 26px rgba(9, 14, 11, 0.4) !important;
+  border: 1px solid rgba(244, 241, 234, 0.12) !important;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.12) !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4) !important;
 }
 
 [data-theme="dark"] .navbar .brand-name,
@@ -1238,7 +1302,7 @@ a { color: inherit; text-decoration: none; }
 
 [data-theme="dark"] .nav-search {
   background: var(--dark-card) !important;
-  border-color: rgba(183, 255, 114, 0.16) !important;
+  border-color: rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .nav-search input {
@@ -1248,40 +1312,40 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .nav-search input::placeholder {
-  color: rgba(163, 184, 172, 0.65) !important;
+  color: rgba(244, 241, 234, 0.65) !important;
 }
 
 [data-theme="dark"] .nav-search > svg {
-  color: rgba(163, 184, 172, 0.8) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .nav-search .nav-search-submit {
   background: transparent !important;
-  color: rgba(183, 255, 114, 0.85) !important;
+  color: rgba(255, 90, 78, 0.85) !important;
   box-shadow: none !important;
 }
 
 [data-theme="dark"] .nav-search .nav-search-submit:hover {
-  background: rgba(183, 255, 114, 0.14) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .nav-search:focus-within {
   border-color: var(--acid-mint) !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.18) !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .mobile-toggle {
-  background: rgba(183, 255, 114, 0.1) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
   color: var(--acid-mint) !important;
   border-color: transparent !important;
 }
 
 /* أزرار الهيدر (الروشتة الشهرية / العربة / الحساب) فوق خلفية Forest Graphite */
 [data-theme="dark"] .nav-actions > .dynamic-btn {
-  background: rgba(183, 255, 114, 0.08) !important;
+  background: rgba(255, 90, 78, 0.1) !important;
   color: var(--dark-on-header) !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .nav-actions > .cart-button {
@@ -1310,9 +1374,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .nav-actions > .account-button {
-  background: rgba(183, 255, 114, 0.1) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
   color: var(--acid-mint) !important;
-  border: 1px solid rgba(183, 255, 114, 0.28) !important;
+  border: 1px solid rgba(255, 90, 78, 0.3) !important;
 }
 
 [data-theme="dark"] .nav-actions > .account-button svg,
@@ -1355,7 +1419,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .product-ingredient-tag {
-  background: rgba(183, 255, 114, 0.1);
+  background: rgba(255, 90, 78, 0.12);
   border-color: var(--dark-border);
   color: var(--dark-text);
 }
@@ -1382,7 +1446,7 @@ a { color: inherit; text-decoration: none; }
 
 [data-theme="dark"] .app-shell input::placeholder,
 [data-theme="dark"] .app-shell textarea::placeholder {
-  color: rgba(163, 184, 172, 0.6) !important;
+  color: rgba(244, 241, 234, 0.6) !important;
 }
 
 [data-theme="dark"] .app-shell {
@@ -1437,9 +1501,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .pharmacist-tools .icon-button {
-  background: rgba(183, 255, 114, 0.1) !important;
-  border: 1px solid rgba(183, 255, 114, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.12) !important;
+  border: 1px solid rgba(255, 90, 78, 0.24) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacist-tools .icon-button:hover {
@@ -1449,32 +1513,32 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .pharmacist-heading h1 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacist-heading p {
-  color: rgba(163, 184, 172, 0.85) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .pharmacist-heading .info-page-icon {
-  background: rgba(183, 255, 114, 0.16) !important;
+  background: rgba(255, 90, 78, 0.16) !important;
   color: var(--acid-mint) !important;
 }
 
 /* صندوق بيانات العميل — سطح Forest Graphite */
 [data-theme="dark"] .pharmacist-customer {
-  background: rgba(183, 255, 114, 0.05) !important;
-  border: 1px solid rgba(183, 255, 114, 0.14) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.05) !important;
+  border: 1px solid rgba(255, 90, 78, 0.14) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacist-customer strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacist-customer span,
 [data-theme="dark"] .pharmacist-customer div {
-  color: rgba(163, 184, 172, 0.85) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .pharmacist-customer svg {
@@ -1518,9 +1582,9 @@ a { color: inherit; text-decoration: none; }
 
 /* زر السمة داخل الهيدر: قرص Mint على خلفية Forest Graphite */
 [data-theme="dark"] .navbar .nav-actions .theme-ink-btn {
-  background: rgba(183, 255, 114, 0.12) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
   color: var(--acid-mint) !important;
-  border: 1.5px solid rgba(183, 255, 114, 0.35) !important;
+  border: 1.5px solid rgba(255, 90, 78, 0.34) !important;
 }
 
 [data-theme="dark"] .navbar .nav-actions .theme-ink-btn:hover {
@@ -1532,31 +1596,31 @@ a { color: inherit; text-decoration: none; }
 /* شريط البحث داخل الهيدر: سطح Forest Card بحد Mint */
 [data-theme="dark"] .navbar .nav-search {
   background: rgba(31, 47, 37, 0.85) !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .navbar .nav-search input {
   background: transparent !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .navbar .nav-search input::placeholder {
-  color: rgba(163, 184, 172, 0.6) !important;
+  color: rgba(244, 241, 234, 0.6) !important;
 }
 
 [data-theme="dark"] .navbar .nav-search > svg {
-  color: rgba(163, 184, 172, 0.85) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .navbar .nav-search .nav-search-submit {
   background: transparent !important;
-  color: rgba(183, 255, 114, 0.85) !important;
+  color: rgba(255, 90, 78, 0.85) !important;
   box-shadow: none !important;
 }
 
 [data-theme="dark"] .navbar .nav-search .nav-search-submit:hover {
-  background: rgba(183, 255, 114, 0.14) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .navbar .nav-search span {
@@ -1573,9 +1637,9 @@ a { color: inherit; text-decoration: none; }
 /* زر العربة وزر الحساب: على خلفية Forest Graphite ⇒ سطح بارز Mint بحدود واضحة */
 [data-theme="dark"] .navbar .account-button--signed,
 [data-theme="dark"] .navbar .cart-button {
-  background: rgba(183, 255, 114, 0.1) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
   color: var(--acid-mint) !important;
-  border: 1px solid rgba(183, 255, 114, 0.28) !important;
+  border: 1px solid rgba(255, 90, 78, 0.3) !important;
   box-shadow: none !important;
 }
 
@@ -1629,7 +1693,7 @@ a { color: inherit; text-decoration: none; }
 [data-theme="dark"] .theme-ink-btn {
   background: var(--dark-card-raised) !important;
   color: var(--acid-mint) !important;
-  border-color: rgba(183, 255, 114, 0.32) !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
 }
 
 [data-theme="dark"] .theme-ink-btn:hover {
@@ -1666,8 +1730,8 @@ a { color: inherit; text-decoration: none; }
 
 /* --- قسم البطل Hero --- */
 [data-theme="dark"] .hero::before {
-  background: radial-gradient(ellipse at 20% 70%, rgba(183, 255, 114, 0.08), transparent 48%),
-              radial-gradient(ellipse at 85% 25%, rgba(183, 255, 114, 0.05), transparent 40%) !important;
+  background: radial-gradient(ellipse at 20% 70%, rgba(255, 90, 78, 0.1), transparent 48%),
+              radial-gradient(ellipse at 85% 25%, rgba(255, 90, 78, 0.05), transparent 40%) !important;
 }
 
 [data-theme="dark"] .hero h1 {
@@ -1688,7 +1752,7 @@ a { color: inherit; text-decoration: none; }
 
 [data-theme="dark"] .eyebrow-dot {
   background: var(--acid-mint) !important;
-  box-shadow: 0 0 0 5px rgba(183, 255, 114, 0.16) !important;
+  box-shadow: 0 0 0 5px rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .hero-trust {
@@ -1702,17 +1766,17 @@ a { color: inherit; text-decoration: none; }
 /* كروت الإعلان (روشتة / تأمين) ⇒ تدرج Forest مع لمسة بنفسجية */
 [data-theme="dark"] .prescription-card,
 [data-theme="dark"] .hero-cards .prescription-card {
-  background: linear-gradient(135deg, #1F2F25 0%, #26392D 100%) !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
+  background: linear-gradient(135deg, #1B243B 0%, #212C46 100%) !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.42) !important;
 }
 
 [data-theme="dark"] .prescription-card p {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 [data-theme="dark"] .prescription-card small {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .prescription-icon {
@@ -1721,24 +1785,30 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .upload-area {
-  border-color: rgba(183, 255, 114, 0.35) !important;
-  background: rgba(183, 255, 114, 0.08) !important;
-  color: #F2F8F4 !important;
+  border-color: rgba(255, 90, 78, 0.34) !important;
+  background: rgba(255, 90, 78, 0.1) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .upload-area:hover,
 [data-theme="dark"] .upload-area.has-file {
-  background: rgba(183, 255, 114, 0.14) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
   border-color: var(--acid-mint) !important;
 }
 
 /* زر "أرسل الروشتة" ⇒ Acid Mint */
+[data-theme="dark"] .rx-monthly-count {
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
+  color: #FF8A80 !important;
+}
+
 [data-theme="dark"] .submit-prescription {
   background: var(--acid-mint) !important;
   background-image: none !important;
   color: var(--on-acid) !important;
   border: 1px solid var(--acid-mint) !important;
-  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.2) !important;
+  box-shadow: 0 8px 20px rgba(255, 90, 78, 0.2) !important;
 }
 
 [data-theme="dark"] .submit-prescription:hover {
@@ -1774,7 +1844,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--acid-mint) !important;
   border-color: var(--acid-mint) !important;
   color: var(--on-acid) !important;
-  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.22) !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.24) !important;
 }
 
 [data-theme="dark"] .category-pill.is-active::before {
@@ -1798,7 +1868,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .product-card:hover {
-  border-color: rgba(183, 255, 114, 0.32) !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.36) !important;
 }
 
@@ -1826,7 +1896,7 @@ a { color: inherit; text-decoration: none; }
   background-image: none !important;
   color: var(--on-acid) !important;
   border-color: var(--acid-mint) !important;
-  box-shadow: 0 8px 18px rgba(183, 255, 114, 0.18) !important;
+  box-shadow: 0 8px 18px rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .product-add-button:hover,
@@ -1860,26 +1930,26 @@ a { color: inherit; text-decoration: none; }
 /* --- قسم "عندك صيدلية؟ انضم لدواك" ⇒ Forest + Mint + إطار Mint --- */
 [data-theme="dark"] .pharmacy-cta-content {
   background:
-    radial-gradient(circle at 88% 12%, rgba(183, 255, 114, 0.14) 0%, transparent 48%),
-    linear-gradient(135deg, #1F2F25 0%, #26392D 100%) !important;
-  border: 1.5px solid rgba(183, 255, 114, 0.24) !important;
+    radial-gradient(circle at 88% 12%, rgba(255, 90, 78, 0.14) 0%, transparent 48%),
+    linear-gradient(135deg, #1B243B 0%, #212C46 100%) !important;
+  border: 1.5px solid rgba(255, 90, 78, 0.24) !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
 }
 
 [data-theme="dark"] .pharmacy-cta-title {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacy-cta-desc {
-  color: rgba(163, 184, 172, 0.95) !important;
+  color: rgba(244, 241, 234, 0.95) !important;
 }
 
 [data-theme="dark"] .pharmacy-cta-btn {
   background: var(--acid-mint) !important;
   background-image: none !important;
   color: var(--on-acid) !important;
-  border: 1px solid rgba(183, 255, 114, 0.6) !important;
-  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.2) !important;
+  border: 1px solid rgba(255, 90, 78, 0.6) !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.2) !important;
 }
 
 [data-theme="dark"] .pharmacy-cta-btn:hover {
@@ -1891,11 +1961,11 @@ a { color: inherit; text-decoration: none; }
 [data-theme="dark"] .dawak-footer {
   --footer-bg: #0F1812;
   --footer-ink: var(--dark-text);
-  --footer-muted: rgba(163, 184, 172, 0.8);
+  --footer-muted: rgba(244, 241, 234, 0.72);
   --footer-accent: var(--acid-mint);
   background: #0F1812 !important;
   background-image: none !important;
-  border-top: 1px solid rgba(183, 255, 114, 0.12) !important;
+  border-top: 1px solid rgba(255, 90, 78, 0.12) !important;
   box-shadow: none !important;
 }
 
@@ -1920,7 +1990,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .dawak-footer-social-links a {
-  background: rgba(183, 255, 114, 0.06) !important;
+  background: rgba(255, 90, 78, 0.08) !important;
   border-color: var(--dark-border) !important;
   color: var(--dark-text) !important;
 }
@@ -1933,7 +2003,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .dawak-footer-bottom {
-  border-top-color: rgba(183, 255, 114, 0.12) !important;
+  border-top-color: rgba(255, 90, 78, 0.12) !important;
 }
 
 [data-theme="dark"] .dawak-footer-bottom p {
@@ -1979,11 +2049,11 @@ a { color: inherit; text-decoration: none; }
 
 [data-theme="dark"] .product-info > span,
 [data-theme="dark"] .product-meta {
-  color: rgba(163, 184, 172, 0.8) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .product-price span {
-  color: rgba(163, 184, 172, 0.72) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 /* شارة التوفّر */
@@ -1995,19 +2065,19 @@ a { color: inherit; text-decoration: none; }
 
 /* حقل البحث الكبير في الهيرو: كبسولة Acid Mint واضحة */
 [data-theme="dark"] .dw-input-row input {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
-  border: 2px solid rgba(183, 255, 114, 0.32) !important;
-  box-shadow: 0 10px 26px rgba(183, 255, 114, 0.1) !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
+  border: 2px solid rgba(255, 90, 78, 0.32) !important;
+  box-shadow: 0 10px 26px rgba(255, 90, 78, 0.12) !important;
 }
 
 [data-theme="dark"] .dw-input-row input:focus {
   border-color: var(--acid-mint) !important;
-  box-shadow: 0 0 0 4px rgba(183, 255, 114, 0.18) !important;
+  box-shadow: 0 0 0 4px rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .dw-input-row button {
-  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.2) !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.2) !important;
   color: var(--on-acid) !important;
 }
 
@@ -2043,15 +2113,15 @@ a { color: inherit; text-decoration: none; }
 [data-theme="dark"] .prescription-card small,
 [data-theme="dark"] .pharmacies-hero h1,
 [data-theme="dark"] .pharmacies-hero p {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-slide--pharmacies .promo-slide-copy h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .promo-slide--pharmacies .promo-slide-copy p {
-  color: rgba(163, 184, 172, 0.88) !important;
+  color: rgba(244, 241, 234, 0.88) !important;
 }
 
 /* --- بطاقات الصيدليات القريبة (pharmacies.css) --- */
@@ -2090,7 +2160,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 [data-theme="dark"] .pharmacy-card:hover {
-  border-color: rgba(183, 255, 114, 0.32) !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
 }
 
 [data-theme="dark"] .pharmacy-card h3,
@@ -2162,12 +2232,12 @@ a { color: inherit; text-decoration: none; }
   [data-theme="dark"] .nav-links.open .nav-search { background: var(--dark-card) !important; }
 }
 
-/* View Transitions — Ink Spill Animation (سكب الحبر) */
+/* View Transitions — Ink Spill Animation (سكب الحبر من أعلى الزاوية اليمنى) */
 :root {
-  --ink-x: 100vw;
-  --ink-y: 0px;
-  --ink-radius: 100vmax;
-  --ink-duration: 750ms;
+  --ink-x: 100%;
+  --ink-y: 0%;
+  --ink-radius: 150vmax;
+  --ink-duration: 0.65s;
   --ink-easing: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -2178,7 +2248,7 @@ a { color: inherit; text-decoration: none; }
   mix-blend-mode: normal;
 }
 
-/* القديم يبقى في الأسفل، والجديد ينسكب فوقه */
+/* القديم يبقى في الأسفل، والجديد ينسكب فوقه من أعلى اليمين */
 ::view-transition-old(root) {
   z-index: 1;
 }
@@ -2187,15 +2257,15 @@ a { color: inherit; text-decoration: none; }
   z-index: 9999;
   filter: none;
   transform-origin: 100% 0;
-  animation: inkSpill var(--ink-duration, 750ms) var(--ink-easing, cubic-bezier(0.22, 1, 0.36, 1)) both;
+  animation: inkSpill var(--ink-duration, 0.65s) var(--ink-easing, cubic-bezier(0.22, 1, 0.36, 1)) both;
 }
 
 @keyframes inkSpill {
   from {
-    clip-path: circle(0px at var(--ink-x, 100vw) var(--ink-y, 0px));
+    clip-path: circle(0px at 100% 0);
   }
   to {
-    clip-path: circle(var(--ink-radius, 100vmax) at var(--ink-x, 100vw) var(--ink-y, 0px));
+    clip-path: circle(150vmax at 100% 0);
   }
 }
 
@@ -2211,7 +2281,18 @@ html.ink-transitioning *::after {
 
 /* استثناء حركة الحبر نفسها */
 html.ink-transitioning::view-transition-new(root) {
-  animation-duration: var(--ink-duration, 750ms) !important;
+  animation-duration: var(--ink-duration, 0.65s) !important;
+}
+
+/* Fallback لمن لا يدعم View Transitions: انتقال سلس على background-color و color */
+html.theme-fading,
+html.theme-fading body,
+html.theme-fading .app-shell,
+html.theme-fading .navbar {
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 /* التقليل من الحركة لمن يفضّل ذلك */
@@ -2219,6 +2300,10 @@ html.ink-transitioning::view-transition-new(root) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
+  }
+  html.theme-fading,
+  html.theme-fading * {
+    transition-duration: 0.01s !important;
   }
 }
 
@@ -2229,7 +2314,7 @@ html.ink-transitioning::view-transition-new(root) {
 
 /* ------------------ 1) صفحة استشارة صيدلي ------------------ */
 [data-theme="dark"] .info-page {
-  background: #18251D !important;
+  background: #141B2D !important;
 }
 
 [data-theme="dark"] .info-page .consultation-split-card,
@@ -2239,11 +2324,11 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .info-page .consultation-sidebar,
 [data-theme="dark"] .info-page .consultation-card,
 [data-theme="dark"] .info-page .consultation-tip {
-  background: #1F2F25 !important;
+  background: #1B243B !important;
   background-image: none !important;
-  border: 1.5px solid rgba(183, 255, 114, 0.16) !important;
+  border: 1.5px solid rgba(255, 90, 78, 0.16) !important;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page h1,
@@ -2255,13 +2340,13 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .info-page .consultation-sidebar h3,
 [data-theme="dark"] .info-page .info-kicker,
 [data-theme="dark"] .info-page .consultation-tip h3 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .consultation-sidebar p,
 [data-theme="dark"] .info-page .consultation-head p,
 [data-theme="dark"] .info-page .info-hero p {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 [data-theme="dark"] .info-page .consultation-sidebar svg {
@@ -2272,27 +2357,27 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .info-page span,
 [data-theme="dark"] .info-page label,
 [data-theme="dark"] .info-page li {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 [data-theme="dark"] .info-page input,
 [data-theme="dark"] .info-page textarea,
 [data-theme="dark"] .info-page select {
-  background: #18251D !important;
-  border: 1px solid rgba(183, 255, 114, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border: 1px solid rgba(255, 90, 78, 0.24) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page input::placeholder,
 [data-theme="dark"] .info-page textarea::placeholder {
-  color: rgba(163, 184, 172, 0.55) !important;
+  color: rgba(244, 241, 234, 0.55) !important;
 }
 
 [data-theme="dark"] .info-page input:focus,
 [data-theme="dark"] .info-page textarea:focus,
 [data-theme="dark"] .info-page select:focus {
   border-color: var(--acid-mint) !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.16) !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .info-page button,
@@ -2311,28 +2396,28 @@ html.ink-transitioning::view-transition-new(root) {
 
 [data-theme="dark"] .info-form-title,
 [data-theme="dark"] .consultation-form-title {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .info-hero {
   background: transparent !important;
-  border-bottom-color: rgba(183, 255, 114, 0.18) !important;
+  border-bottom-color: rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .info-page .info-hero h1 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .info-hero p {
-  color: rgba(163, 184, 172, 0.88) !important;
+  color: rgba(244, 241, 234, 0.88) !important;
 }
 
 /* ------------------ 2) الصفحات والنوافذ: خلفية Forest Graphite ------------------ */
 [data-theme="dark"] .cart-page,
 [data-theme="dark"] .my-bookings-page,
 [data-theme="dark"] .pharmacist-page {
-  background: #18251D !important;
-  border-color: rgba(183, 255, 114, 0.18) !important;
+  background: #141B2D !important;
+  border-color: rgba(255, 90, 78, 0.18) !important;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -2344,13 +2429,13 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .my-bookings-page h3,
 [data-theme="dark"] .pharmacist-page h1,
 [data-theme="dark"] .pharmacist-page h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .cart-page p,
 [data-theme="dark"] .my-bookings-page p,
 [data-theme="dark"] .cart-page small {
-  color: rgba(163, 184, 172, 0.85) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 /* ------------------ 3) عربة التسوق وطلباتي ------------------ */
@@ -2367,10 +2452,10 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .tracking-page-date,
 [data-theme="dark"] .order-card,
 [data-theme="dark"] .orders-empty {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .cart-item-name,
@@ -2379,28 +2464,28 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .checkout-total,
 [data-theme="dark"] .order-card h3,
 [data-theme="dark"] .tracking-card h3 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .cart-summary-total,
 [data-theme="dark"] .checkout-panel h2 {
-  border-color: rgba(183, 255, 114, 0.16) !important;
-  color: #F2F8F4 !important;
+  border-color: rgba(255, 90, 78, 0.16) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .checkout-panel label,
 [data-theme="dark"] .cart-item-meta,
 [data-theme="dark"] .order-card small {
-  color: rgba(163, 184, 172, 0.8) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .cart-page input,
 [data-theme="dark"] .cart-page textarea,
 [data-theme="dark"] .cart-page select,
 [data-theme="dark"] .cart-page .qty-input {
-  background: #18251D !important;
-  border-color: rgba(183, 255, 114, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border-color: rgba(255, 90, 78, 0.24) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .cart-page .checkout-submit,
@@ -2412,7 +2497,7 @@ html.ink-transitioning::view-transition-new(root) {
   background-image: none !important;
   border-color: var(--acid-mint) !important;
   color: var(--on-acid) !important;
-  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.16) !important;
+  box-shadow: 0 8px 20px rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .cart-page .checkout-submit:hover,
@@ -2435,9 +2520,9 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .my-bookings-page .bookings-ledger,
 [data-theme="dark"] .my-bookings-page .bookings-empty,
 [data-theme="dark"] .my-bookings-page .booking-ticket {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .my-bookings-page .bookings-ledger-head h2,
@@ -2445,13 +2530,13 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .my-bookings-page .booking-ticket h3,
 [data-theme="dark"] .my-bookings-page .bookings-tally dd,
 [data-theme="dark"] .my-bookings-page .booking-ticket-facts strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .my-bookings-page .bookings-tally dt,
 [data-theme="dark"] .my-bookings-page .booking-ticket-facts span,
 [data-theme="dark"] .my-bookings-page .booking-ticket-type {
-  color: rgba(163, 184, 172, 0.78) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .my-bookings-page button,
@@ -2470,28 +2555,28 @@ html.ink-transitioning::view-transition-new(root) {
 /* ------------------ 5) نافذة تحديد الموقع ------------------ */
 [data-theme="dark"] .location-modal,
 [data-theme="dark"] .dw-modal.location-modal {
-  background: #1F2F25 !important;
-  border: 1.5px solid rgba(183, 255, 114, 0.2) !important;
+  background: #1B243B !important;
+  border: 1.5px solid rgba(255, 90, 78, 0.2) !important;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .location-modal-title {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .location-modal-sub {
-  color: rgba(163, 184, 172, 0.85) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .location-modal-icon {
-  background: rgba(183, 255, 114, 0.14) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
   color: var(--acid-mint) !important;
 }
 
 [data-theme="dark"] .location-modal-close {
-  background: rgba(183, 255, 114, 0.1) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .location-modal-close:hover {
@@ -2509,65 +2594,65 @@ html.ink-transitioning::view-transition-new(root) {
 
 [data-theme="dark"] .location-modal .secondary,
 [data-theme="dark"] .location-modal button.secondary {
-  background: #26392D !important;
+  background: #212C46 !important;
   background-image: none !important;
-  border-color: rgba(183, 255, 114, 0.28) !important;
-  color: #F2F8F4 !important;
+  border-color: rgba(255, 90, 78, 0.3) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .location-modal .secondary:hover,
 [data-theme="dark"] .location-modal button.secondary:hover {
   background: #2C4132 !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .location-modal input,
 [data-theme="dark"] .location-modal select {
-  background: #18251D !important;
-  border-color: rgba(183, 255, 114, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border-color: rgba(255, 90, 78, 0.24) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .location-modal select option {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
 }
 
 /* ------------------ 6) صفحة الصيدليات المسجلة ------------------ */
 [data-theme="dark"] .pharmacies-page {
-  background: #18251D !important;
+  background: #141B2D !important;
 }
 
 [data-theme="dark"] .pharmacies-hero {
   background:
-    radial-gradient(circle at 90% 20%, rgba(183, 255, 114, 0.12) 0%, transparent 48%),
-    radial-gradient(circle at 10% 90%, rgba(183, 255, 114, 0.06) 0%, transparent 44%),
-    linear-gradient(135deg, #1F2F25 0%, #26392D 100%) !important;
-  border: 1px solid rgba(183, 255, 114, 0.2) !important;
-  color: #F2F8F4 !important;
+    radial-gradient(circle at 90% 20%, rgba(255, 90, 78, 0.12) 0%, transparent 48%),
+    radial-gradient(circle at 10% 90%, rgba(255, 90, 78, 0.08) 0%, transparent 44%),
+    linear-gradient(135deg, #1B243B 0%, #212C46 100%) !important;
+  border: 1px solid rgba(255, 90, 78, 0.2) !important;
+  color: #F4F1EA !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35) !important;
 }
 
 [data-theme="dark"] .pharmacies-hero h1 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacies-hero p {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 [data-theme="dark"] .pharmacies-kicker {
-  background: rgba(183, 255, 114, 0.14) !important;
-  border-color: rgba(183, 255, 114, 0.3) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.3) !important;
   color: var(--acid-mint) !important;
 }
 
 [data-theme="dark"] .pharmacies-search,
 [data-theme="dark"] .pharmacies-area-filter,
 [data-theme="dark"] .pharmacy-tile {
-  background: #1F2F25 !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
+  color: #F4F1EA !important;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28) !important;
 }
 
@@ -2575,16 +2660,16 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .pharmacies-area-filter select {
   background: transparent !important;
   border: 0 !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacies-search input::placeholder {
-  color: rgba(163, 184, 172, 0.6) !important;
+  color: rgba(244, 241, 234, 0.6) !important;
 }
 
 [data-theme="dark"] .pharmacies-area-filter select option {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacies-search svg,
@@ -2593,15 +2678,15 @@ html.ink-transitioning::view-transition-new(root) {
 }
 
 [data-theme="dark"] .pharmacy-tile h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-address {
-  color: rgba(163, 184, 172, 0.8) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-logo {
-  background: rgba(183, 255, 114, 0.14) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
   color: var(--acid-mint) !important;
 }
 
@@ -2613,8 +2698,8 @@ html.ink-transitioning::view-transition-new(root) {
 }
 
 [data-theme="dark"] .pharmacy-tile-rating {
-  background: rgba(183, 255, 114, 0.1) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-rating svg {
@@ -2623,15 +2708,15 @@ html.ink-transitioning::view-transition-new(root) {
 }
 
 [data-theme="dark"] .pharmacy-tile-delivery {
-  background: rgba(183, 255, 114, 0.08) !important;
-  color: rgba(163, 184, 172, 0.95) !important;
+  background: rgba(255, 90, 78, 0.1) !important;
+  color: rgba(244, 241, 234, 0.95) !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-button {
   background: var(--acid-mint) !important;
   border: 1px solid var(--acid-mint) !important;
   color: var(--on-acid) !important;
-  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.16) !important;
+  box-shadow: 0 8px 20px rgba(255, 90, 78, 0.16) !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-button:hover {
@@ -2640,19 +2725,19 @@ html.ink-transitioning::view-transition-new(root) {
 }
 
 [data-theme="dark"] .pharmacies-empty {
-  background: #1F2F25 !important;
-  border-color: rgba(183, 255, 114, 0.16) !important;
-  color: rgba(163, 184, 172, 0.85) !important;
+  background: #1B243B !important;
+  border-color: rgba(255, 90, 78, 0.16) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .pharmacies-empty h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacies-back {
-  background: rgba(183, 255, 114, 0.1) !important;
-  border-color: rgba(183, 255, 114, 0.26) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.12) !important;
+  border-color: rgba(255, 90, 78, 0.26) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacies-back:hover {
@@ -2662,19 +2747,19 @@ html.ink-transitioning::view-transition-new(root) {
 
 /* ===================== استشارة صيدلي — ضبط نهائي ===================== */
 [data-theme="dark"] .info-page .consultation-sidebar {
-  background: #1F2F25 !important;
+  background: #1B243B !important;
   background-image: none !important;
-  border: 1.5px solid rgba(183, 255, 114, 0.16) !important;
-  color: #F2F8F4 !important;
+  border: 1.5px solid rgba(255, 90, 78, 0.16) !important;
+  color: #F4F1EA !important;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3) !important;
 }
 
 [data-theme="dark"] .info-page .consultation-sidebar h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .consultation-sidebar p {
-  color: rgba(163, 184, 172, 0.9) !important;
+  color: rgba(244, 241, 234, 0.9) !important;
 }
 
 [data-theme="dark"] .info-page .consultation-sidebar svg {
@@ -2685,33 +2770,33 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .info-page .consultation-split-card,
 [data-theme="dark"] .info-page .info-form,
 [data-theme="dark"] .info-page .consultation-centered {
-  background: #1F2F25 !important;
+  background: #1B243B !important;
   background-image: none !important;
-  border: 1.5px solid rgba(183, 255, 114, 0.16) !important;
-  color: #F2F8F4 !important;
+  border: 1.5px solid rgba(255, 90, 78, 0.16) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .info-form label {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
   font-weight: 700;
 }
 
 [data-theme="dark"] .info-page .info-form input,
 [data-theme="dark"] .info-page .info-form textarea,
 [data-theme="dark"] .info-page .info-form select {
-  background: #18251D !important;
-  border: 1px solid rgba(183, 255, 114, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border: 1px solid rgba(255, 90, 78, 0.24) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .info-form input::placeholder,
 [data-theme="dark"] .info-page .info-form textarea::placeholder {
-  color: rgba(163, 184, 172, 0.55) !important;
+  color: rgba(244, 241, 234, 0.55) !important;
 }
 
 [data-theme="dark"] .info-page .info-form select option {
-  background: #18251D !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .info-page .info-form button,
@@ -2720,7 +2805,7 @@ html.ink-transitioning::view-transition-new(root) {
   background-image: none !important;
   border: 1px solid var(--acid-mint) !important;
   color: var(--on-acid) !important;
-  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.18) !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .info-page .info-form button:hover,
@@ -2734,9 +2819,9 @@ html.ink-transitioning::view-transition-new(root) {
 [data-theme="dark"] .navbar .account-button,
 [data-theme="dark"] .navbar .cart-button,
 [data-theme="dark"] .navbar .monthly-rx-button {
-  background: rgba(183, 255, 114, 0.1) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
   color: var(--acid-mint) !important;
-  border: 1px solid rgba(183, 255, 114, 0.28) !important;
+  border: 1px solid rgba(255, 90, 78, 0.3) !important;
 }
 
 [data-theme="dark"] .navbar .account-button svg,
@@ -2799,14 +2884,14 @@ html.ink-transitioning::view-transition-new(root) {
 }
 
 [data-theme="dark"] .toast {
-  border-color: rgba(183, 255, 114, 0.45) !important;
-  color: #101a14 !important;
-  background: #b7ff72 !important;
+  border-color: rgba(255, 90, 78, 0.45) !important;
+  color: #FFFFFF !important;
+  background: #FF5A4E !important;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45) !important;
 }
 
 [data-theme="dark"] .toast::before {
-  background: #101a14;
+  background: #FFFFFF;
   box-shadow: 0 0 0 4px rgba(16, 26, 20, 0.18);
 }
 

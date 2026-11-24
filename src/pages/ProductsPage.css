@@ -1,4 +1,4 @@
-﻿/* ===== لوحة تحكم المنتجات الحديثة (Dashboard Layout) ===== */
+/* ===== لوحة تحكم المنتجات الحديثة (Dashboard Layout) ===== */
 
 .shop-dashboard-layout {
   display: grid;
@@ -144,6 +144,24 @@
 .shop-clear-btn:hover {
   background: #e4f4ee;
   color: var(--green);
+}
+
+/* زر «عرض جميع المنتجات» داخل شريط الفلاتر المطبقة */
+.shop-clear-btn--show-all {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #9edac7;
+  background: #e4f4ee;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.shop-clear-btn--show-all:hover {
+  background: var(--mint, #f0faf6);
+  transform: translateY(-1px);
 }
 
 /* الأقسام والماركات الظاهرة */
@@ -737,217 +755,217 @@
 /* --- الشريط الجانبي --- */
 [data-theme="dark"] .shop-sidebar,
 [data-theme="dark"] .shop-main-area {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-sidebar-brand {
-  border-bottom-color: rgba(163, 184, 172, 0.16) !important;
+  border-bottom-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .shop-sidebar-brand-icon {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .shop-sidebar-brand strong,
 [data-theme="dark"] .shop-sidebar-subtitle {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-sidebar-brand span {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-drawer-close {
-  background: rgba(163, 184, 172, 0.08) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  color: #F4F1EA !important;
 }
 
 /* الفلاتر السريعة */
 [data-theme="dark"] .shop-quick-btn {
-  background: rgba(163, 184, 172, 0.06) !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  color: rgba(163, 184, 172, 0.8) !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-quick-btn:hover {
-  background: rgba(183, 255, 114, 0.14) !important;
-  border-color: rgba(183, 255, 114, 0.4) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.4) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-quick-btn.active {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(183, 255, 114, 0.3) !important;
+  box-shadow: 0 4px 14px rgba(255, 90, 78, 0.3) !important;
 }
 
 [data-theme="dark"] .shop-clear-btn {
-  background: rgba(163, 184, 172, 0.08) !important;
-  color: rgba(163, 184, 172, 0.75) !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-clear-btn:hover {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .shop-sidebar-section {
-  border-top-color: rgba(163, 184, 172, 0.16) !important;
+  border-top-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 /* عناصر الأقسام */
 [data-theme="dark"] .shop-category-item {
-  color: rgba(163, 184, 172, 0.82) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-category-item:hover {
-  background: rgba(163, 184, 172, 0.06) !important;
+  background: rgba(244, 241, 234, 0.06) !important;
 }
 
 [data-theme="dark"] .shop-category-item.active {
-  background: rgba(183, 255, 114, 0.16) !important;
+  background: rgba(255, 90, 78, 0.16) !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .shop-category-icon {
-  background: rgba(163, 184, 172, 0.08) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-category-item.active .shop-category-icon {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .shop-category-count,
 [data-theme="dark"] .shop-option-count {
-  background: rgba(163, 184, 172, 0.1) !important;
-  color: rgba(163, 184, 172, 0.8) !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-category-item.active .shop-category-count,
 [data-theme="dark"] .shop-option.is-checked .shop-option-count {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .shop-option {
-  color: rgba(163, 184, 172, 0.82) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-option:hover {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-option-mark {
-  border-color: rgba(163, 184, 172, 0.28) !important;
+  border-color: rgba(244, 241, 234, 0.28) !important;
 }
 
 [data-theme="dark"] .shop-option.is-checked .shop-option-mark {
-  border-color: #B7FF72 !important;
-  background: #B7FF72 !important;
+  border-color: #FF5A4E !important;
+  background: #FF5A4E !important;
 }
 
 [data-theme="dark"] .shop-price-values {
-  color: rgba(163, 184, 172, 0.8) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-range-track {
-  background: rgba(163, 184, 172, 0.14) !important;
+  background: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .shop-range-fill {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
 }
 
 /* --- شريط رأس مساحة العرض --- */
 [data-theme="dark"] .shop-header-bar {
-  border-bottom-color: rgba(163, 184, 172, 0.16) !important;
+  border-bottom-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .shop-header-title-group h1 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-header-title-group p {
-  color: rgba(163, 184, 172, 0.75) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-header-title-group strong {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .shop-header-search {
-  background: rgba(163, 184, 172, 0.06) !important;
-  border-color: rgba(163, 184, 172, 0.14) !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
 }
 
 [data-theme="dark"] .shop-header-search svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .shop-header-search input {
   background: transparent !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
   border: 0 !important;
 }
 
 [data-theme="dark"] .shop-header-search input::placeholder {
-  color: rgba(163, 184, 172, 0.5) !important;
+  color: rgba(244, 241, 234, 0.5) !important;
 }
 
 [data-theme="dark"] .shop-header-search:focus-within {
-  border-color: #B7FF72 !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.2) !important;
+  border-color: #FF5A4E !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.2) !important;
 }
 
 [data-theme="dark"] .shop-sort {
-  color: rgba(163, 184, 172, 0.72) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .shop-sort select {
-  background: #18251D !important;
-  border-color: rgba(163, 184, 172, 0.14) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-sort select option {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-filters-toggle {
-  background: rgba(163, 184, 172, 0.06) !important;
-  border-color: rgba(163, 184, 172, 0.14) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .shop-filters-toggle:hover {
-  background: rgba(183, 255, 114, 0.14) !important;
-  border-color: rgba(183, 255, 114, 0.4) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.4) !important;
 }
 
 [data-theme="dark"] .shop-filters-count {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 /* --- Chips الفلاتر --- */
 [data-theme="dark"] .shop-chip {
-  background: rgba(183, 255, 114, 0.14) !important;
-  border-color: rgba(183, 255, 114, 0.32) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
   color: #FFB3AD !important;
 }
 
 [data-theme="dark"] .shop-empty {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  color: rgba(163, 184, 172, 0.75) !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 /* --- أزرار إضافة للعربة (Light Mode) --- */
@@ -971,17 +989,17 @@
 
 /* --- الأزرار --- */
 [data-theme="dark"] .shop-primary-btn {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .shop-primary-btn:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .shop-secondary-btn {
-  background: rgba(163, 184, 172, 0.08) !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }

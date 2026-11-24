@@ -535,6 +535,11 @@ export default function ProductsPage({
                 </button>
               </span>
             ))}
+            {/* زر واضح لإلغاء التصفية وعرض جميع المنتجات مرة أخرى */}
+            <button type="button" className="shop-clear-btn shop-clear-btn--show-all" onClick={clearFacets}>
+              <RotateCcw size={13} />
+              عرض جميع المنتجات
+            </button>
           </div>
         )}
 

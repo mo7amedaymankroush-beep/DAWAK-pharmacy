@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Pill, Store, CalendarClock, MapPin, XCircle, CheckCircle } from "lucide-react";
 import { getMyBookings } from "../api/bookingsApi";
 import { cancelReservation } from "../api/mockApi";
-import { getSessionPhone } from "../api/sessionApi";
+import { getSessionPhone, subscribeSession } from "../api/sessionApi";
 import money from "../utils/money";
 
 export function MyReservations() {
@@ -28,8 +28,17 @@ export function MyReservations() {
   useEffect(() => {
     loadData();
     const handleStorage = () => loadData();
+    // تحديث فوري عند إنشاء/ربط حجز جديد من نافذة الحجز في نفس التاب
+    const handleReservationsUpdated = () => loadData();
+    // تحديث عند تسجيل الدخول/الخروج (تغيّر الجلسة)
+    const unsubscribeSession = subscribeSession(() => loadData());
     window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
+    window.addEventListener("dawak:reservations-updated", handleReservationsUpdated);
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("dawak:reservations-updated", handleReservationsUpdated);
+      unsubscribeSession();
+    };
   }, [loadData]);
 
   const handleCancel = async (id) => {
@@ -72,7 +81,7 @@ export function MyReservations() {
                   <div key={item.id} style={{ background: 'var(--surface)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <h3 style={{ margin: '0 0 6px', fontSize: '16px' }}>{item.product?.name || item.drugName}</h3>
-                      <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)' }}>السعر: {money(item.price)} | الحالة: <span style={{ fontWeight: 'bold', color: item.status === 'pending' ? '#d97706' : item.status === 'cancelled' ? '#dc2626' : '#10b981' }}>{item.status}</span></p>
+                      <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)' }}>السعر: {money(item.price)} | الحالة: <span style={{ fontWeight: 'bold', color: item.status === 'pending' ? '#d97706' : item.status === 'cancelled' ? '#dc2626' : '#10b981' }}>{item.status === 'pending' ? 'قيد الانتظار' : item.status === 'cancelled' ? 'ملغي' : item.status === 'confirmed' ? 'مؤكد' : item.status === 'expired' ? 'منتهي' : item.status}</span></p>
                       <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--text-secondary)' }}>تاريخ الحجز: {new Date(item.createdAt).toLocaleString('ar-EG')}</p>
                     </div>
                     {item.status === 'pending' && (

@@ -1,4 +1,4 @@
-﻿/* ===== PharmaciesPage — صفحة جميع الصيدليات المسجلة ===== */
+/* ===== PharmaciesPage — صفحة جميع الصيدليات المسجلة ===== */
 
 .pharmacies-page {
   max-width: 1180px;
@@ -340,109 +340,109 @@
    ======================================================================= */
 
 [data-theme="dark"] .pharmacies-page {
-  background: #18251D !important;
+  background: #141B2D !important;
 }
 
 /* --- الهيرو ⇒ Forest + لمسة بنفسجية --- */
 [data-theme="dark"] .pharmacies-hero {
   background:
-    radial-gradient(circle at 90% 20%, rgba(183, 255, 114, 0.28) 0%, transparent 48%),
-    radial-gradient(circle at 10% 90%, rgba(163, 184, 172, 0.07) 0%, transparent 44%),
-    linear-gradient(135deg, #1F2F25 0%, #26392D 100%) !important;
-  border: 1px solid rgba(183, 255, 114, 0.35);
-  color: #F2F8F4 !important;
+    radial-gradient(circle at 90% 20%, rgba(255, 90, 78, 0.3) 0%, transparent 48%),
+    radial-gradient(circle at 10% 90%, rgba(244, 241, 234, 0.07) 0%, transparent 44%),
+    linear-gradient(135deg, #1B243B 0%, #212C46 100%) !important;
+  border: 1px solid rgba(255, 90, 78, 0.34);
+  color: #F4F1EA !important;
   box-shadow: 0 16px 40px rgba(15, 24, 18, 0.42);
 }
 
 [data-theme="dark"] .pharmacies-hero h1 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacies-hero p {
-  color: rgba(163, 184, 172, 0.78) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .pharmacies-kicker {
-  background: rgba(183, 255, 114, 0.24) !important;
-  border-color: rgba(183, 255, 114, 0.45) !important;
+  background: rgba(255, 90, 78, 0.24) !important;
+  border-color: rgba(255, 90, 78, 0.45) !important;
   color: #D9FFAD !important;
 }
 
 [data-theme="dark"] .pharmacies-back {
-  background: #18251D !important;
-  border-color: rgba(183, 255, 114, 0.28) !important;
-  color: #B7FF72 !important;
+  background: #141B2D !important;
+  border-color: rgba(255, 90, 78, 0.3) !important;
+  color: #FF5A4E !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
 }
 
 [data-theme="dark"] .pharmacies-back:hover {
-  background: rgba(183, 255, 114, 0.14) !important;
-  border-color: rgba(183, 255, 114, 0.5) !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.5) !important;
   color: #D9FFAD !important;
 }
 
 /* --- أدوات البحث --- */
 [data-theme="dark"] .pharmacies-search,
 [data-theme="dark"] .pharmacies-area-filter {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
-  border: 1px solid rgba(183, 255, 114, 0.34);
+  background: #1B243B !important;
+  color: #F4F1EA !important;
+  border: 1px solid rgba(255, 90, 78, 0.34);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34) !important;
 }
 
 [data-theme="dark"] .pharmacies-search input {
   background: transparent !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
   border: 0 !important;
 }
 
 [data-theme="dark"] .pharmacies-search input::placeholder {
-  color: rgba(163, 184, 172, 0.5) !important;
+  color: rgba(244, 241, 234, 0.5) !important;
 }
 
 [data-theme="dark"] .pharmacies-search svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .pharmacies-area-filter select {
   background: transparent !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
   border: 0 !important;
 }
 
 [data-theme="dark"] .pharmacies-area-filter select option {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
 }
 
 /* --- بطاقات الصيدليات --- */
 [data-theme="dark"] .pharmacy-tile {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacy-tile:hover {
-  border-color: rgba(183, 255, 114, 0.5) !important;
+  border-color: rgba(255, 90, 78, 0.5) !important;
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.42) !important;
 }
 
 [data-theme="dark"] .pharmacy-tile h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-address {
-  color: rgba(163, 184, 172, 0.72) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-address svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-logo {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-verified {
@@ -461,32 +461,32 @@
 }
 
 [data-theme="dark"] .pharmacy-tile-delivery {
-  background: rgba(163, 184, 172, 0.08) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .pharmacy-tile-button {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
-  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.28);
+  box-shadow: 0 8px 20px rgba(255, 90, 78, 0.3);
 }
 
 [data-theme="dark"] .pharmacy-tile-button:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 /* --- لا نتائج --- */
 [data-theme="dark"] .pharmacies-empty {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.14) !important;
-  color: rgba(163, 184, 172, 0.75) !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .pharmacies-empty > svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .pharmacies-empty h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }

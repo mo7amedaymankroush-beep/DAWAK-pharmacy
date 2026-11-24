@@ -1,4 +1,4 @@
-﻿/* ===== MonthlyPrescriptionModal — جدولة الروشتة الشهرية ===== */
+/* ===== MonthlyPrescriptionModal — جدولة الروشتة الشهرية ===== */
 
 .mpx-overlay {
   position: fixed;
@@ -51,7 +51,7 @@
   align-items: center;
   gap: 13px;
   padding: 20px 20px 16px 20px;
-  background: linear-gradient(270deg, rgba(6, 72, 63, 0.92) 0%, rgba(25, 140, 120, 0.92) 100%) !important;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
   border-radius: 18px 18px 0 0;
   color: #ffffff !important;
 }
@@ -97,6 +97,206 @@
 
 .mpx-close:hover {
   background: rgba(255, 255, 255, 0.28);
+}
+
+/* --- التبويبات: السجل / إضافة روشتة جديدة --- */
+.mpx-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(7, 94, 80, 0.05);
+}
+
+.mpx-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #4a6b62;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.mpx-tab.is-active {
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(6, 72, 63, 0.24);
+}
+
+.mpx-tab-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+/* --- السجل --- */
+.mpx-history-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mpx-history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.mpx-history-info {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  flex: 1 1 220px;
+}
+
+.mpx-history-info h4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.mpx-history-info h4 svg {
+  color: #075e50;
+}
+
+.mpx-history-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mpx-history-info small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.mpx-history-actions {
+  display: inline-flex;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.mpx-history-reorder {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #ffffff !important;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(6, 72, 63, 0.2);
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.mpx-history-reorder:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.mpx-history-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(178, 70, 54, 0.35);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--danger, #b24636);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.mpx-history-delete:hover {
+  background: rgba(178, 70, 54, 0.08);
+}
+
+.mpx-empty {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 26px 18px;
+  border: 1.5px dashed var(--border);
+  border-radius: 16px;
+  background: rgba(7, 94, 80, 0.04);
+  color: var(--muted);
+  text-align: center;
+}
+
+.mpx-empty svg {
+  color: #075e50;
+}
+
+.mpx-empty p {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.mpx-empty button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
+  color: #ffffff !important;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(6, 72, 63, 0.24);
 }
 
 /* --- شريط حالة الاشتراك --- */
@@ -393,7 +593,7 @@
 
 .mpx-day.is-active {
   border: none;
-  background: linear-gradient(270deg, #06483f 0%, #198c78 100%) !important;
+  background: linear-gradient(270deg, #06483f 0%, #0d6e5e 52%, #198c78 100%) !important;
   color: #ffffff !important;
   font-weight: 800;
 }
@@ -630,227 +830,276 @@
 }
 
 [data-theme="dark"] .mpx-modal {
-  background: #1F2F25 !important;
-  border: 1.5px solid rgba(163, 184, 172, 0.35) !important;
+  background: #1B243B !important;
+  border: 1.5px solid rgba(244, 241, 234, 0.35) !important;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 /* --- الرأس --- */
 [data-theme="dark"] .mpx-head {
-  border-bottom-color: rgba(163, 184, 172, 0.18) !important;
-}
-
-[data-theme="dark"] .mpx-head-icon {
-  background: #B7FF72 !important;
-  color: #FFFFFF !important;
+  background: #1B243B !important;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.18) !important;
+  border-radius: 24px 24px 0 0 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-head h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-head p {
-  color: rgba(163, 184, 172, 0.75) !important;
-}
-
-[data-theme="dark"] .mpx-head span,
-[data-theme="dark"] .mpx-status span {
-  color: #F2F8F4 !important;
-}
-
-[data-theme="dark"] .mpx-section label,
-[data-theme="dark"] .mpx-section p,
-[data-theme="dark"] .mpx-remind span {
-  color: rgba(163, 184, 172, 0.85) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .mpx-close {
-  background: rgba(163, 184, 172, 0.08) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-close:hover {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
+  color: #FFFFFF !important;
+}
+
+/* --- التبويبات --- */
+[data-theme="dark"] .mpx-tabs {
+  background: rgba(244, 241, 234, 0.06) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+}
+
+[data-theme="dark"] .mpx-tab:not(.is-active) {
+  color: rgba(244, 241, 234, 0.72) !important;
+}
+
+[data-theme="dark"] .mpx-tab.is-active {
+  background: #FF5A4E !important;
+  color: #FFFFFF !important;
+}
+
+/* --- السجل --- */
+[data-theme="dark"] .mpx-history-item {
+  background: rgba(244, 241, 234, 0.05) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+}
+
+[data-theme="dark"] .mpx-history-item h4,
+[data-theme="dark"] .mpx-history-item strong {
+  color: #F4F1EA !important;
+}
+
+[data-theme="dark"] .mpx-history-item p,
+[data-theme="dark"] .mpx-history-item small {
+  color: rgba(244, 241, 234, 0.72) !important;
+}
+
+[data-theme="dark"] .mpx-history-reorder {
+  background: #FF5A4E !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-history-reorder:hover {
+  background: #E84D41 !important;
+}
+
+[data-theme="dark"] .mpx-history-delete {
+  background: rgba(255, 90, 78, 0.14) !important;
+  color: #FF8A80 !important;
+  border-color: rgba(255, 90, 78, 0.32) !important;
+}
+
+[data-theme="dark"] .mpx-history-delete:hover {
+  background: #FF5A4E !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .mpx-empty {
+  background: rgba(244, 241, 234, 0.04) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
+}
+
+[data-theme="dark"] .mpx-empty button {
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 /* --- شريط الحالة --- */
 [data-theme="dark"] .mpx-status {
-  background: rgba(183, 255, 114, 0.14) !important;
-  border-color: rgba(183, 255, 114, 0.4) !important;
-  color: #F2F8F4 !important;
+  background: rgba(255, 90, 78, 0.14) !important;
+  border-color: rgba(255, 90, 78, 0.4) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-status.is-paused {
-  background: rgba(163, 184, 172, 0.08) !important;
-  border-color: rgba(163, 184, 172, 0.28) !important;
+  background: rgba(244, 241, 234, 0.08) !important;
+  border-color: rgba(244, 241, 234, 0.28) !important;
 }
 
 [data-theme="dark"] .mpx-status-actions button {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .mpx-status-actions button:hover {
-  background: #8FE25A !important;
-  border-color: #8FE25A !important;
+  background: #E84D41 !important;
+  border-color: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 /* --- الأقسام --- */
 [data-theme="dark"] .mpx-section {
-  background: rgba(163, 184, 172, 0.04) !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.04) !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-section h3 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-section h3 svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 /* --- البحث والاقتراحات --- */
 [data-theme="dark"] .mpx-search {
-  background: #121D16 !important;
-  border-color: rgba(163, 184, 172, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border-color: rgba(244, 241, 234, 0.22) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-search input,
 [data-theme="dark"] .mpx-manual input {
-  background: #121D16 !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  color: #F4F1EA !important;
   border: 0 !important;
 }
 
 [data-theme="dark"] .mpx-search input::placeholder {
-  color: rgba(163, 184, 172, 0.5) !important;
+  color: rgba(244, 241, 234, 0.5) !important;
 }
 
 [data-theme="dark"] .mpx-search svg {
-  color: rgba(163, 184, 172, 0.7) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .mpx-search:focus-within {
-  border-color: #B7FF72 !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+  border-color: #FF5A4E !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.24) !important;
 }
 
 [data-theme="dark"] .mpx-suggestions {
-  background: #121D16 !important;
-  border: 1px solid rgba(163, 184, 172, 0.2) !important;
+  background: #141B2D !important;
+  border: 1px solid rgba(244, 241, 234, 0.2) !important;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45) !important;
 }
 
 [data-theme="dark"] .mpx-suggestions button {
   background: transparent !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-suggestions button:hover {
-  background: rgba(183, 255, 114, 0.18) !important;
+  background: rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .mpx-suggestions strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-suggestions span {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 /* --- الإدخال اليدوي --- */
 [data-theme="dark"] .mpx-manual input {
-  background: #121D16 !important;
-  border-color: rgba(163, 184, 172, 0.22) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border-color: rgba(244, 241, 234, 0.22) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-manual input::placeholder {
-  color: rgba(163, 184, 172, 0.5) !important;
+  color: rgba(244, 241, 234, 0.5) !important;
 }
 
 [data-theme="dark"] .mpx-manual input:focus {
-  border-color: #B7FF72 !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.22) !important;
+  border-color: #FF5A4E !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.24) !important;
 }
 
 [data-theme="dark"] .mpx-manual button {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .mpx-manual button:hover {
-  background: #8FE25A !important;
+  background: #E84D41 !important;
   color: #FFFFFF !important;
 }
 
 /* --- قائمة الأدوية المختارة --- */
 [data-theme="dark"] .mpx-items li {
-  background: #18251D !important;
-  border-color: rgba(163, 184, 172, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: #141B2D !important;
+  border-color: rgba(244, 241, 234, 0.12) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-item-name {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-item-price {
-  color: rgba(163, 184, 172, 0.72) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .mpx-qty button {
-  background: rgba(163, 184, 172, 0.1) !important;
-  border-color: rgba(163, 184, 172, 0.2) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  border-color: rgba(244, 241, 234, 0.2) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-qty button:hover {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .mpx-qty span {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-remove {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .mpx-remove:hover {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 /* --- الجدولة --- */
 [data-theme="dark"] .mpx-day {
-  background: rgba(163, 184, 172, 0.06) !important;
-  border-color: rgba(163, 184, 172, 0.2) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  border-color: rgba(244, 241, 234, 0.2) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-day:hover {
-  border-color: #B7FF72 !important;
+  border-color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .mpx-day.is-active {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .mpx-remind {
-  background: rgba(163, 184, 172, 0.06) !important;
-  border: 1px solid rgba(163, 184, 172, 0.18) !important;
-  color: rgba(163, 184, 172, 0.85) !important;
+  background: rgba(244, 241, 234, 0.06) !important;
+  border: 1px solid rgba(244, 241, 234, 0.18) !important;
+  color: rgba(244, 241, 234, 0.85) !important;
 }
 
 [data-theme="dark"] .mpx-remind-mark {
@@ -858,61 +1107,61 @@
 }
 
 [data-theme="dark"] .mpx-remind input:checked + .mpx-remind-mark {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .mpx-remind-mark {
-  background: rgba(163, 184, 172, 0.1) !important;
-  border-color: rgba(163, 184, 172, 0.24) !important;
-  color: #F2F8F4 !important;
+  background: rgba(244, 241, 234, 0.1) !important;
+  border-color: rgba(244, 241, 234, 0.24) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .mpx-remind input:checked + .mpx-remind-mark {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
 }
 
 /* --- الملخص --- */
 [data-theme="dark"] .mpx-summary {
-  background: #121D16 !important;
-  border: 1px solid rgba(163, 184, 172, 0.2) !important;
+  background: #141B2D !important;
+  border: 1px solid rgba(244, 241, 234, 0.2) !important;
 }
 
 [data-theme="dark"] .mpx-summary span,
 [data-theme="dark"] .mpx-summary strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
   font-weight: 800 !important;
   opacity: 1 !important;
 }
 
 [data-theme="dark"] .mpx-summary span {
-  color: rgba(163, 184, 172, 0.82) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
   font-weight: 700 !important;
 }
 
 [data-theme="dark"] .mpx-item-price {
-  color: rgba(163, 184, 172, 0.82) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .mpx-summary-discount,
 [data-theme="dark"] .mpx-summary-discount span {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .mpx-summary-discount svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .mpx-summary-total {
-  border-top-color: rgba(163, 184, 172, 0.22) !important;
+  border-top-color: rgba(244, 241, 234, 0.22) !important;
 }
 
 [data-theme="dark"] .mpx-summary-total span,
 [data-theme="dark"] .mpx-summary-total strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 /* --- رسائل --- */
@@ -927,20 +1176,20 @@
 
 /* --- الأزرار السفلية --- */
 [data-theme="dark"] .mpx-actions {
-  border-top-color: rgba(163, 184, 172, 0.18) !important;
+  border-top-color: rgba(244, 241, 234, 0.18) !important;
 }
 
 [data-theme="dark"] .mpx-save,
 [data-theme="dark"] .mpx-order {
-  background: #B7FF72 !important;
-  border-color: #B7FF72 !important;
+  background: #FF5A4E !important;
+  border-color: #FF5A4E !important;
   color: #FFFFFF !important;
-  box-shadow: 0 8px 20px rgba(183, 255, 114, 0.3) !important;
+  box-shadow: 0 8px 20px rgba(255, 90, 78, 0.3) !important;
 }
 
 [data-theme="dark"] .mpx-save:hover,
 [data-theme="dark"] .mpx-order:hover {
-  background: #8FE25A !important;
-  border-color: #8FE25A !important;
+  background: #E84D41 !important;
+  border-color: #E84D41 !important;
   color: #FFFFFF !important;
 }

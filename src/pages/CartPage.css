@@ -1,4 +1,4 @@
-﻿.orders-dashboard-layout {
+.orders-dashboard-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 24px;
@@ -138,19 +138,19 @@
 .orders-guest-banner button:hover { background: #a7f3d0; }
 
 [data-theme="dark"] .orders-guest-banner {
-  border-color: rgba(183, 255, 114, 0.28) !important;
-  background: rgba(183, 255, 114, 0.08) !important;
+  border-color: rgba(255, 90, 78, 0.3) !important;
+  background: rgba(255, 90, 78, 0.1) !important;
   color: #F5F5F5 !important;
 }
 
-[data-theme="dark"] .orders-guest-banner svg { color: #B7FF72 !important; }
+[data-theme="dark"] .orders-guest-banner svg { color: #FF5A4E !important; }
 
 [data-theme="dark"] .orders-guest-banner button {
-  color: #18251D !important;
-  background: #B7FF72 !important;
+  color: #FFFFFF !important;
+  background: #FF5A4E !important;
 }
 
-[data-theme="dark"] .orders-guest-banner button:hover { background: #c9ff92 !important; }
+[data-theme="dark"] .orders-guest-banner button:hover { background: #E84D41 !important; }
 
 .order-row-card {
   display: grid;

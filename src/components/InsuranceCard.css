@@ -1,4 +1,4 @@
-﻿/* ===== InsuranceCard — كارت الطلب بالتأمين الطبي والنقابات ===== */
+/* ===== InsuranceCard — كارت الطلب بالتأمين الطبي والنقابات ===== */
 
 .insurance-card {
   border-radius: 22px;
@@ -272,83 +272,83 @@
    ======================================================================= */
 
 [data-theme="dark"] .insurance-card {
-  background: linear-gradient(135deg, #1F2F25 0%, #26392D 100%) !important;
-  border: 1px solid rgba(183, 255, 114, 0.16) !important;
-  color: #F2F8F4 !important;
+  background: linear-gradient(135deg, #1B243B 0%, #212C46 100%) !important;
+  border: 1px solid rgba(255, 90, 78, 0.16) !important;
+  color: #F4F1EA !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.42) !important;
 }
 
 [data-theme="dark"] .insurance-card h2 {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .insurance-sub {
-  color: rgba(163, 184, 172, 0.78) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .insurance-icon {
-  background: rgba(183, 255, 114, 0.24) !important;
+  background: rgba(255, 90, 78, 0.24) !important;
   color: #D9FFAD !important;
 }
 
 [data-theme="dark"] .insurance-badge {
-  background: rgba(183, 255, 114, 0.24) !important;
-  border-color: rgba(183, 255, 114, 0.5) !important;
+  background: rgba(255, 90, 78, 0.24) !important;
+  border-color: rgba(255, 90, 78, 0.5) !important;
   color: #D9FFAD !important;
 }
 
 [data-theme="dark"] .insurance-select-label {
-  color: rgba(163, 184, 172, 0.88) !important;
+  color: rgba(244, 241, 234, 0.88) !important;
 }
 
 [data-theme="dark"] .insurance-select {
-  background: #1F2F25 !important;
-  border-color: rgba(163, 184, 172, 0.18) !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  border-color: rgba(244, 241, 234, 0.18) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .insurance-select option {
-  background: #1F2F25 !important;
-  color: #F2F8F4 !important;
+  background: #1B243B !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .insurance-select:focus {
-  border-color: #B7FF72 !important;
-  box-shadow: 0 0 0 3px rgba(183, 255, 114, 0.18) !important;
+  border-color: #FF5A4E !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 78, 0.18) !important;
 }
 
 [data-theme="dark"] .insurance-upload {
   background: rgba(24, 37, 29, 0.5) !important;
-  border-color: rgba(183, 255, 114, 0.4) !important;
-  color: #F2F8F4 !important;
+  border-color: rgba(255, 90, 78, 0.4) !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .insurance-upload:hover {
   background: rgba(24, 37, 29, 0.66) !important;
-  border-color: #B7FF72 !important;
+  border-color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .insurance-upload.has-files {
-  border-color: rgba(183, 255, 114, 0.7) !important;
+  border-color: rgba(255, 90, 78, 0.7) !important;
   color: #D9FFAD !important;
 }
 
 [data-theme="dark"] .insurance-upload svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .insurance-file {
   background: rgba(24, 37, 29, 0.42) !important;
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .insurance-file button {
-  background: rgba(183, 255, 114, 0.16) !important;
-  color: #B7FF72 !important;
+  background: rgba(255, 90, 78, 0.16) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .insurance-file button:hover {
-  background: rgba(183, 255, 114, 0.28) !important;
+  background: rgba(255, 90, 78, 0.3) !important;
 }
 
 [data-theme="dark"] .insurance-error {
@@ -356,47 +356,47 @@
 }
 
 [data-theme="dark"] .insurance-submit {
-  background: #B7FF72 !important;
+  background: #FF5A4E !important;
   background-image: none !important;
-  color: #101A14 !important;
-  border: 1px solid #B7FF72 !important;
-  box-shadow: 0 10px 24px rgba(183, 255, 114, 0.2) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FF5A4E !important;
+  box-shadow: 0 10px 24px rgba(255, 90, 78, 0.2) !important;
 }
 
 [data-theme="dark"] .insurance-submit:hover {
-  background: #8FE25A !important;
-  color: #101A14 !important;
+  background: #E84D41 !important;
+  color: #FFFFFF !important;
   filter: none;
 }
 
 [data-theme="dark"] .insurance-submit svg {
-  color: #101A14 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="dark"] .insurance-success {
   background: rgba(24, 37, 29, 0.4) !important;
-  border-color: rgba(183, 255, 114, 0.24) !important;
+  border-color: rgba(255, 90, 78, 0.24) !important;
 }
 
 [data-theme="dark"] .insurance-success svg {
-  color: #B7FF72 !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .insurance-success strong {
-  color: #F2F8F4 !important;
+  color: #F4F1EA !important;
 }
 
 [data-theme="dark"] .insurance-success span {
-  color: rgba(163, 184, 172, 0.82) !important;
+  color: rgba(244, 241, 234, 0.72) !important;
 }
 
 [data-theme="dark"] .insurance-again {
   background: transparent !important;
-  border-color: rgba(183, 255, 114, 0.36) !important;
-  color: #B7FF72 !important;
+  border-color: rgba(255, 90, 78, 0.36) !important;
+  color: #FF5A4E !important;
 }
 
 [data-theme="dark"] .insurance-again:hover {
-  background: rgba(183, 255, 114, 0.12) !important;
+  background: rgba(255, 90, 78, 0.12) !important;
   color: #D9FFAD !important;
 }

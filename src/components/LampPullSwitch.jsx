@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef, useState } from "react";
-import { flushSync } from "react-dom";
-import { INK_TRANSITION_DURATION, INK_TRANSITION_EASING } from "../utils/inkTransition";
+import { runInkTransition } from "../utils/inkTransition";
 import "./LampPullSwitch.css";
 
 export default function LampPullSwitch({ theme, onToggle }) {
@@ -11,39 +10,10 @@ export default function LampPullSwitch({ theme, onToggle }) {
   const startYRef = useRef(0);
   const movedRef = useRef(false);
 
-  // تبديل الثيم بتأثير سكب الحبر: النقطة هي الزاوية اليمنى العليا للشاشة
+  // تبديل الثيم بتأثير سكب الحبر من أعلى الزاوية اليمنى (مشترك في utils/inkTransition)
   const handleToggle = () => {
     if (!onToggle) return;
-
-    const html = document.documentElement;
-    const x = window.innerWidth;
-    const y = 0;
-
-    html.style.setProperty("--ink-x", `${x}px`);
-    html.style.setProperty("--ink-y", `${y}px`);
-    html.style.setProperty("--ink-radius", `${Math.hypot(x, window.innerHeight)}px`);
-    html.style.setProperty("--ink-duration", `${INK_TRANSITION_DURATION}ms`);
-    html.style.setProperty("--ink-easing", INK_TRANSITION_EASING);
-
-    // Fallback مباشر للمتصفحات التي لا تدعم View Transitions
-    if (typeof document.startViewTransition !== "function") {
-      onToggle();
-      return;
-    }
-
-    html.classList.add("ink-transitioning");
-
-    const transition = document.startViewTransition(() => {
-      // تحديث الـ DOM فورًا قبل بدء الحركة
-      flushSync(onToggle);
-    });
-
-    const cleanup = () => {
-      html.classList.remove("ink-transitioning");
-      html.style.removeProperty("--ink-radius");
-    };
-
-    transition.finished.then(cleanup).catch(cleanup);
+    runInkTransition(onToggle);
   };
 
   const handlePointerDown = (e) => {

@@ -5,8 +5,8 @@ import {
   X,
   CheckCircle2,
   ChevronLeft,
+  ChevronRight,
   Store,
-  ShieldCheck,
   Truck,
   Clock,
   Navigation,
@@ -49,26 +49,27 @@ function pickNearestPharmacy(filters) {
   return candidates[0] || null;
 }
 
-// وقت التوصيل المتوقع: حسب المسافة لو الموقع GPS، أو التقدير الافتراضي للصيدلية
+// وقت التوصيل المتوقع بالدقائق: أساس قصير + مسافة/تحضير (نبقيه ضمن نطاق منطقي للدقيقة)
+const MIN_DELIVERY_MINUTES = 20;
+const MAX_DELIVERY_MINUTES = 55;
+
 function estimateDeliveryMinutes(pharmacy, distanceMeters) {
-  if (Number.isFinite(distanceMeters)) {
-    const transportMinutes = Math.round(distanceMeters / 300); // ~18 كم/س داخل المدينة
-    return Math.max(
-      20,
-      (pharmacy?.delivery?.estimatedMinutes ?? DEFAULT_DELIVERY_MINUTES) -
-        40 +
-        transportMinutes,
-    );
-  }
-  return pharmacy?.delivery?.estimatedMinutes ?? DEFAULT_DELIVERY_MINUTES;
+  const estimated = pharmacy?.delivery?.estimatedMinutes;
+  const base = Number.isFinite(estimated)
+    ? Math.min(estimated, 45) - 15
+    : DEFAULT_DELIVERY_MINUTES - 15;
+  const transportMinutes = Number.isFinite(distanceMeters)
+    ? Math.round(distanceMeters / 450) // حركة داخل المدينة
+    : 5;
+  return Math.min(
+    MAX_DELIVERY_MINUTES,
+    Math.max(MIN_DELIVERY_MINUTES, Math.round(base + transportMinutes)),
+  );
 }
 
 function formatMinutes(minutes) {
   if (!Number.isFinite(minutes) || minutes <= 0) return "—";
-  if (minutes < 60) return `${minutes} دقيقة`;
-  const hours = Math.floor(minutes / 60);
-  const rest = minutes % 60;
-  return rest ? `${hours} ساعة و${rest} دقيقة` : `${hours} ساعة`;
+  return `${Math.round(minutes)} دقيقة`;
 }
 
 function formatDistance(meters) {
@@ -109,6 +110,8 @@ export default function LocationPickerModal({
   }, [startLocation]);
 
   const [manualLocation, setManualLocation] = useState(startLocation);
+  // الخطوة الحالية: اختيار الطريقة، أو التحديد اليدوي
+  const [step, setStep] = useState("choice");
   const [gpsLoading, setGpsLoading] = useState(false);
   const [gpsError, setGpsError] = useState("");
   const [confirmError, setConfirmError] = useState("");
@@ -148,7 +151,7 @@ export default function LocationPickerModal({
     };
   }, [onClose]);
 
-  function applyAndSave(next) {
+  function storeChoice(next) {
     setResult(next);
     setBusy(false);
     setGpsLoading(false);
@@ -162,11 +165,20 @@ export default function LocationPickerModal({
     } catch {
       /* تخزين الموقع اختياري؛ لن يمنع المتابعة إذا تعذّر الحفظ */
     }
-    // نعطي المستخدم لحظة يرى فيها وقت التوصيل قبل إغلاق البطاقة
+  }
+
+  // التحديد التلقائي: نحفظ ونغلق مباشرة بمجرد جلب الإحداثيات
+  function applyAndSave(next) {
+    storeChoice(next);
     window.setTimeout(() => {
       if (onChoose) onChoose(next);
       if (onClose) onClose();
     }, 900);
+  }
+
+  // التحديد اليدوي: نعرض بطاقة النتيجة ونترك إغلاق البطاقة بيد المستخدم
+  function applyAndShow(next) {
+    storeChoice(next);
   }
 
   function openGps() {
@@ -258,7 +270,7 @@ export default function LocationPickerModal({
 
     setBusy(true);
     setConfirmError("");
-    applyAndSave({
+    applyAndShow({
       mode: "manual",
       governorate: pharmacy.governorate,
       city: pharmacy.city,
@@ -285,6 +297,11 @@ export default function LocationPickerModal({
     estimateDeliveryMinutes(successPharmacy, result?.distanceMeters);
   const deliveryFee = result?.deliveryFee;
 
+  function skip() {
+    if (onChoose) onChoose({ mode: "all" });
+    if (onClose) onClose();
+  }
+
   return (
     <div
       className="loc-backdrop"
@@ -296,8 +313,9 @@ export default function LocationPickerModal({
         theme="dark"
         tint="#10b981"
         webcam={false}
-        width={420}
-        height={720}
+        width="auto"
+        height="auto"
+        className={`loc-card loc-card--${step}`}
       >
         <section
           className="loc-modal"
@@ -315,146 +333,193 @@ export default function LocationPickerModal({
             <X size={18} />
           </button>
 
-          <h2 id="location-modal-title">تحديد موقعك للتوصيل</h2>
-          <p className="loc-sub">
-            اختار المحافظة والحي، أو حدّد موقعك بالـ GPS، ونعرض لك وقت التوصيل
-            المتوقع من أقرب صيدلية.
-          </p>
+          {step === "choice" ? (
+            <div className="loc-step loc-step--choice">
+              <h2 id="location-modal-title">حدد موقع التوصيل 📍</h2>
+              <p className="loc-sub">
+                اختر الطريقة المناسبة للوصول لأقرب صيدلية.
+              </p>
 
-          <div className="loc-body">
-            <div className="loc-field">
-              <label>المحافظة والحي</label>
-              <LocationSelector
-                value={manualLocation}
-                onChange={(value) => {
-                  setManualLocation(value);
-                  setConfirmError("");
-                }}
-                showLocate={false}
-              />
+              <div className="loc-choices">
+                <button
+                  className="loc-choice"
+                  type="button"
+                  onClick={openGps}
+                  disabled={busy || gpsLoading}
+                >
+                  <span className="loc-choice-icon">
+                    <LocateFixed size={20} />
+                  </span>
+                  <span className="loc-choice-text">
+                    <strong>
+                      {gpsLoading ? "جارٍ تحديد موقعك..." : "تحديد تلقائي (GPS) 📡"}
+                    </strong>
+                    <small>أقرب صيدلية ووقت التوصيل فوراً</small>
+                  </span>
+                  <ChevronLeft size={16} className="loc-choice-arrow" />
+                </button>
+
+                <button
+                  className="loc-choice loc-choice--manual"
+                  type="button"
+                  onClick={() => {
+                    setStep("manual");
+                    setGpsError("");
+                  }}
+                  disabled={busy || gpsLoading}
+                >
+                  <span className="loc-choice-icon">
+                    <MapPin size={20} />
+                  </span>
+                  <span className="loc-choice-text">
+                    <strong>تحديد يدوي 🗺️</strong>
+                    <small>اختر المحافظة والمدينة والمنطقة</small>
+                  </span>
+                  <ChevronLeft size={16} className="loc-choice-arrow" />
+                </button>
+              </div>
+
+              {gpsError && (
+                <p className="loc-error" role="alert">
+                  {gpsError}
+                </p>
+              )}
+
+              <button className="loc-skip" type="button" onClick={skip}>
+                <ChevronLeft size={14} aria-hidden="true" />
+                تخطي الآن
+              </button>
             </div>
-
-            <div className="loc-actions">
+          ) : (
+            <div className="loc-step loc-step--manual">
               <button
-                className="loc-btn loc-btn--primary"
+                className="loc-back"
                 type="button"
-                onClick={openGps}
-                disabled={busy || gpsLoading}
+                onClick={() => setStep("choice")}
               >
-                <LocateFixed size={16} />
-                {gpsLoading ? "جارٍ تحديد موقعك..." : "تحديد موقعي بالـ GPS"}
+                <ChevronRight size={14} aria-hidden="true" />
+                تغيير الطريقة
               </button>
 
-              <button
-                className="loc-btn loc-btn--ghost"
-                type="button"
-                onClick={handleManualConfirm}
-                disabled={busy || gpsLoading || !manualLocation.governorate}
-              >
-                <CheckCircle2 size={16} />
-                {busy ? "جارٍ الحفظ..." : "تأكيد المحافظة والحي"}
-              </button>
-            </div>
-
-            {gpsError && (
-              <p className="loc-error" role="alert">
-                {gpsError}
+              <h2 id="location-modal-title">حدد موقع التوصيل 📍</h2>
+              <p className="loc-sub">
+                اختر المحافظة والمدينة والمنطقة لأقرب صيدلية.
               </p>
-            )}
-            {confirmError && (
-              <p className="loc-error" role="alert">
-                {confirmError}
-              </p>
-            )}
 
-            {result ? (
-              <div className="loc-result" aria-live="polite">
-                <div className="loc-success">
-                  <CheckCircle2 size={16} />
-                  <span>تم حفظ الموقع</span>
+              <div className="loc-body">
+                <div className="loc-field">
+                  <LocationSelector
+                    value={manualLocation}
+                    onChange={(value) => {
+                      setManualLocation(value);
+                      setConfirmError("");
+                    }}
+                    showLocate={false}
+                  />
                 </div>
 
-                <div className="loc-delivery">
-                  <div className="loc-delivery-row">
-                    <span className="loc-delivery-icon">
-                      <Truck size={15} />
-                    </span>
-                    <div>
-                      <small>وقت التوصيل المتوقع</small>
-                      <strong>{formatMinutes(deliveryMinutes)}</strong>
+                <div className="loc-actions">
+                  <button
+                    className="loc-btn loc-btn--primary"
+                    type="button"
+                    onClick={handleManualConfirm}
+                    disabled={busy || !manualLocation.governorate}
+                  >
+                    <CheckCircle2 size={16} />
+                    {busy ? "جارٍ الحفظ..." : "تأكيد الموقع"}
+                  </button>
+                </div>
+
+                {confirmError && (
+                  <p className="loc-error" role="alert">
+                    {confirmError}
+                  </p>
+                )}
+
+                {result ? (
+                  <div className="loc-result" aria-live="polite">
+                    <div className="loc-success">
+                      <CheckCircle2 size={16} />
+                      <span>تم حفظ الموقع</span>
                     </div>
-                  </div>
-                  <div className="loc-delivery-row">
-                    <span className="loc-delivery-icon">
-                      <Clock size={15} />
-                    </span>
-                    <div>
-                      <small>رسوم التوصيل</small>
-                      <strong>
-                        {deliveryFee == null
-                          ? "غير متاح"
-                          : `${deliveryFee} ج.م`}
-                      </strong>
-                    </div>
-                  </div>
-                  {Number.isFinite(result.distanceMeters) && (
-                    <div className="loc-delivery-row">
-                      <span className="loc-delivery-icon">
-                        <Navigation size={15} />
-                      </span>
-                      <div>
-                        <small>المسافة لأقرب صيدلية</small>
-                        <strong>{formatDistance(result.distanceMeters)}</strong>
+
+                    <div className="loc-delivery">
+                      <div className="loc-delivery-row">
+                        <span className="loc-delivery-icon">
+                          <Truck size={15} />
+                        </span>
+                        <div>
+                          <small>وقت التوصيل</small>
+                          <strong>{formatMinutes(deliveryMinutes)}</strong>
+                        </div>
                       </div>
+                      <div className="loc-delivery-row">
+                        <span className="loc-delivery-icon">
+                          <Clock size={15} />
+                        </span>
+                        <div>
+                          <small>التوصيل</small>
+                          <strong>
+                            {deliveryFee == null
+                              ? "غير متاح"
+                              : `${deliveryFee} ج.م`}
+                          </strong>
+                        </div>
+                      </div>
+                      {Number.isFinite(result.distanceMeters) && (
+                        <div className="loc-delivery-row">
+                          <span className="loc-delivery-icon">
+                            <Navigation size={15} />
+                          </span>
+                          <div>
+                            <small>المسافة</small>
+                            <strong>{formatDistance(result.distanceMeters)}</strong>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {successPharmacy ? (
-                  <div className="loc-pharmacy">
-                    <div className="loc-pharmacy-pin">
-                      <Store size={16} />
-                    </div>
-                    <div>
-                      <p className="loc-pharmacy-name">
-                        {successPharmacy.name}
+                    {successPharmacy ? (
+                      <div className="loc-pharmacy">
+                        <div className="loc-pharmacy-pin">
+                          <Store size={16} />
+                        </div>
+                        <div>
+                          <p className="loc-pharmacy-name">
+                            {successPharmacy.name}
+                          </p>
+                          <p className="loc-pharmacy-address">
+                            {successPharmacy.address}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="loc-hint">
+                        لم يتم العثور على صيدلية قريبة في هذا المجال.
                       </p>
-                      <p className="loc-pharmacy-address">
-                        {successPharmacy.address}
-                      </p>
-                    </div>
+                    )}
                   </div>
                 ) : (
                   <p className="loc-hint">
-                    لم يتم العثور على صيدلية قريبة في هذا المجال.
+                    <MapPin size={13} aria-hidden="true" />
+                    اختر المنطقة لعرض أقرب صيدلية ووقت التوصيل.
                   </p>
                 )}
+
+                {result && (
+                  <button className="loc-save-close" type="button" onClick={skip}>
+                    <CheckCircle2 size={15} />
+                    متابعة
+                  </button>
+                )}
+
+                <button className="loc-skip" type="button" onClick={skip}>
+                  <ChevronLeft size={14} aria-hidden="true" />
+                  تخطي الآن
+                </button>
               </div>
-            ) : (
-              <p className="loc-hint">
-                <MapPin size={13} aria-hidden="true" />
-                هنعرض أقرب صيدلية ووقت التوصيل أول ما تحدد الموقع.
-              </p>
-            )}
-
-            <button
-              className="loc-skip"
-              type="button"
-              onClick={() => {
-                if (onChoose) onChoose({ mode: "all" });
-                if (onClose) onClose();
-              }}
-            >
-              <ChevronLeft size={14} aria-hidden="true" />
-              متابعة بدون تحديد الموقع
-            </button>
-          </div>
-
-          <p className="loc-note">
-            <ShieldCheck size={15} aria-hidden="true" />
-            الموقع بيُستخدم لاقتراح أقرب صيدلية وحساب وقت التوصيل فقط، ويمكنك
-            تغييره في أي وقت.
-          </p>
+            </div>
+          )}
         </section>
       </ReflectiveCard>
     </div>

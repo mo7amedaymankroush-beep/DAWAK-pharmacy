@@ -13,6 +13,9 @@ import {
   Pencil,
   Save,
   Repeat,
+  ClipboardList,
+  Plus,
+  RotateCcw,
 } from "lucide-react";
 import { drugs } from "../data/drugs";
 import "./MonthlyPrescriptionModal.css";
@@ -30,6 +33,12 @@ export function setMonthlyRxStorageKey(phone) {
   STORAGE_KEY = `dawak-monthly-${phone || "guest"}`;
 }
 
+/** مفتاح التخزين المعتمد على رقم الهاتف */
+function storageKeyFor(phone) {
+  return `dawak-monthly-${phone || "guest"}`;
+}
+
+/** قراءة روشتة واحدة محفوظة (الشكل القديم) — للأوافقية فقط */
 export function readMonthlyRx(phone) {
   // If no phone (user logged out), return null to reset count to 0
   if (!phone) return null;
@@ -43,26 +52,75 @@ export function readMonthlyRx(phone) {
   }
 }
 
-function saveMonthlyRx(rx, phone) {
+/** قراءة سجل الروشتات الشهرية المحفوظة (قائمة) — يعمل للزائر أيضًا بمفتاح guest */
+export function readMonthlyRxList(phone) {
   try {
-    const key = `dawak-monthly-${phone || "guest"}`;
-    localStorage.setItem(key, JSON.stringify(rx));
+    const parsed = JSON.parse(
+      localStorage.getItem(storageKeyFor(phone)) || "[]",
+    );
+    if (Array.isArray(parsed)) return parsed;
+    // الشكل القديم: روشتة واحدة ككائن
+    if (parsed && Array.isArray(parsed.items)) return [parsed];
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+/** حفظ قائمة السجل كاملة */
+function saveMonthlyRxList(list, phone) {
+  try {
+    localStorage.setItem(storageKeyFor(phone), JSON.stringify(list));
   } catch {
     /* التخزين غير متاح */
   }
+}
+
+/** إضافة/تحديث روشتة في السجل (بنفس اليوم والأدوية تستبدل القديمة) */
+export function upsertMonthlyRx(rx, phone) {
+  const list = readMonthlyRxList(phone);
+  const stamp = Date.now();
+  const entry = {
+    ...rx,
+    id: rx.id || `rx-${stamp}`,
+    createdAt: rx.createdAt || stamp,
+    updatedAt: stamp,
+  };
+  const index = list.findIndex(
+    (item) => item.id === entry.id ||
+      (item.deliveryDay === entry.deliveryDay &&
+        JSON.stringify(item.items) === JSON.stringify(entry.items)),
+  );
+  if (index >= 0) list[index] = { ...list[index], ...entry };
+  else list.unshift(entry);
+  saveMonthlyRxList(list, phone);
+  return entry;
+}
+
+/** حذف روشتة من السجل */
+export function deleteMonthlyRx(id, phone) {
+  saveMonthlyRxList(
+    readMonthlyRxList(phone).filter((item) => item.id !== id),
+    phone,
+  );
 }
 
 export default function MonthlyPrescriptionModal({
   onClose,
   onNotice,
   onAddMonthlyToCart,
+  onRxCountChange,
   phone = "",
 }) {
-  const [saved, setSaved] = useState(() => readMonthlyRx(phone));
-  const [items, setItems] = useState(saved?.items || []);
-  const [deliveryDay, setDeliveryDay] = useState(saved?.deliveryDay || 15);
-  const [remindBefore, setRemindBefore] = useState(saved?.remindBefore ?? true);
-  const [paused, setPaused] = useState(saved?.paused || false);
+  const [history, setHistory] = useState(() => readMonthlyRxList(phone));
+  // التبويب النشط: السجل افتراضيًا عند وجود روشتات محفوظة، وإلا نموذج الإضافة
+  const [tab, setTab] = useState(() =>
+    readMonthlyRxList(phone).length ? "history" : "new",
+  );
+  const [items, setItems] = useState([]);
+  const [deliveryDay, setDeliveryDay] = useState(15);
+  const [remindBefore, setRemindBefore] = useState(true);
+  const [paused, setPaused] = useState(false);
   const [manualName, setManualName] = useState("");
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
@@ -88,7 +146,8 @@ export default function MonthlyPrescriptionModal({
   const discount = Number((subtotal * MONTHLY_DISCOUNT).toFixed(2));
   const total = Number((subtotal - discount).toFixed(2));
 
-  const hasUnsavedChanges = items.length > 0 || search.trim() !== "" || manualName.trim() !== "";
+  const hasUnsavedChanges =
+    items.length > 0 || search.trim() !== "" || manualName.trim() !== "";
 
   // إغلاق ذكي: الضغط خارج النافذة يغلق فورًا إذا كانت فارغة تمامًا،
   // وإلا يعرض تنبيهًا لطيفًا بالاهتزاز دون إغلاق
@@ -158,50 +217,42 @@ export default function MonthlyPrescriptionModal({
     setItems((current) => current.filter((item) => item.id !== id));
   }
 
+  /** تحديث السجل + إبلاغ التطبيق بعدد الروشتات المحفوظة */
+  function commitHistory(nextList) {
+    saveMonthlyRxList(nextList, phone);
+    setHistory(nextList);
+    onRxCountChange?.(nextList.length);
+  }
+
   function handleSave({ silent = false } = {}) {
     if (!items.length) {
       setError("أضف دواء واحد على الأقل للاشتراك الشهري");
       return;
     }
 
-    const rx = {
-      items,
-      deliveryDay,
-      remindBefore,
-      paused,
-      updatedAt: Date.now(),
-    };
-    saveMonthlyRx(rx, phone);
-    setSaved(rx);
-    if (!silent) onNotice?.("تم حفظ روشتتك الشهرية بنجاح 💚");
-  }
-
-  function togglePause() {
-    const nextPaused = !paused;
-    setPaused(nextPaused);
-    const rx = {
-      items,
-      deliveryDay,
-      remindBefore,
-      paused: nextPaused,
-      updatedAt: Date.now(),
-    };
-    saveMonthlyRx(rx, phone);
-    setSaved(rx);
-    onNotice?.(
-      nextPaused
-        ? "تم إيقاف الروشتة الشهرية مؤقتًا"
-        : "تم تفعيل الروشتة الشهرية",
-    );
-  }
-
-  function orderNow() {
-    if (!items.length) {
-      setError("أضف دواء واحد على الأقل");
-      return;
+    upsertMonthlyRx({ items, deliveryDay, remindBefore, paused }, phone);
+    const nextList = readMonthlyRxList(phone);
+    commitHistory(nextList);
+    setItems([]);
+    setSearch("");
+    setManualName("");
+    if (!silent) {
+      onNotice?.("تم حفظ روشتتك الشهرية بنجاح 💚");
+      setTab("history");
     }
-    handleSave({ silent: true });
-    onAddMonthlyToCart?.(items);
+  }
+
+  /** إعادة طلب روشتة محفوظة من السجل */
+  function reorder(rx) {
+    onAddMonthlyToCart?.(rx.items);
+    onNotice?.(rx.items.length ? "تم إضافة أدوية الروشتة للعربة" : "الروشتة فارغة");
+  }
+
+  function handleDelete(id) {
+    deleteMonthlyRx(id, phone);
+    const nextList = readMonthlyRxList(phone);
+    commitHistory(nextList);
+    onNotice?.("تم حذف الروشتة من السجل");
   }
 
   return (
@@ -231,24 +282,101 @@ export default function MonthlyPrescriptionModal({
           </button>
         </header>
 
-        {saved && (
-          <div className={`mpx-status${paused ? " is-paused" : ""}`}>
-            <span>{paused ? "الاشتراك موقوف مؤقتًا" : "الاشتراك مفعّل"}</span>
-            <div className="mpx-status-actions">
-              <button type="button" onClick={togglePause}>
-                {paused ? <PlayCircle size={14} /> : <PauseCircle size={14} />}
-                {paused ? "تفعيل" : "إيقاف مؤقت"}
-              </button>
-              <button type="button" onClick={() => setSaved(null)}>
-                <Pencil size={13} />
-                تعديل
-              </button>
-            </div>
-          </div>
-        )}
+        {/* التبويبات: السجل / إضافة روشتة جديدة */}
+        <div className="mpx-tabs" role="tablist" aria-label="الروشتة الشهرية">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "history"}
+            className={`mpx-tab${tab === "history" ? " is-active" : ""}`}
+            onClick={() => setTab("history")}
+          >
+            <ClipboardList size={15} />
+            سجل روشتاتي السابقة 📋
+            {history.length > 0 && <em className="mpx-tab-count">{history.length}</em>}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "new"}
+            className={`mpx-tab${tab === "new" ? " is-active" : ""}`}
+            onClick={() => setTab("new")}
+          >
+            <Plus size={15} />
+            إضافة روشتة جديدة
+          </button>
+        </div>
 
-        {/* اختيار الأدوية */}
-        <section className="mpx-section">
+        {tab === "history" ? (
+          /* ------- تبويب السجل ------- */
+          <section className="mpx-section mpx-history">
+            {history.length === 0 ? (
+              <div className="mpx-empty">
+                <ClipboardList size={22} />
+                <p>لا توجد روشتات شهرية محفوظة بعد.</p>
+                <button type="button" onClick={() => setTab("new")}>
+                  <Plus size={15} />
+                  إنشاء أول روشتة
+                </button>
+              </div>
+            ) : (
+              <ul className="mpx-history-list">
+                {history.map((rx) => {
+                  const rxSubtotal = rx.items.reduce(
+                    (sum, item) => sum + (item.price || 0) * item.quantity,
+                    0,
+                  );
+                  const rxTotal = Number(
+                    (rxSubtotal * (1 - MONTHLY_DISCOUNT)).toFixed(2),
+                  );
+                  return (
+                    <li key={rx.id} className="mpx-history-item">
+                      <div className="mpx-history-info">
+                        <h4>
+                          <CalendarDays size={13} />
+                          يوم {rx.deliveryDay} من كل شهر
+                          {rx.paused ? " · موقوفة" : ""}
+                        </h4>
+                        <p>
+                          {rx.items.length} دواء{" "}
+                          {rx.items.length <= 2 &&
+                            `· ${rx.items.map((item) => item.name).join("، ")}`}
+                        </p>
+                        <small>
+                          أُنشئت {new Date(rx.createdAt).toLocaleDateString("ar-EG")} ·
+                          الإجمالي بعد خصم 5%: {rxTotal.toLocaleString("ar-EG")} ج.م
+                        </small>
+                      </div>
+                      <div className="mpx-history-actions">
+                        <button
+                          type="button"
+                          className="mpx-history-reorder"
+                          onClick={() => reorder(rx)}
+                        >
+                          <RotateCcw size={14} />
+                          إعادة طلب الآن
+                        </button>
+                        <button
+                          type="button"
+                          className="mpx-history-delete"
+                          aria-label="حذف الروشتة"
+                          onClick={() => handleDelete(rx.id)}
+                        >
+                          <Trash2 size={14} />
+                          حذف
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+        ) : (
+          /* ------- تبويب إضافة روشتة جديدة ------- */
+          <>
+            {/* اختيار الأدوية */}
+            <section className="mpx-section">
           <h3>
             <Pill size={15} />
             أدويتك الشهرية
@@ -419,11 +547,13 @@ export default function MonthlyPrescriptionModal({
             حفظ الروشتة
           </button>
 
-          <button type="button" className="mpx-order" onClick={orderNow}>
+          <button type="button" className="mpx-order" onClick={() => handleSave({ silent: true })}>
             <ShoppingCart size={15} />
             اطلب روشتتي الشهرية الآن (بخصم 5%)
           </button>
         </footer>
+          </>
+        )}
       </div>
     </div>
   );
