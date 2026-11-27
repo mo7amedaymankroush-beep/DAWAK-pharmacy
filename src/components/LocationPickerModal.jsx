@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import LocationSelector from "./LocationSelector";
 import ReflectiveCard from "./ReflectiveCard";
+import { useToast } from "./ToastProvider";
 import { pharmacies } from "../data/pharmacies";
 import { distanceBetween } from "../utils/locationUtils";
 import "./location-picker.css";
@@ -116,6 +117,8 @@ export default function LocationPickerModal({
   const [gpsError, setGpsError] = useState("");
   const [confirmError, setConfirmError] = useState("");
   const [busy, setBusy] = useState(false);
+  // الإشعار الموحّد (منتصف الشاشة) عند نجاح تحديد الموقع
+  const showToast = useToast();
   const [result, setResult] = useState(() =>
     savedChoice?.governorate || savedChoice?.mode === "gps"
       ? {
@@ -155,6 +158,9 @@ export default function LocationPickerModal({
     setResult(next);
     setBusy(false);
     setGpsLoading(false);
+    if (next?.governorate && next?.mode !== "all") {
+      showToast("تم تحديد موقعك بنجاح! جاري عرض أقرب صيدلية متاحة");
+    }
     try {
       localStorage.setItem(LOCATION_CHOICE_KEY, JSON.stringify(next));
       try {

@@ -157,6 +157,46 @@ a { color: inherit; text-decoration: none; }
   color: var(--on-accent) !important;
   background: var(--accent-coral) !important;
 }
+/* زر «صوّر العلبة / الباركود» في الهيدر — للموبايل فقط (تحت 768px) */
+.nav-scan-button {
+  display: none;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #dcebe6;
+  border-radius: 12px;
+  background: #eaf6f1;
+  color: #075e50;
+  transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+.nav-scan-button:hover {
+  background: #d9f0e7;
+  border-color: #9edac7;
+  color: #043e37;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .nav-scan-button { display: inline-grid; }
+}
+
+[data-theme="dark"] .nav-scan-button {
+  border-color: rgba(255, 90, 78, 0.3) !important;
+  color: #FF5A4E !important;
+  background: rgba(255, 90, 78, 0.12) !important;
+}
+
+[data-theme="dark"] .nav-scan-button:hover {
+  background: rgba(255, 90, 78, 0.22) !important;
+  color: #FFFFFF !important;
+}
+
+@media (max-width: 480px) {
+  .nav-scan-button { width: 38px; height: 38px; }
+}
+
 .mobile-toggle { display: none; }
 .hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 1.12fr .88fr; gap: clamp(22px, 4vw, 60px); align-items: start; padding: clamp(32px, 4vw, 58px) clamp(18px, 3vw, 42px) 48px; min-height: 390px; }
 .hero::before { content: ""; position: absolute; inset: 0 -4vw; z-index: -2; background: radial-gradient(ellipse at 20% 70%, rgba(6,72,63,.14), transparent 45%), radial-gradient(ellipse at 85% 25%, rgba(4,62,55,.08), transparent 36%), linear-gradient(180deg, #eef8f5 0%, #f6fbf9 100%); }
@@ -2843,67 +2883,87 @@ html.theme-fading .navbar {
 }
 
 /* =========================================================
-   Toast — رسالة تأكيد واضحة عند الإضافة للعربة أو الحجز
+   Toast — إشعار في منتصف الشاشة داخل بطاقة بيضاء أنيقة
    ========================================================= */
 .toast {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 10070;
+  inset: 0;
+  z-index: 10100;
   display: flex;
   align-items: center;
-  gap: 9px;
-  max-width: min(92vw, 380px);
-  padding: 13px 18px;
-  border: 1px solid rgba(16, 185, 129, 0.5);
-  border-radius: 12px;
-  color: #ffffff;
-  background: linear-gradient(135deg, #06483f 0%, #0a6a58 100%);
-  box-shadow: 0 14px 34px rgba(6, 72, 63, 0.28);
+  justify-content: center;
+  padding: 20px;
+  background: transparent;
+  pointer-events: none;
   font-family: "Cairo", "Inter", sans-serif;
-  font-size: 13.5px;
-  font-weight: 800;
-  line-height: 1.6;
-  text-align: right;
-  animation: dawak-toast-in 0.22s ease-out;
+  animation: dawak-toast-overlay-in 0.18s ease-out;
 }
 
-.toast::before {
-  content: "";
+.toast-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(92vw, 420px);
+  padding: 22px 24px;
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgba(6, 60, 48, 0.22), 0 2px 8px rgba(6, 60, 48, 0.08);
+  animation: dawak-toast-card-in 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toast-check {
+  display: grid;
+  place-items: center;
   flex: 0 0 auto;
-  width: 9px;
-  height: 9px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: #34d399;
-  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.22);
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
 }
 
-@keyframes dawak-toast-in {
-  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+.toast-message {
+  margin: 0;
+  color: #0f2b24;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.7;
+  text-align: right;
+}
+
+@keyframes dawak-toast-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dawak-toast-card-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-[data-theme="dark"] .toast {
-  border-color: rgba(255, 90, 78, 0.45) !important;
-  color: #FFFFFF !important;
-  background: #FF5A4E !important;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45) !important;
-}
-
-[data-theme="dark"] .toast::before {
-  background: #FFFFFF;
-  box-shadow: 0 0 0 4px rgba(16, 26, 20, 0.18);
+[data-theme="dark"] .toast-card {
+  border-color: rgba(16, 185, 129, 0.28);
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 480px) {
-  .toast {
-    inset-inline: 12px;
-    bottom: 16px;
-    max-width: none;
-    font-size: 12.5px;
+  .toast-card {
+    gap: 12px;
+    padding: 18px 18px;
+    border-radius: 18px;
+  }
+  .toast-check {
+    width: 42px;
+    height: 42px;
+  }
+  .toast-message {
+    font-size: 13.5px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .toast { animation: none; }
+  .toast,
+  .toast-card { animation: none; }
 }

@@ -15,6 +15,7 @@ import {
   Bell,
   BadgePercent,
   Receipt,
+  ScanBarcode,
 } from "lucide-react";
 
 import { drugs, coreCategories, collectionCategories } from "./data/drugs";
@@ -34,6 +35,7 @@ import PharmacyChatbot from "./components/PharmacyChatbot";
 import Footer from "./components/Footer";
 import AccountMenu from "./components/AccountMenu";
 import ReserveModal from "./components/ReserveModal";
+import ScannerModal from "./components/ScannerModal";
 import AdvertiseBanner, { AdvertiseModal } from "./components/AdvertiseBanner";
 import LocationPickerModal from "./components/LocationPickerModal";
 import {
@@ -93,13 +95,13 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [checkoutState, setCheckoutState] = useState({ submitting: false, error: "", confirmation: null });
   const [chronicFilter, setChronicFilter] = useState("الكل");
-  const [toast, setToast] = useState(null);
-  const toastTimer = useRef(0);
-  const toastTone = "success";
+
   // نافذة تحديد الموقع (بطاقة المحافظة/الحي + GPS + وقت التوصيل)
   const [showLocationPicker, setShowLocationPicker] = useState(false);
   // فتح المساعد الصيدلي (شات الدعم) من الفوتر
   const [showSupportChat, setShowSupportChat] = useState(false);
+  // نافذة «صوّر العلبة / الباركود»
+  const [showScanner, setShowScanner] = useState(false);
   const [locationChoice, setLocationChoice] = useState(readLocationChoice);
   const [userPhone, setUserPhone] = useState(() => localStorage.getItem("dawak_phone") || "");
   const isLoggedIn = Boolean(userPhone);
@@ -138,11 +140,14 @@ export default function App() {
     localStorage.setItem("dawak_dark_mode", String(darkMode));
   }, [darkMode]);
 
+  // التنبيه يُعرض داخل ToastProvider في منتصف الشاشة (2.5 ثانية).
+  // نستخدم window.showToast الذي يضبطه المزوّد حتى يبقى الإشعار واحدًا
+  // لكل التطبيق (App + الصفحات) دون تكرار.
   const showToast = useCallback((msg) => {
     if (!msg) return;
-    window.clearTimeout(toastTimer.current);
-    setToast(msg);
-    toastTimer.current = window.setTimeout(() => setToast(null), 3200);
+    if (typeof window !== "undefined" && typeof window.showToast === "function") {
+      window.showToast(msg);
+    }
   }, []);
 
   const handlePrescriptionFile = (event) => {
@@ -154,17 +159,10 @@ export default function App() {
       return;
     }
     setPrescriptionFile(file);
-    showToast(`تم اختيار: ${file.name}`);
+    showToast(
+      `تم استلام صورة الروشتة بنجاح! سيقوم الصيدلي بمراجعتها خلال دقائق`,
+    );
   };
-
-  // نجعل التنبيه متاحًا لكل الصفحات (ProductCard / ReserveModal / Cart ...)
-  useEffect(() => {
-    window.showToast = showToast;
-    return () => {
-      if (window.showToast === showToast) delete window.showToast;
-      window.clearTimeout(toastTimer.current);
-    };
-  }, [showToast]);
 
   const addToCart = (product) => {
     if (!product) return;
@@ -189,7 +187,7 @@ export default function App() {
         },
       ];
     });
-    showToast(`تم إضافة ${product.name} للعربة`);
+    showToast("تمت إضافة المنتج إلى العربة بنجاح");
   };
 
   // تعديل كمية صنف في العربة — القيمة <= 0 تحذف الصنف
@@ -224,7 +222,6 @@ export default function App() {
   const quickOrder = (product) => {
     if (!product) return;
     addToCart(product);
-    showToast(`تم إضافة ${product.name} للعربة — اطلب الآن`);
   };
 
   // بعد تأكيد الحجز من النافذة: رسالة واضحة مختصرة مع اسم المنتج
@@ -851,7 +848,7 @@ export default function App() {
   };
 
   return (
-    <ToastProvider value={showToast}>
+    <ToastProvider>
       <div className="app-shell">
         <nav className="navbar">
           <div className="brand" onClick={() => navigate("home")} style={{ cursor: "pointer" }}>
@@ -959,6 +956,15 @@ export default function App() {
               <CalendarCheck size={18} />
               <span>روشتتي الشهرية{monthlyRxCount > 0 ? ` (${monthlyRxCount})` : ""}</span>
             </button>
+            <button
+              type="button"
+              className="nav-scan-button"
+              onClick={() => setShowScanner(true)}
+              title="صوّر العلبة / الباركود"
+              aria-label="صوّر العلبة أو الباركود"
+            >
+              <ScanBarcode size={18} />
+            </button>
             <button className="cart-button" onClick={() => navigate("cart")} data-count={cartCount}>
               <ShoppingCart size={18} />
               <span>العربة ({cartCount})</span>
@@ -1060,11 +1066,15 @@ export default function App() {
             initialLocation={locationChoice}
             onClose={() => setShowLocationPicker(false)}
             onChoose={(choice) => {
+              // الإشعار يُعرض من داخل LocationPickerModal عند نجاح التحديد
               setLocationChoice(choice);
-              if (choice?.pharmacyName) {
-                showToast(`تم تحديد موقعك · أقرب صيدلية: ${choice.pharmacyName}`);
-              }
             }}
+          />
+        )}
+        {showScanner && (
+          <ScannerModal
+            onClose={() => setShowScanner(false)}
+            onAddToCart={addToCart}
           />
         )}
         <PharmacyChatbot
@@ -1072,11 +1082,7 @@ export default function App() {
           open={showSupportChat}
           onOpenChange={setShowSupportChat}
         />
-        {toast && (
-          <div className="toast" role="status" aria-live="polite" data-tone={toastTone}>
-            {toast}
-          </div>
-        )}
+
       </div>
     </ToastProvider>
   );

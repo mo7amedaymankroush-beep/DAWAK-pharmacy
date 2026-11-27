@@ -158,10 +158,10 @@ export default function ProductsPage({
   const searchInputRef = useRef(null);
   const showToast = useToast();
 
-  // توست واضح فورًا عند الإضافة أو الحجز، مع تمرير الطلب لـ App كذلك
+  // الإضافة للعربة: App يُظهر إشعار «تمت إضافة المنتج إلى العربة بنجاح»
+  // فلا نكرر إشعارًا هنا.
   const handleAdd = (product) => {
     onAddToCart?.(product);
-    showToast(`تم إضافة ${product?.name || "المنتج"} للعربة`);
   };
 
   const handleBook = (product, alternativesList) => {

@@ -24,10 +24,9 @@ export default function ProductDetailsPage({
   const [error, setError] = useState("");
   const showToast = useToast();
 
-  // إضافة للعربة: توست واضح ثم الرجوع لصفحة المنتجات
+  // إضافة للعربة: App يُظهر إشعار «تمت إضافة المنتج إلى العربة بنجاح» ثم نرجع
   function handleAddToCart() {
     onAddToCart?.(product);
-    showToast(`تم إضافة ${product?.name || "المنتج"} للعربة`);
     if (onBack) onBack();
   }
 
@@ -42,9 +41,9 @@ export default function ProductDetailsPage({
     }
   }
 
+  // quickOrder في App يضيف للعربة ويُظهر الإشعار مرة واحدة
   function handleQuickOrder() {
     onQuickOrder?.(product);
-    showToast(`تم إضافة ${product?.name || "المنتج"} للعربة — اطلب الآن`);
     if (onBack) onBack();
   }
 
@@ -283,7 +282,6 @@ export default function ProductDetailsPage({
                       disabled={qty <= 0}
                       onClick={() => {
                         if (qty > 0 && onQuickOrder) {
-                          showToast(`تم إضافة ${product.name} للعربة من ${ph.name}`);
                           onQuickOrder(product);
                           if (onBack) onBack();
                         }

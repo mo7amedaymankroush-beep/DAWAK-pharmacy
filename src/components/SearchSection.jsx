@@ -6,8 +6,11 @@ import {
 } from "../api/mockApi";
 import { getPharmaciesForProduct } from "../api/pharmaciesApi";
 
+import { ScanBarcode } from "lucide-react";
+
 import DrugResult from "./DrugResult";
 import PharmacyLocationDialog from "./PharmacyLocationDialog";
+import ScannerModal from "./ScannerModal";
 import "./search.css";
 
 const LOCATION_CHOICE_KEY = "dawak-pharmacy-location-choice";
@@ -50,6 +53,8 @@ export default function SearchSection({ query = "", onQueryChange, onAddToCart, 
   const [pharmacyResults, setPharmacyResults] = useState([]);
   const [pharmacyLoading, setPharmacyLoading] = useState(false);
   const [pharmacyError, setPharmacyError] = useState("");
+  // نافذة «صوّر العلبة / الباركود»
+  const [scannerOpen, setScannerOpen] = useState(false);
 
   // منع تداخل طلبات البحث
   const requestId = useRef(0);
@@ -267,6 +272,17 @@ export default function SearchSection({ query = "", onQueryChange, onAddToCart, 
           aria-label="ابحث عن دواء أو منتج"
         />
 
+        {/* صوّر العلبة — يظهر على الشاشات المتوسطة والكبيرة فقط */}
+        <button
+          type="button"
+          className="dw-scan-btn"
+          onClick={() => setScannerOpen(true)}
+          title="صوّر علبة الدواء أو الباركود لنتعرف عليه"
+        >
+          <ScanBarcode size={18} />
+          <span>صوّر العلبة</span>
+        </button>
+
         <button
           type="button"
           onClick={handleSearch}
@@ -357,6 +373,13 @@ export default function SearchSection({ query = "", onQueryChange, onAddToCart, 
         <p className="dw-error">
           {error}
         </p>
+      )}
+
+      {scannerOpen && (
+        <ScannerModal
+          onClose={() => setScannerOpen(false)}
+          onAddToCart={onAddToCart}
+        />
       )}
 
       {/* Drug Details */}
